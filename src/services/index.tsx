@@ -1,15 +1,8 @@
-import { deleteServerData } from './deleteServerData'
-import { getDataByID } from './getDataByID'
-import { getDataFromServer } from './getDataFromServer'
-import { sendDataToServer } from './sendDataToServer'
-import { updateServerData } from './updateServerData'
-import { setLogin } from './login'
+import {deleteUser} from './deleteUser';
+import {getDataByID} from './getDataByID';
+import {getUserData} from './getUserData';
+import {createUser} from './createUser';
+import {updateUser} from './updateUser';
+import {setLogin} from './login';
 
-export {
-  deleteServerData,
-  getDataByID,
-  getDataFromServer,
-  sendDataToServer,
-  updateServerData,
-  setLogin,
-}
+export {deleteUser, getDataByID, getUserData, createUser, updateUser, setLogin};

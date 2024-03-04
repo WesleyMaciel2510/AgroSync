@@ -1,17 +1,15 @@
 import {StyleSheet} from 'react-native';
 
 export const colors = {
-  background: '#E7F4E8',
-  primary: '#3498db',
-  secondary: '#2ecc71',
-  error: '#e74c3c',
-  warning: '#f1c40f',
-  info: '#8e44ad',
-  success: '#27ae60',
+  background: '#FFF',
+  primary: '#3498DB',
+  secondary: '#2ECC71',
+  error: '#E74C3C',
+  warning: '#F1C40F',
+  info: '#8E44AD',
+  success: '#27AE60',
   green: '#3AC0A0',
 };
-
-export const buttonStyle = '#3AC0A0';
 
 export const DefaultStyles = StyleSheet.create({
   container: {
@@ -22,5 +20,34 @@ export const DefaultStyles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center', // centers child components vertically
     alignItems: 'center', // centers child components horizontally
+  },
+  title: {
+    color: '#71727A',
+    fontSize: 24,
+    fontWeight: 'bold',
+  },
+  inputArea: {
+    paddingHorizontal: 10,
+    paddingVertical: 20,
+    width: 350,
+  },
+  inputContent: {
+    padding: 10,
+    borderWidth: 1,
+    borderColor: 'green',
+    backgroundColor: '#fff',
+    borderRadius: 10,
+  },
+  buttonContainer: {
+    justifyContent: 'flex-end',
+    marginBottom: 20,
+  },
+  errorInput: {
+    borderColor: 'red',
+  },
+  errorText: {
+    color: 'red',
+    marginBottom: 5,
+    textAlign: 'center',
   },
 });

@@ -1,9 +1,9 @@
 import axios from 'axios';
 
-export const getDataFromServer = async () => {
-  console.log('chamou getDataFromServer');
+export const getUserData = async () => {
+  console.log('chamou getUserData');
   try {
-    const response = await axios.get('https://192.168.100.2:3000/api/users');
+    const response = await axios.get('http://192.168.100.2:3000/api/users');
     console.log('Server response:', response.data);
     return true;
   } catch (error: any) {

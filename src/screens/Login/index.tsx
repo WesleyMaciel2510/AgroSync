@@ -1,8 +1,9 @@
 import React from 'react';
 import {View, StyleSheet, TextInput, Button} from 'react-native';
-import {/* useInit, */ useSharedState, useOnLogin} from './logic/index';
+import {/* useInit, */ useOnLogin} from './logic/index';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {DefaultStyles} from '../../styles/styles';
+import {useSharedState} from '../../context/userInfo';
 import Logo from '../../components/logo';
 
 interface Props {
@@ -10,7 +11,7 @@ interface Props {
 }
 
 const LoginScreen: React.FC<Props> = ({navigation}) => {
-  const {username, setUsername, password, setPassword} = useSharedState();
+  const {name, setName, password, setPassword} = useSharedState();
 
   //useInit();
   const {handleLogin} = useOnLogin();
@@ -20,9 +21,9 @@ const LoginScreen: React.FC<Props> = ({navigation}) => {
       <Logo />
       <View style={styles.inputArea}>
         <TextInput
-          value={username}
-          onChangeText={setUsername}
-          placeholder="Username"
+          value={name}
+          onChangeText={setName}
+          placeholder="E-mail"
           style={styles.inputContent}
         />
       </View>
@@ -31,7 +32,7 @@ const LoginScreen: React.FC<Props> = ({navigation}) => {
         <TextInput
           value={password}
           onChangeText={setPassword}
-          placeholder="Password"
+          placeholder="Senha"
           secureTextEntry
           style={styles.inputContent}
         />

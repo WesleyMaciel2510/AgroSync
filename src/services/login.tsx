@@ -1,16 +1,16 @@
 import axios from 'axios';
 
-export const setLogin = async (username: string, password: string) => {
+export const setLogin = async (name: string, password: string) => {
   console.log('chamou setLogin');
   console.log(
-    'ANTES DE ENVIAR OS DADOS = username = ',
-    username,
+    'ANTES DE ENVIAR OS DADOS = name = ',
+    name,
     'password = ',
     password,
   );
 
   const data = {
-    Username: username,
+    name: name,
     Password: password,
   };
 

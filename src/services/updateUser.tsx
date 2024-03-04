@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-export const updateServerData = async () => {
-  console.log('chamou updateServerData');
+export const updateUser = async () => {
+  console.log('chamou updateUser');
   const index = 5;
   const data = {
     ID: index + 1,

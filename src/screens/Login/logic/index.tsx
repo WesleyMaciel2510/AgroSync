@@ -1,7 +1,8 @@
 import {useEffect} from 'react';
 import {setLogin} from '../../../services/login';
-import {useSharedState} from '../../../context/userData';
+import {useSharedState} from '../../../context/userInfo';
 import LoginErrorAlert from '../../../components/alert/loginFailed';
+import {useNavigation} from '@react-navigation/native';
 
 export const useInit = () => {
   const {} = useSharedState();
@@ -11,18 +12,21 @@ export const useInit = () => {
 };
 
 export const useOnLogin = () => {
-  const {username, password} = useSharedState();
+  const navigation = useNavigation();
+
+  const {name, password} = useSharedState();
 
   const handleLogin = async () => {
     console.log('chamou handleLogin');
-    console.log('username = ', username);
+    console.log('name = ', name);
     console.log('password = ', password);
 
     try {
-      const loginResponse = await setLogin(username, password);
+      const loginResponse = await setLogin(name, password);
       console.log('loginResponse = ', loginResponse);
       if (loginResponse === true) {
         console.log('Login successful!');
+        navigation.navigate('Home');
       } else if (loginResponse === 'Incorrect password') {
         console.log('Incorrect Password!');
         LoginErrorAlert('Incorrect Password! Please check your Password');

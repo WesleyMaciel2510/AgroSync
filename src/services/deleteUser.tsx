@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const deleteServerData = async () => {
+export const deleteUser = async () => {
   console.log('chamou deleteServerData');
   const index = 5;
   try {

@@ -4,13 +4,10 @@ import {useBetween} from 'use-between';
 
 export const useStateVariables = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [screen, setScreen] = useState('phoneNumber');
 
   return {
     isLoading,
     setIsLoading,
-    screen,
-    setScreen,
   };
 };
 
