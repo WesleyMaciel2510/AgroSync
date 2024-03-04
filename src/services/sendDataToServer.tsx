@@ -19,7 +19,7 @@ export const sendDataToServer = async (
   console.log('DATA = ', dataToSend);
   try {
     const response = await axios.post(
-      'http://192.168.100.2:3000/api/users',
+      'http//192.168.100.2:3000/api/users',
       dataToSend,
     );
     console.log('Server response:', response.data);

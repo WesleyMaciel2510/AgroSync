@@ -1,7 +1,12 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
+import {StackNavigationProp} from '@react-navigation/stack';
 
-const HomeScreen = () => {
+interface Props {
+  navigation: StackNavigationProp<any>;
+}
+
+const HomeScreen: React.FC<Props> = ({navigation}) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Welcome to the Home Screen!</Text>
