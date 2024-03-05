@@ -3,7 +3,7 @@ import {StyleSheet, Text, View} from 'react-native';
 import {useSharedState} from '../../context/userInfo';
 import {DefaultStyles} from '../../styles/styles';
 import UserTypeSelector from '../../components/userTypeSelector';
-import {createUser} from '../../services';
+import {createUser} from '../../services/api/';
 import {useNavigation} from '@react-navigation/native';
 
 const UserType: React.FC = () => {
