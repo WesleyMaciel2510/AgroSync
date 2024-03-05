@@ -1,10 +1,11 @@
 import React from 'react';
-import {View, StyleSheet, TextInput, Button} from 'react-native';
+import {View, StyleSheet, TextInput} from 'react-native';
 import {/* useInit, */ useOnLogin} from './logic/index';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {DefaultStyles} from '../../styles/styles';
 import {useSharedState} from '../../context/userInfo';
 import Logo from '../../components/logo';
+import Button from '../../components/button/button';
 
 interface Props {
   navigation: StackNavigationProp<any>;
@@ -38,16 +39,19 @@ const LoginScreen: React.FC<Props> = ({navigation}) => {
         />
       </View>
 
-      <Button title="Login" onPress={handleLogin} />
+      <Button text="Login" onPress={handleLogin} />
       <View style={{flexDirection: 'row'}}>
         <View style={[DefaultStyles.center, {flex: 1}]}>
           <Button
-            title="Register"
+            text="Register"
             onPress={() => navigation.navigate('SignUp')}
           />
         </View>
         <View style={[DefaultStyles.center, {flex: 1}]}>
-          <Button title="Forgot" onPress={handleLogin} />
+          <Button
+            text="Forgot"
+            onPress={() => navigation.navigate('ForgotPassword')}
+          />
         </View>
       </View>
     </View>

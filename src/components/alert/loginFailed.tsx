@@ -2,8 +2,8 @@ import {Alert} from 'react-native';
 
 const LoginErrorAlert = (errorMessage?: string) => {
   Alert.alert(
-    'Login Failed',
-    errorMessage || 'Please check your credentials or try again later.',
+    'Erro no Login',
+    errorMessage || 'Por favor, confira suas credenciais ou tente mais tarde.',
     [
       {text: 'OK', onPress: () => console.log('Button OK Pressed!')},
       {text: 'Cancel', onPress: () => console.log('Button Cancel Pressed!')},

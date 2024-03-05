@@ -9,6 +9,7 @@ export const useStateVariables = () => {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [email, setEmail] = useState('');
   const [userType, setUserType] = useState('');
+  const [isLogged, setIsLogged] = useState(false);
 
   return {
     isLoading,
@@ -25,6 +26,8 @@ export const useStateVariables = () => {
     setEmail,
     userType,
     setUserType,
+    isLogged,
+    setIsLogged,
   };
 };
 

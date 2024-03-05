@@ -1,25 +1,17 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import {StackNavigationProp} from '@react-navigation/stack';
-import Button from '../../components/button/button';
-import {useSharedState} from '../../context/userInfo';
 
 interface Props {
   navigation: StackNavigationProp<any>;
 }
 
-const HomeScreen: React.FC<Props> = ({navigation}) => {
-  const {setIsLogged} = useSharedState();
-
+const ForgotPasswordScreen: React.FC<Props> = ({navigation}) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Welcome to the Home Screen!</Text>
-      <Button
-        text={'LOGOUT'}
-        onPress={() => {
-          setIsLogged(false);
-        }}
-      />
+      <Text style={styles.title}>
+        Welcome to the ForgotPasswordScreen Screen!
+      </Text>
     </View>
   );
 };
@@ -38,4 +30,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HomeScreen;
+export default ForgotPasswordScreen;
