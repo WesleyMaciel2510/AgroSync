@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, StyleSheet, TextInput} from 'react-native';
-import {/* useInit, */ useOnLogin} from './logic/index';
+import {useInit, useOnLogin} from './logic/index';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {DefaultStyles} from '../../styles/styles';
 import {useSharedState} from '../../context/userInfo';
@@ -14,7 +14,7 @@ interface Props {
 const LoginScreen: React.FC<Props> = ({navigation}) => {
   const {name, setName, password, setPassword} = useSharedState();
 
-  //useInit();
+  useInit();
   const {handleLogin} = useOnLogin();
   // ========================================
   return (

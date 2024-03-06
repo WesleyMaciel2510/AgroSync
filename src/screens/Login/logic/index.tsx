@@ -1,5 +1,5 @@
 import {useEffect} from 'react';
-import {setLogin} from '../../../services/login';
+import {setLogin} from '../../../services/api/login';
 import {useSharedState} from '../../../context/userInfo';
 import LoginErrorAlert from '../../../components/alert/loginFailed';
 import {useNavigation} from '@react-navigation/native';
@@ -9,8 +9,9 @@ export const useInit = () => {
   const {setIsLogged} = useSharedState();
   useEffect(() => {
     const storedIsLogged = storage.getBoolean('ISLOGGED') || false;
+    console.log('storedIsLogged = ', storedIsLogged);
     setIsLogged(storedIsLogged);
-  }, []);
+  }, [setIsLogged]);
 };
 
 export const useOnLogin = () => {
