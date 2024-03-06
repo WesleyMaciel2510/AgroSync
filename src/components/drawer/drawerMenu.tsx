@@ -90,7 +90,7 @@ const DrawerMenu: React.FC<DrawerMenuProps> = ({children}) => {
       onDrawerClose={handleClose}>
       {children}
       <TouchableOpacity style={styles.drawerTrigger} onPress={handleOpen}>
-        <FontAwesome5 name={'bars'} size={30} color="#494A50" />
+        <FontAwesome5 name={'bars'} size={30} color="#fff" />
       </TouchableOpacity>
     </DrawerLayoutAndroid>
   );
@@ -108,12 +108,12 @@ const styles = StyleSheet.create({
   },
   drawerTrigger: {
     position: 'absolute',
-    top: 20,
+    top: 15,
     left: 20,
     zIndex: 1,
   },
   headerArea: {
-    padding: 20,
+    padding: 12,
     backgroundColor: '#3AC0A0',
     borderBottomWidth: 1,
   },
