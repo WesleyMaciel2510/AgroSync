@@ -1,11 +1,9 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import {StackNavigationProp} from '@react-navigation/stack';
-import Button from '../../components/button/button';
 import {useSharedState} from './logic';
 import {useSharedState as useSharedUserState} from '../../context/userInfo';
-import {storage} from '../../context/storage';
-import DrawerMenu from '../../components/drawerMenu';
+import DrawerMenu from '../../components/drawer/drawerMenu';
 import LottieView from 'lottie-react-native';
 
 interface Props {
@@ -23,8 +21,8 @@ const HomeScreen: React.FC<Props> = ({navigation}) => {
     // =======================================================
   }; */
   return (
-    <DrawerMenu>
-      <View style={styles.container}>
+    <View style={styles.container}>
+      <DrawerMenu>
         <View style={{flex: 1}}>
           <LottieView
             source={require('../../assets/lottie/plant.json')}
@@ -34,9 +32,8 @@ const HomeScreen: React.FC<Props> = ({navigation}) => {
           />
         </View>
         <Text style={styles.title}>Welcome to the Home Screen!</Text>
-        {/* <Button text={'LOGOUT'} onPress={() => handleLogout()} /> */}
-      </View>
-    </DrawerMenu>
+      </DrawerMenu>
+    </View>
   );
 };
 
