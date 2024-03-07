@@ -1,25 +1,24 @@
 import React from 'react';
-import {View, Image, StyleSheet} from 'react-native';
+import {View, Image, StyleSheet, ImageSourcePropType} from 'react-native';
 import {useSharedState as useSharedUserState} from '../../context/userInfo';
 
 const UserImage = () => {
   const {userType} = useSharedUserState();
-  let imageSource;
+  let imageSource: ImageSourcePropType;
   switch (userType) {
-    case 'Produtor Agrícola':
+    case 'Produtor':
       imageSource = require('../../assets/imgs/user1.png');
       break;
-    case 'Operador de Armazém':
+    case 'Operador':
       imageSource = require('../../assets/imgs/user2.png');
       break;
-    case 'Transporte de Produtos':
+    case 'Motorista':
       imageSource = require('../../assets/imgs/user3.png');
       break;
-    case 'Outros':
+
+    default:
       imageSource = require('../../assets/imgs/user4.png');
       break;
-    default:
-      imageSource = require('../../assets/imgs/user1.png');
   }
 
   return (
