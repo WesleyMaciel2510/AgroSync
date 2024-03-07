@@ -12,7 +12,7 @@ interface Props {
 }
 
 const LoginScreen: React.FC<Props> = ({navigation}) => {
-  const {name, setName, password, setPassword} = useSharedState();
+  const {email, setEmail, password, setPassword} = useSharedState();
 
   useInit();
   const {handleLogin} = useOnLogin();
@@ -22,8 +22,8 @@ const LoginScreen: React.FC<Props> = ({navigation}) => {
       <Logo />
       <View style={styles.inputArea}>
         <TextInput
-          value={name}
-          onChangeText={setName}
+          value={email}
+          onChangeText={setEmail}
           placeholder="E-mail"
           style={styles.inputContent}
         />

@@ -21,15 +21,15 @@ export const useInit = () => {
 export const useOnLogin = () => {
   const navigation = useNavigation();
 
-  const {name, password, setIsLogged, setName, setUserType} = useSharedState();
+  const {email, password, setIsLogged, setName, setUserType} = useSharedState();
 
   const handleLogin = async () => {
     console.log('chamou handleLogin');
-    console.log('name = ', name);
+    console.log('email = ', email);
     console.log('password = ', password);
 
     try {
-      const loginResponse = await setLogin(name, password);
+      const loginResponse = await setLogin(email, password);
       // =======================================================
       // Convert the loginResponse object to a JSON string
       //const loginResponseString = JSON.stringify(loginResponse);
