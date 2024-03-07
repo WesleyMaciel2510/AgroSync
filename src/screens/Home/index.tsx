@@ -24,7 +24,6 @@ const HomeScreen: React.FC<Props> = ({navigation}) => {
         <View>{userType === 'Operador' && <OperatorModules />}</View>
         <View>{userType === 'Produtor' && <ProducerModules />}</View>
       </DrawerMenu>
-      {console.log('userType  = ', userType)}
     </View>
   );
 };
