@@ -1,5 +1,5 @@
 import {useEffect} from 'react';
-import {setLogin} from '../../../services/api/login';
+import {setLogin} from '../../../services/user/login';
 import {useSharedState} from '../../../context/userInfo';
 import LoginErrorAlert from '../../../components/alert/loginFailed';
 import {useNavigation} from '@react-navigation/native';

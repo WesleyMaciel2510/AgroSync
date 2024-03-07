@@ -19,7 +19,7 @@ interface DrawerMenuProps {
 
 const DrawerMenu: React.FC<DrawerMenuProps> = ({children}) => {
   const drawerRef = useRef<DrawerLayoutAndroid>(null);
-  const {drawerOn, setDrawerOn} = useSharedState();
+  const {setDrawerOn} = useSharedState();
 
   // ==============================================================
   const useLogout = () => {

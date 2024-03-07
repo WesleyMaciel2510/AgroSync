@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, StyleSheet} from 'react-native';
 import {StackNavigationProp} from '@react-navigation/stack';
-import {useSharedState} from './logic';
+//import {useSharedState} from './logic';
 import {useSharedState as useSharedUserState} from '../../context/userInfo';
 import DrawerMenu from '../../components/drawer/drawerMenu';
 import Header from '../../components/header/header';

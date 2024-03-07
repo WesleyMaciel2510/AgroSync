@@ -9,6 +9,7 @@ export const colors = {
   info: '#8E44AD',
   success: '#27AE60',
   green: '#3AC0A0',
+  gray: '#1F2024',
 };
 
 export const DefaultStyles = StyleSheet.create({
