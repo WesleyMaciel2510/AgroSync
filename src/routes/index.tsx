@@ -7,13 +7,14 @@ import SignUpScreen from '../screens/SignUp';
 import ForgotPasswordScreen from '../screens/ForgotPassword';
 
 const AuthStack = createNativeStackNavigator();
+//const DriverStack = createNativeStackNavigator();
+//const ProducerStack = createNativeStackNavigator();
+//const OperatorStack = createNativeStackNavigator();
+
 const NonAuthStack = createNativeStackNavigator();
 
 const AppStack = () => {
-  const {isLogged} = useSharedState();
-  //const retrievedUserString = storage.getString('ISLOGGED') || '{}';
-  // Convert the JSON string back to an object
-  //const retrievedUser = JSON.parse(retrievedUserString);
+  const {isLogged /* , userType */} = useSharedState();
 
   return (
     <>

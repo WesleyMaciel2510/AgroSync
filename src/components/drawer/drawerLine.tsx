@@ -3,14 +3,23 @@ import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
 interface DrawerLineProps {
-  onPress: () => void;
+  onPress?: () => void;
   text: string;
   iconName: string;
+  isDisabled?: boolean;
 }
 
-const DrawerLine: React.FC<DrawerLineProps> = ({onPress, text, iconName}) => {
+const DrawerLine: React.FC<DrawerLineProps> = ({
+  onPress,
+  text,
+  iconName,
+  isDisabled,
+}) => {
   return (
-    <TouchableOpacity style={styles.container} onPress={onPress}>
+    <TouchableOpacity
+      style={styles.container}
+      onPress={onPress}
+      disabled={isDisabled}>
       <View style={styles.contentArea}>
         <FontAwesome5 name={iconName} size={30} color="#494A50" />
         <Text style={styles.text}>{text}</Text>

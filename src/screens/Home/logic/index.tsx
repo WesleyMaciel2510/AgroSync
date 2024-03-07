@@ -15,10 +15,17 @@ export const useStateVariables = () => {
 export const useSharedState = () => useBetween(useStateVariables);
 
 export const useInit = () => {
-  const {setIsLogged} = useSharedUserState();
+  const {setIsLogged, userType, setName, setUserType} = useSharedUserState();
   useEffect(() => {
     const storedIsLogged = storage.getBoolean('ISLOGGED') || false;
+    const storedUserName = storage.getString('loggedUserName') || '';
+    console.log('storedUserName = ', storedUserName);
+    setName(storedUserName);
+    const storedUserType = storage.getString('loggedUserType') || '';
+    setUserType(storedUserType);
+    // ============================================================
     console.log('storedIsLogged = ', storedIsLogged);
+    console.log('userType = ', userType);
     setIsLogged(storedIsLogged);
-  }, [setIsLogged]);
+  }, [setIsLogged, setName, setUserType, userType]);
 };
