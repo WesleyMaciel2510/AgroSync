@@ -38,7 +38,7 @@ const UserType: React.FC = () => {
       title: 'Produtor Agrícola',
       description: 'Milho, Cana de Açúcar, \nAlgodão, Soja e outros',
       onPress: () => {
-        setUserType('Produtor Agrícola');
+        setUserType('Produtor');
         handleCreateUser();
       },
     },
@@ -46,7 +46,7 @@ const UserType: React.FC = () => {
       title: 'Operador de Armazém',
       description: 'Armazenamento de \nProdutos Agrícolas',
       onPress: () => {
-        setUserType('Operador de Armazém');
+        setUserType('Operador');
         handleCreateUser();
       },
     },

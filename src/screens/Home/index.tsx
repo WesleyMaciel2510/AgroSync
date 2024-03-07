@@ -5,17 +5,26 @@ import {useSharedState} from './logic';
 import {useSharedState as useSharedUserState} from '../../context/userInfo';
 import DrawerMenu from '../../components/drawer/drawerMenu';
 import Header from '../../components/header/header';
+import DriverModules from '../../components/DriverComponents/modules';
+import OperatorModules from '../../components/OperatorComponents/modules';
+import ProducerModules from '../../components/ProducerComponents/modules';
 
 interface Props {
   navigation: StackNavigationProp<any>;
 }
 
 const HomeScreen: React.FC<Props> = ({navigation}) => {
+  const {userType} = useSharedUserState();
+
   return (
     <View style={styles.container}>
       <DrawerMenu>
         <Header />
+        <View>{userType === 'Motorista' && <DriverModules />}</View>
+        <View>{userType === 'Operador' && <OperatorModules />}</View>
+        <View>{userType === 'Produtor' && <ProducerModules />}</View>
       </DrawerMenu>
+      {console.log('userType  = ', userType)}
     </View>
   );
 };
