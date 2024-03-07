@@ -6,53 +6,89 @@ import LoginScreen from '../screens/Login';
 import SignUpScreen from '../screens/SignUp';
 import ForgotPasswordScreen from '../screens/ForgotPassword';
 
-const AuthStack = createNativeStackNavigator();
+const ProducerStack = createNativeStackNavigator();
+const OperatorStack = createNativeStackNavigator();
+const DriverStack = createNativeStackNavigator();
+
 const NonAuthStack = createNativeStackNavigator();
 
 const AppStack = () => {
-  const {isLogged} = useSharedState();
-  //const retrievedUserString = storage.getString('ISLOGGED') || '{}';
-  // Convert the JSON string back to an object
-  //const retrievedUser = JSON.parse(retrievedUserString);
+  const {isLogged, userType} = useSharedState();
 
-  return (
-    <>
-      {isLogged ? (
-        <AuthStack.Navigator
-          initialRouteName="Home"
-          screenOptions={{
-            headerShown: false,
-            headerTitle: '',
-            headerBackVisible: false,
-          }}>
-          <AuthStack.Screen name="Home" component={HomeScreen} />
-        </AuthStack.Navigator>
-      ) : (
-        <NonAuthStack.Navigator
-          initialRouteName="Home"
-          screenOptions={{
-            headerShown: true,
-            headerTitle: '',
-            headerBackVisible: true,
-          }}>
-          <NonAuthStack.Screen
-            name="Login"
-            component={LoginScreen}
-            options={{
+  let userStack;
+
+  if (isLogged) {
+    switch (userType) {
+      case 'Produtor Agrícola':
+        userStack = (
+          <ProducerStack.Navigator
+            initialRouteName="Home"
+            screenOptions={{
               headerShown: false,
               headerTitle: '',
               headerBackVisible: false,
-            }}
-          />
-          <NonAuthStack.Screen name="SignUp" component={SignUpScreen} />
-          <NonAuthStack.Screen
-            name="ForgotPassword"
-            component={ForgotPasswordScreen}
-          />
-        </NonAuthStack.Navigator>
-      )}
-    </>
-  );
+            }}>
+            <ProducerStack.Screen name="Home" component={HomeScreen} />
+          </ProducerStack.Navigator>
+        );
+        break;
+      case 'Operador de Armazém':
+        userStack = (
+          <OperatorStack.Navigator
+            initialRouteName="Home"
+            screenOptions={{
+              headerShown: false,
+              headerTitle: '',
+              headerBackVisible: false,
+            }}>
+            <OperatorStack.Screen name="Home" component={HomeScreen} />
+          </OperatorStack.Navigator>
+        );
+        break;
+      case 'Transporte de Produtos':
+        userStack = (
+          <DriverStack.Navigator
+            initialRouteName="Home"
+            screenOptions={{
+              headerShown: false,
+              headerTitle: '',
+              headerBackVisible: false,
+            }}>
+            <DriverStack.Screen name="Home" component={HomeScreen} />
+          </DriverStack.Navigator>
+        );
+        break;
+      default:
+        break;
+    }
+  } else {
+    userStack = (
+      <NonAuthStack.Navigator
+        initialRouteName="Home"
+        screenOptions={{
+          headerShown: true,
+          headerTitle: '',
+          headerBackVisible: true,
+        }}>
+        <NonAuthStack.Screen
+          name="Login"
+          component={LoginScreen}
+          options={{
+            headerShown: false,
+            headerTitle: '',
+            headerBackVisible: false,
+          }}
+        />
+        <NonAuthStack.Screen name="SignUp" component={SignUpScreen} />
+        <NonAuthStack.Screen
+          name="ForgotPassword"
+          component={ForgotPasswordScreen}
+        />
+      </NonAuthStack.Navigator>
+    );
+  }
+
+  return userStack;
 };
 
 export default AppStack;

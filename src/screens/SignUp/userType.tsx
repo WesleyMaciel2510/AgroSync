@@ -12,7 +12,6 @@ const UserType: React.FC = () => {
   const navigation = useNavigation();
 
   const handleCreateUser = async () => {
-    setUserType('producer');
     const userDataToSend = {
       FullName: name,
       Email: email,
@@ -39,7 +38,7 @@ const UserType: React.FC = () => {
       title: 'Produtor Agrícola',
       description: 'Milho, Cana de Açúcar, \nAlgodão, Soja e outros',
       onPress: () => {
-        setUserType('producer');
+        setUserType('Produtor Agrícola');
         handleCreateUser();
       },
     },
@@ -47,7 +46,7 @@ const UserType: React.FC = () => {
       title: 'Operador de Armazém',
       description: 'Armazenamento de \nProdutos Agrícolas',
       onPress: () => {
-        setUserType('warerouse');
+        setUserType('Operador de Armazém');
         handleCreateUser();
       },
     },
@@ -55,7 +54,7 @@ const UserType: React.FC = () => {
       title: 'Motorista',
       description: 'Transporte de Produtos',
       onPress: () => {
-        setUserType('driver');
+        setUserType('Motorista');
         handleCreateUser();
       },
     },
