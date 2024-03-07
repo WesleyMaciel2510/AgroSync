@@ -6,20 +6,19 @@ const UserImage = () => {
   const {userType} = useSharedUserState();
   let imageSource;
   switch (userType) {
-    case 'Produtor Agrícola':
+    case 'Produtor':
       imageSource = require('../../assets/imgs/user1.png');
       break;
-    case 'Operador de Armazém':
+    case 'Operador':
       imageSource = require('../../assets/imgs/user2.png');
       break;
-    case 'Transporte de Produtos':
+    case 'Motorista':
       imageSource = require('../../assets/imgs/user3.png');
       break;
-    case 'Outros':
+
+    default:
       imageSource = require('../../assets/imgs/user4.png');
       break;
-    default:
-      imageSource = require('../../assets/imgs/user1.png');
   }
 
   return (
