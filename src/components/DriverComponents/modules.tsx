@@ -1,21 +1,22 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
+import {useSharedState} from './logic';
 import CardHome from '../cardHome';
-import {searchLoad} from '../../services/loads/index';
+import SearchLoadModal from '../../components/Modals/searchLoadModal';
 
 const DriverModules = () => {
-  const data = 5555;
+  const {setModalVisible} = useSharedState();
 
   const cardsData = [
     {
       cardTitle: 'Buscar Carga',
       cardIcon: 'truck',
-      cardAction: () => searchLoad(data),
+      cardAction: () => setModalVisible(true),
     },
     {
       cardTitle: 'Intralogística',
       cardIcon: 'warehouse',
-      cardAction: () => console.log('Intralogística action'),
+      cardAction: () => setModalVisible(true),
     },
     {
       cardTitle: 'Ler QRCODE',
@@ -39,6 +40,7 @@ const DriverModules = () => {
           onPress={data.cardAction}
         />
       ))}
+      <SearchLoadModal />
     </View>
   );
 };

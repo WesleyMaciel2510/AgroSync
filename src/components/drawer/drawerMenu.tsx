@@ -7,7 +7,7 @@ import {
   Text,
 } from 'react-native';
 import {useSharedState} from '../../screens/Home/logic';
-import {useSharedState as useSharedUserState} from '../../context/userInfo';
+import {useSharedState as useSharedUserState} from '../../context/globalUseState';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import DrawerLine from './drawerLine';
 import {storage} from '../../context/storage';

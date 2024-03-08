@@ -17,7 +17,10 @@ const Button: React.FC<ButtonProps> = ({
   return (
     <TouchableOpacity
       onPress={onPress}
-      style={[styles.button, {backgroundColor: color}]}>
+      style={[
+        styles.button,
+        {backgroundColor: color.length > 0 ? color : '#3AC0A0'},
+      ]}>
       <Text style={styles.text}>{text}</Text>
     </TouchableOpacity>
   );

@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react';
-import {useSharedState as useSharedUserState} from '../../../context/userInfo';
+import {useSharedState as useSharedUserState} from '../../../context/globalUseState';
 import {storage} from '../../../context/storage';
 import {useBetween} from 'use-between';
 //import {useNavigation} from '@react-navigation/native';

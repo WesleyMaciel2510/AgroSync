@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Button, StyleSheet, Text, TextInput, View} from 'react-native';
-import {useSharedState} from '../../context/userInfo';
+import {useSharedState} from '../../context/globalUseState';
 import {DefaultStyles} from '../../styles/styles';
 
 const EmailArea = () => {

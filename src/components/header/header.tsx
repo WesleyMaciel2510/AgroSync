@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet, View, Text} from 'react-native';
-import {useSharedState} from '../../context/userInfo';
+import {useSharedState} from '../../context/globalUseState';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
 const Header = () => {
@@ -10,7 +10,6 @@ const Header = () => {
 
   return (
     <View style={styles.headerArea}>
-      <Text style={styles.greeting}> Olá, {firstName}</Text>
       <FontAwesome5
         name={'question-circle'}
         size={30}
@@ -29,12 +28,6 @@ const styles = StyleSheet.create({
     borderBottomColor: 'gray',
   },
   questionCircle: {position: 'absolute', right: 15, top: 15},
-  greeting: {
-    color: '#FFF',
-    fontSize: 22,
-    left: '15%',
-    top: '25%',
-  },
 });
 
 export default Header;

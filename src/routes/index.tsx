@@ -1,10 +1,11 @@
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {useSharedState} from '../context/userInfo';
+import {useSharedState} from '../context/globalUseState';
 import HomeScreen from '../screens/Home';
 import LoginScreen from '../screens/Login';
 import SignUpScreen from '../screens/SignUp';
 import ForgotPasswordScreen from '../screens/ForgotPassword';
+import LoadInfoScreen from '../screens/Driver/loadInfo';
 
 const AuthStack = createNativeStackNavigator();
 //const DriverStack = createNativeStackNavigator();
@@ -27,6 +28,7 @@ const AppStack = () => {
             headerBackVisible: false,
           }}>
           <AuthStack.Screen name="Home" component={HomeScreen} />
+          <AuthStack.Screen name="LoadInfo" component={LoadInfoScreen} />
         </AuthStack.Navigator>
       ) : (
         <NonAuthStack.Navigator

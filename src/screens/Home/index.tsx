@@ -2,7 +2,7 @@ import React from 'react';
 import {View, StyleSheet} from 'react-native';
 import {StackNavigationProp} from '@react-navigation/stack';
 //import {useSharedState} from './logic';
-import {useSharedState as useSharedUserState} from '../../context/userInfo';
+import {useSharedState as useSharedUserState} from '../../context/globalUseState';
 import DrawerMenu from '../../components/drawer/drawerMenu';
 import Header from '../../components/header/header';
 import DriverModules from '../../components/DriverComponents/modules';
@@ -38,13 +38,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     margin: 10,
   },
-  headerArea: {
-    backgroundColor: '#3AC0A0',
-    height: 60,
-    borderBottomWidth: 2,
-    borderBottomColor: 'gray',
-  },
-  questionCircle: {position: 'absolute', right: 15, top: 15},
 });
 
 export default HomeScreen;

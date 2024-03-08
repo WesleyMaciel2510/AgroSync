@@ -3,7 +3,7 @@ import {View, StyleSheet, TextInput} from 'react-native';
 import {useInit, useOnLogin} from './logic/index';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {DefaultStyles} from '../../styles/styles';
-import {useSharedState} from '../../context/userInfo';
+import {useSharedState} from '../../context/globalUseState';
 import Logo from '../../components/logo';
 import Button from '../../components/button/button';
 

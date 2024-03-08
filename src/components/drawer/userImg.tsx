@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Image, StyleSheet, ImageSourcePropType} from 'react-native';
-import {useSharedState as useSharedUserState} from '../../context/userInfo';
+import {useSharedState as useSharedUserState} from '../../context/globalUseState';
 
 const UserImage = () => {
   const {userType} = useSharedUserState();

@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import {useSharedState} from '../../context/userInfo';
+import {useSharedState} from '../../context/globalUseState';
 import {DefaultStyles} from '../../styles/styles';
 import UserTypeSelector from '../../components/userTypeSelector';
 import {createUser} from '../../services/user';
