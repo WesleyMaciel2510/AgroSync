@@ -11,7 +11,7 @@ import {useSharedState as useSharedUserState} from '../../context/globalUseState
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import DrawerLine from './drawerLine';
 import {storage} from '../../context/storage';
-import UserImage from '../../components/drawer/userImg';
+import UserImage from './userImg';
 
 interface DrawerMenuProps {
   children: ReactNode;

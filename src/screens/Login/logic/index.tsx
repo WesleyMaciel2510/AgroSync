@@ -1,7 +1,7 @@
 import {useEffect} from 'react';
 import {setLogin} from '../../../services/user/login';
 import {useSharedState} from '../../../context/globalUseState';
-import LoginErrorAlert from '../../../components/alert/loginFailed';
+import LoginErrorAlert from '../../../components/Alert/loginFailed';
 import {useNavigation} from '@react-navigation/native';
 import {storage} from '../../../context/storage';
 

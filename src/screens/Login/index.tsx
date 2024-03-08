@@ -5,7 +5,7 @@ import {StackNavigationProp} from '@react-navigation/stack';
 import {DefaultStyles} from '../../styles/styles';
 import {useSharedState} from '../../context/globalUseState';
 import Logo from '../../components/logo';
-import Button from '../../components/button/button';
+import Button from '../../components/Button/button';
 
 interface Props {
   navigation: StackNavigationProp<any>;

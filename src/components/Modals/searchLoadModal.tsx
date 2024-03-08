@@ -9,7 +9,7 @@ import {
 import Modal from 'react-native-modal';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import {useSharedState, useOnSearchLoad} from '../DriverComponents/logic';
-import Button from '../button/button';
+import Button from '../Button/button';
 import LottieView from 'lottie-react-native';
 
 const SearchLoadModal = () => {

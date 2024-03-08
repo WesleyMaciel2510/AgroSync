@@ -6,12 +6,13 @@ interface ButtonProps {
   onPress: () => void;
   /* width?: string; */
   text: string;
+  width?: string;
 }
 
 const Button: React.FC<ButtonProps> = ({
   color = '#3AC0A0',
   onPress,
-  /* width = '100%', */
+  width,
   text,
 }) => {
   return (
@@ -19,7 +20,10 @@ const Button: React.FC<ButtonProps> = ({
       onPress={onPress}
       style={[
         styles.button,
-        {backgroundColor: color.length > 0 ? color : '#3AC0A0'},
+        {
+          backgroundColor: color.length > 0 ? color : '#3AC0A0',
+          width: width ? width : '100%',
+        },
       ]}>
       <Text style={styles.text}>{text}</Text>
     </TouchableOpacity>
@@ -32,6 +36,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 10,
     borderRadius: 5,
+    width: '50%',
   },
   text: {
     color: '#000',
