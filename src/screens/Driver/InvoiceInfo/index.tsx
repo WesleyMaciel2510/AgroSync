@@ -7,12 +7,27 @@ import Header from '../../../components/Header/header';
 import Button from '../../../components/Button/button';
 import InfoTable from '../../../components/infoTable';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import AlertComponent from '../../../components/Alert/alert';
 
 interface Props {
   navigation: StackNavigationProp<any>;
 }
 
 const LoadInfoScreen: React.FC<Props> = ({navigation}) => {
+  const handleConfirmAction = () => {
+    console.log('CONFIRMED');
+    //navigation.navigate();
+  };
+
+  const confirmDelivery = () => {
+    AlertComponent({
+      title: 'Confirmação de Entrega',
+      description: 'Você realmente chegou no cliente?',
+      okButton: 'Sim',
+      cancelButton: 'Não',
+      confirmAction: handleConfirmAction,
+    });
+  };
   return (
     <View style={styles.container}>
       <DrawerMenu>
@@ -50,7 +65,7 @@ const LoadInfoScreen: React.FC<Props> = ({navigation}) => {
             marginBottom: 50,
           }}>
           <Button
-            onPress={() => navigation.navigate('InvoiceInfo')}
+            onPress={() => confirmDelivery()}
             text={'ENTREGAR'}
             width={'50%'}
           />
