@@ -1,11 +1,12 @@
 import React from 'react';
-import {View, Image, StyleSheet, TouchableOpacity, Text} from 'react-native';
+import {View, StyleSheet, TouchableOpacity, Text, Image} from 'react-native';
 import {StackNavigationProp} from '@react-navigation/stack';
 //import {useSharedState} from './logic';
 import DrawerMenu from '../../../components/Drawer/drawerMenu';
 import Header from '../../../components/Header/header';
 import Button from '../../../components/Button/button';
 import InfoTable from '../../../components/infoTable';
+import {useSharedState as useSharedGlobalState} from '../../../context/globalUseState';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import AlertComponent from '../../../components/Alert/alert';
 
@@ -14,9 +15,14 @@ interface Props {
 }
 
 const LoadInfoScreen: React.FC<Props> = ({navigation}) => {
+  const {photo, setPhoto} = useSharedGlobalState();
   const handleConfirmAction = () => {
     console.log('CONFIRMED');
     //navigation.navigate();
+  };
+  const handleAttachStub = ({navigation}) => {
+    console.log('CHAMOU handleAttachStub');
+    navigation.navigate('Camera');
   };
 
   const confirmDelivery = () => {
@@ -33,37 +39,41 @@ const LoadInfoScreen: React.FC<Props> = ({navigation}) => {
       <DrawerMenu>
         <Header />
         <View style={styles.contentArea}>
-          <InfoTable
-            color={'#494A50'}
-            iconName={'file-invoice'}
-            title={'Informações da Nota'}
-            line1={'Número da Nota: 5555'}
-            line2={'Valor da Nota: R$ 35.000'}
-            line3={'Cliente: CropConnect Inc'}
-            line4={'Data de Emissão: 20/03/2024'}
-            highlightText={'Status do Canhoto: Não Enviado'}
-          />
-        </View>
-        <View style={{alignItems: 'center', padding: 20}}>
-          <TouchableOpacity
-            onPress={() => console.log('aaaaa')}
-            style={styles.button}>
-            <View style={{flexDirection: 'row', alignItems: 'center'}}>
-              <FontAwesome5 name={'camera'} size={40} color="#fff" />
-              <Text style={styles.text}> Anexar Recibo</Text>
-            </View>
-          </TouchableOpacity>
-        </View>
-        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-          <View style={styles.invoicesImageArea}></View>
+          <View style={{flex: 12, bgcolor: 'green'}}>
+            <InfoTable
+              color={'#494A50'}
+              iconName={'file-invoice'}
+              title={'Informações da Nota'}
+              line1={'Número da Nota: 5555'}
+              line2={'Valor da Nota: R$ 35.000'}
+              line3={'Cliente: CropConnect Inc'}
+              line4={'Data de Emissão: 20/03/2024'}
+              highlightText={'Status do Canhoto: Não Enviado'}
+            />
+          </View>
+          <View style={{flex: 5, marginTop: 130}}>
+            <TouchableOpacity
+              onPress={() => handleAttachStub({navigation})}
+              style={styles.button}>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                }}>
+                <FontAwesome5 name={'camera'} size={40} color="#fff" />
+                <Text style={styles.text}> Anexar Recibo</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
         </View>
 
-        <View
-          style={{
-            alignItems: 'center',
-            marginTop: 20,
-            marginBottom: 50,
-          }}>
+        {photo ? (
+          <Image source={{uri: photo}} style={styles.invoicesImageArea} />
+        ) : (
+          <View style={styles.invoicesImageArea} />
+        )}
+
+        <View style={styles.buttonContainer}>
           <Button
             onPress={() => confirmDelivery()}
             text={'ENTREGAR'}
@@ -83,25 +93,19 @@ const styles = StyleSheet.create({
   },
   contentArea: {
     flex: 1,
-    flexDirection: 'column',
-    padding: 20,
-  },
-  title: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-    color: '#fff',
-  },
-  table: {
-    flex: 1,
+    paddingLeft: 20,
+    paddingRight: 20,
+    marginTop: 8,
   },
   button: {
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 15,
+    padding: 10,
     borderRadius: 15,
     backgroundColor: '#2897ff',
     width: '80%',
+    alignSelf: 'center',
+    marginBottom: 20,
   },
   text: {
     color: '#fff',
@@ -109,7 +113,6 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
   },
   invoicesImageArea: {
-    flex: 1,
     padding: 10,
     justifyContent: 'center',
     alignItems: 'center',
@@ -117,8 +120,13 @@ const styles = StyleSheet.create({
     borderWidth: 3,
     borderColor: 'gray',
     backgroundColor: 'black',
-    width: 300,
-    height: 180,
+    width: 250,
+    height: 250,
+    alignSelf: 'center',
+  },
+  buttonContainer: {
+    alignItems: 'center',
+    margin: 15,
   },
 });
 

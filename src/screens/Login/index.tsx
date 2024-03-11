@@ -38,8 +38,9 @@ const LoginScreen: React.FC<Props> = ({navigation}) => {
           style={styles.inputContent}
         />
       </View>
-
-      <Button text="Login" onPress={handleLogin} />
+      <View>
+        <Button text="Login" onPress={handleLogin} />
+      </View>
       <View style={{flexDirection: 'row'}}>
         <View style={[DefaultStyles.center, {flex: 1}]}>
           <Button
@@ -69,6 +70,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: 'green',
     borderRadius: 5,
+    color: 'black',
   },
   passwordContainer: {
     flexDirection: 'row',

@@ -1,6 +1,5 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import {colors} from '../styles/styles';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
 interface InfoTableProps {
@@ -65,7 +64,7 @@ const styles = StyleSheet.create({
   infoBar: {
     flexDirection: 'column',
     width: '100%',
-    marginTop: 15,
+    marginTop: 10,
     padding: 10,
     borderRadius: 10,
     borderWidth: 2,
@@ -117,7 +116,7 @@ const styles = StyleSheet.create({
   },
   lineText: {
     color: '#000',
-    fontSize: 22,
+    fontSize: 20,
     textAlign: 'left',
     marginLeft: 10,
     padding: 8,

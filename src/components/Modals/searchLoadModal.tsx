@@ -109,6 +109,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: 'green',
     borderRadius: 5,
+    color: 'black',
   },
   icon: {
     alignItems: 'flex-end',

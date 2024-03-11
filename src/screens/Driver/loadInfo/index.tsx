@@ -42,7 +42,7 @@ const LoadInfoScreen: React.FC<Props> = ({navigation}) => {
         <View
           style={{
             alignItems: 'center',
-            marginBottom: 50,
+            marginBottom: 20,
           }}>
           <Button
             onPress={() => navigation.navigate('InvoiceInfo')}

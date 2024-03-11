@@ -7,6 +7,7 @@ import SignUpScreen from '../screens/SignUp';
 import ForgotPasswordScreen from '../screens/ForgotPassword';
 import LoadInfoScreen from '../screens/Driver/loadInfo';
 import InvoiceInfoScreen from '../screens/Driver/InvoiceInfo';
+import CameraScreen from '../screens/Camera';
 
 const AuthStack = createNativeStackNavigator();
 //const DriverStack = createNativeStackNavigator();
@@ -22,7 +23,7 @@ const AppStack = () => {
     <>
       {isLogged ? (
         <AuthStack.Navigator
-          initialRouteName="LoadInfo"
+          initialRouteName="InvoiceInfo"
           screenOptions={{
             headerShown: false,
             headerTitle: '',
@@ -31,6 +32,7 @@ const AppStack = () => {
           <AuthStack.Screen name="Home" component={HomeScreen} />
           <AuthStack.Screen name="LoadInfo" component={LoadInfoScreen} />
           <AuthStack.Screen name="InvoiceInfo" component={InvoiceInfoScreen} />
+          <AuthStack.Screen name="Camera" component={CameraScreen} />
         </AuthStack.Navigator>
       ) : (
         <NonAuthStack.Navigator

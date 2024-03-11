@@ -27,7 +27,7 @@ const CardHome: React.FC<CardHomeProps> = ({cardTitle, cardIcon, onPress}) => {
 
 const styles = StyleSheet.create({
   card: {
-    width: '40%',
+    width: 142,
     height: 120,
     borderRadius: 15,
     padding: 10,

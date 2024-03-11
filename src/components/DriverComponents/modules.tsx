@@ -3,8 +3,12 @@ import {StyleSheet, View} from 'react-native';
 import {useSharedState} from './logic';
 import CardHome from '../cardHome';
 import SearchLoadModal from '../../components/Modals/searchLoadModal';
+import {StackNavigationProp} from '@react-navigation/stack';
 
-const DriverModules = () => {
+interface Props {
+  navigation: StackNavigationProp<any>;
+}
+const DriverModules: React.FC<Props> = ({navigation}) => {
   const {setModalVisible} = useSharedState();
 
   const cardsData = [
@@ -21,7 +25,7 @@ const DriverModules = () => {
     {
       cardTitle: 'Ler QRCODE',
       cardIcon: 'qrcode',
-      cardAction: () => console.log('Ler QRCODE action'),
+      cardAction: () => navigation.navigate('ReaderCamera'),
     },
     {
       cardTitle: 'Cód. de Barras',

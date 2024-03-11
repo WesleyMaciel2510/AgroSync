@@ -1,3 +1,4 @@
+import {PhotoIdentifier} from '@react-native-camera-roll/camera-roll';
 import {useState} from 'react';
 import {useBetween} from 'use-between';
 
@@ -10,6 +11,9 @@ export const useStateVariables = () => {
   const [email, setEmail] = useState('');
   const [userType, setUserType] = useState('');
   const [isLogged, setIsLogged] = useState(false);
+  const [cameraPermission, setCameraPermission] = useState(false);
+  const [savePermission, setSavePermission] = useState(false);
+  const [photo, setPhoto] = useState<string | undefined>(undefined);
 
   return {
     isLoading,
@@ -28,6 +32,12 @@ export const useStateVariables = () => {
     setUserType,
     isLogged,
     setIsLogged,
+    cameraPermission,
+    setCameraPermission,
+    savePermission,
+    setSavePermission,
+    photo,
+    setPhoto,
   };
 };
 

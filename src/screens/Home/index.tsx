@@ -20,7 +20,11 @@ const HomeScreen: React.FC<Props> = ({navigation}) => {
     <View style={styles.container}>
       <DrawerMenu>
         <Header />
-        <View>{userType === 'Motorista' && <DriverModules />}</View>
+        <View>
+          {userType === 'Motorista' && (
+            <DriverModules navigation={navigation} />
+          )}
+        </View>
         <View>{userType === 'Operador' && <OperatorModules />}</View>
         <View>{userType === 'Produtor' && <ProducerModules />}</View>
       </DrawerMenu>
