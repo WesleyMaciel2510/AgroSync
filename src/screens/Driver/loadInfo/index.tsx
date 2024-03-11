@@ -1,8 +1,7 @@
 import React from 'react';
-import {View, StyleSheet, Text} from 'react-native';
+import {View, StyleSheet} from 'react-native';
 import {StackNavigationProp} from '@react-navigation/stack';
 //import {useSharedState} from './logic';
-import {useSharedState as useSharedUserState} from '../../../context/globalUseState';
 import DrawerMenu from '../../../components/Drawer/drawerMenu';
 import Header from '../../../components/Header/header';
 import InfoTable from '../../../components/infoTable';
@@ -13,22 +12,40 @@ interface Props {
 }
 
 const LoadInfoScreen: React.FC<Props> = ({navigation}) => {
-  const {userType} = useSharedUserState();
-
   return (
     <View style={styles.container}>
       <DrawerMenu>
         <Header />
         <View style={styles.contentArea}>
-          <InfoTable />
+          <InfoTable
+            color={'#3498DB'}
+            iconName={'info-circle'}
+            title={'Informações da Carga'}
+            line1={'Local de Coleta: Uberaba - MG'}
+            line2={'Produto: Soja'}
+            line3={'Peso: 5000 kg'}
+            line4={''}
+            highlightText={'Prazo de Entrega: 16/03/2024'}
+          />
+          <InfoTable
+            color={'#EB7550'}
+            iconName={'truck'}
+            title={'Informações da Entrega'}
+            line1={'Local de Entrega: Campinas - SP'}
+            line2={' Falar com: Joaquim da Silva'}
+            line3={'Contato: (34) 9 8872-9600'}
+            line4={'Placa do Caminhão: ABC 1234'}
+            highlightText={'Status da Entrega: Não Iniciada'}
+          />
         </View>
+
         <View
           style={{
             alignItems: 'center',
-            paddingBottom: 15,
+            marginBottom: 50,
           }}>
           <Button
-            onPress={() => console.log('aaaa')}
+            onPress={() => navigation.navigate('InvoiceInfo')}
             text={'INICIAR'}
             width={'50%'}
           />

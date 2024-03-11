@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
     width: '50%',
   },
   text: {
-    color: '#000',
+    color: '#fff',
     fontSize: 16,
   },
 });

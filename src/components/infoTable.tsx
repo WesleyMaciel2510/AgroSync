@@ -3,62 +3,53 @@ import {StyleSheet, Text, View} from 'react-native';
 import {colors} from '../styles/styles';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
-const InfoTable = () => {
+interface InfoTableProps {
+  color: string;
+  iconName: string;
+  title: string;
+  line1: string;
+  line2: string;
+  line3: string;
+  line4?: string; //Optional
+  highlightText: string;
+}
+
+const InfoTable: React.FC<InfoTableProps> = ({
+  color,
+  iconName,
+  title,
+  line1,
+  line2,
+  line3,
+  line4,
+  highlightText,
+}) => {
   return (
     <View style={styles.container}>
-      {/* <View style={styles.producArea}>
-
-      </View> */}
-      <View>
-        <View style={[styles.infoBar, {backgroundColor: colors.primary}]}>
-          <View style={[styles.iconArea, {backgroundColor: '#3498DB'}]}>
-            <FontAwesome5 name={'info-circle'} size={50} color="#fff" />
-          </View>
-          <Text style={styles.title}> Informações de Origem </Text>
+      <View style={[styles.infoBar, {backgroundColor: color}]}>
+        <View style={[styles.iconArea, {backgroundColor: color}]}>
+          <FontAwesome5 name={iconName} size={40} color="#fff" />
         </View>
-        <View style={styles.tableContainer}>
-          <View style={styles.line1}>
-            <Text style={styles.lineText}> Local de Coleta: Uberaba - MG</Text>
-          </View>
-          <View style={styles.line2}>
-            <Text style={styles.lineText}> Falar com: José</Text>
-          </View>
-          <View style={styles.line1}>
-            <Text style={styles.lineText}> Contato: (34) 9 8872-9600 </Text>
-          </View>
-          <View style={styles.line2}></View>
+        <Text style={styles.title}> {title} </Text>
+      </View>
+      <View style={styles.tableContainer}>
+        <View style={styles.line1}>
+          <Text style={styles.lineText}>{line1}</Text>
         </View>
-        <View style={styles.deadLineArea}>
-          <Text style={[styles.lineText, {color: 'white', marginLeft: 10}]}>
-            Prazo de Coleta: 15/03/2024
-          </Text>
+        <View style={styles.line2}>
+          <Text style={styles.lineText}>{line2}</Text>
+        </View>
+        <View style={styles.line1}>
+          <Text style={styles.lineText}>{line3}</Text>
+        </View>
+        <View style={styles.line2}>
+          <Text style={styles.lineText}>{line4}</Text>
         </View>
       </View>
-      <View style={{marginTop: 30}}>
-        <View style={[styles.infoBar, {backgroundColor: '#eb7550'}]}>
-          <View style={[styles.iconArea, {backgroundColor: '#eb7550'}]}>
-            <FontAwesome5 name={'info-circle'} size={50} color="#fff" />
-          </View>
-          <Text style={styles.title}> Informações de Destino </Text>
-        </View>
-        <View style={styles.tableContainer}>
-          <View style={styles.line1}>
-            <Text style={styles.lineText}>Local de Entrega: Campinas - SP</Text>
-          </View>
-          <View style={styles.line2}>
-            <Text style={styles.lineText}> Falar com: Maria</Text>
-          </View>
-          <View style={styles.line1}>
-            <Text style={styles.lineText}> Contato: (34) 9 8872-9600 </Text>
-          </View>
-          <View style={styles.line2}></View>
-        </View>
-
-        <View style={[styles.deadLineArea, {backgroundColor: '#eb7550'}]}>
-          <Text style={[styles.lineText, {color: 'white', marginLeft: 10}]}>
-            Prazo de Entrega: 16/03/2024
-          </Text>
-        </View>
+      <View style={[styles.highlightArea, {backgroundColor: color}]}>
+        <Text style={[styles.lineText, {color: 'white', marginLeft: 10}]}>
+          {highlightText}
+        </Text>
       </View>
     </View>
   );
@@ -83,7 +74,7 @@ const styles = StyleSheet.create({
   iconArea: {
     bottom: 0,
     position: 'absolute',
-    padding: 10,
+    padding: 12,
     borderRadius: 30,
   },
   tableContainer: {
@@ -106,7 +97,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFF',
     borderRadius: 5,
   },
-  deadLineArea: {
+  highlightArea: {
     backgroundColor: '#3498DB',
     borderBottomLeftRadius: 10,
     borderBottomRightRadius: 10,
@@ -120,6 +111,7 @@ const styles = StyleSheet.create({
     color: '#FFF',
     fontSize: 22,
     bottom: 2,
+    left: 10,
     fontWeight: 'bold',
     textAlign: 'center',
   },
@@ -127,6 +119,7 @@ const styles = StyleSheet.create({
     color: '#000',
     fontSize: 22,
     textAlign: 'left',
+    marginLeft: 10,
     padding: 8,
   },
 });
