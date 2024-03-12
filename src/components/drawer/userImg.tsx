@@ -4,7 +4,7 @@ import {useSharedState as useSharedUserState} from '../../context/globalUseState
 
 const UserImage = () => {
   const {userType} = useSharedUserState();
-  let imageSource: ImageSourcePropType;
+  /* let imageSource: ImageSourcePropType;
   switch (userType) {
     case 'Produtor':
       imageSource = require('../../assets/imgs/user1.png');
@@ -19,11 +19,14 @@ const UserImage = () => {
     default:
       imageSource = require('../../assets/imgs/user4.png');
       break;
-  }
+  } */
 
   return (
     <View>
-      <Image source={imageSource} style={styles.image} />
+      <Image
+        source={/* imageSource */ require('../../assets/imgs/user1.png')}
+        style={styles.image}
+      />
     </View>
   );
 };
