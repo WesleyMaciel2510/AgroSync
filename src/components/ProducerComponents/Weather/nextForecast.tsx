@@ -20,20 +20,22 @@ const NextForecast = ({index}) => {
         loop
         autoPlay
       />
-      <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}>
-        <Text style={styles.text}>{temperatureDaily.tempMin[index]}º </Text>
-        <Text style={styles.text}>{temperatureDaily.tempMax[index]}º</Text>
+      <View style={styles.headerArea}>
+        <Text style={[styles.text, {marginRight: 20}]}>
+          {temperatureDaily.tempMin[index]}º{' '}
+        </Text>
+        <Text style={styles.text}> {temperatureDaily.tempMax[index]}º</Text>
       </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  headerArea: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   line: {
     flexDirection: 'row',
     alignItems: 'center',

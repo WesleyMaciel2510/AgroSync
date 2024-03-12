@@ -9,11 +9,11 @@ const GreetingComponent = () => {
     const currentHour = currentTime.getHours();
 
     if (currentHour < 12) {
-      return 'Good morning';
+      return 'Bom dia';
     } else if (currentHour < 18) {
-      return 'Good afternoon';
+      return 'Boa tarde';
     } else {
-      return 'Good evening';
+      return 'Boa noite';
     }
   };
 
@@ -25,14 +25,13 @@ const GreetingComponent = () => {
 
   return (
     <View>
-      <Text style={styles.titleText}>{greeting}!</Text>
+      <Text style={styles.titleText}>{greeting}</Text>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   titleText: {
-    marginLeft: '5%',
     fontSize: 25,
     fontWeight: 'bold',
     color: 'black',

@@ -10,7 +10,6 @@ import {
 import {PermissionsAndroid} from 'react-native';
 import {getDescription} from '../../../components/ProducerComponents/Weather/getDescription';
 import {getPosition} from '../../../services/weather/getPosition';
-import {getCityName} from '../../../services/weather/getCityName';
 import {storage} from '../../../helpers/storage';
 
 type PositionType = {
@@ -150,22 +149,22 @@ export const useInit = () => {
         storage.getString('weatherCodeHourly') || '';
       const weatherCodeHourlyArray = JSON.parse(jsonWeatherCodeHourly);
       // SET ============================================================
-      //setDate([currentDay, currentMonth]);
+      setDate([currentDay, currentMonth]);
       setTemperatureHourly(temperatureHourlyArray);
       setWeatherCodeHourly(Array.from(weatherCodeHourlyArray));
       // FORECAST AREA ==================================================
       // GET STORED DATA ================================================
 
-      //const stringCurrentWeekdays = storage.getString('currentWeekdays') | '';
-      //const currentWeekdays = JSON.parse(stringCurrentWeekdays);
-      //const jsonTemperatureDaily = storage.getString('temperatureDaily');
-      //const temperatureDailyArray = JSON.parse(jsonTemperatureDaily);
-      //const jsonWeatherCodeDaily = storage.getString('weatherCodeDaily');
-      //const weatherCodeDailyArray = JSON.parse(jsonWeatherCodeDaily);
+      const stringCurrentWeekdays = storage.getString('currentWeekdays') || '';
+      const currentWeekdays = JSON.parse(stringCurrentWeekdays);
+      const jsonTemperatureDaily = storage.getString('temperatureDaily');
+      const temperatureDailyArray = JSON.parse(jsonTemperatureDaily) || '';
+      const jsonWeatherCodeDaily = storage.getString('weatherCodeDaily');
+      const weatherCodeDailyArray = JSON.parse(jsonWeatherCodeDaily) || '';
       // SET ========================================================
-      //setWeek(currentWeekdays);
-      //setTemperatureDaily(temperatureDailyArray);
-      //setWeatherCodeDaily(weatherCodeDailyArray);
+      setWeek(currentWeekdays);
+      setTemperatureDaily(temperatureDailyArray);
+      setWeatherCodeDaily(weatherCodeDailyArray);
     }
     // ================================================
     //Asking for Permission only if not granted to optimize the app
@@ -236,7 +235,7 @@ export const useInit = () => {
           Math.floor(value),
         );
         // SET ===========================================================
-        //setHour(hoursArray);
+        setHour(hoursArray);
         //setTemperatureHourly(formattedArray);
         //setWeatherCodeHourly(Array.from(hourly.weatherCode));
         // GET STORED DATA ================================================
@@ -282,15 +281,6 @@ export const useInit = () => {
     const requestCurrentPosition = async () => {
       const {positionLatitude, positionLongitude} = await getPosition();
 
-      const cityName = await getCityName(positionLatitude, positionLongitude);
-
-      if (typeof cityName === 'string') {
-        storage.set('cityName', cityName);
-        setCityName(cityName);
-      } else {
-        console.error('Invalid city name received:', cityName.message);
-      }
-
       return {positionLatitude, positionLongitude};
     };
     // ================================================
@@ -307,20 +297,20 @@ export const useInit = () => {
         const hoursArray = Array.from({length: 25}, (_, index) =>
           index.toString().padStart(2, '0'),
         );
-        //setHour(hoursArray);
+        setHour(hoursArray);
         setLoading(false);
       } else {
         console.log('atualiza tudo');
         const fullDate = getDate();
-        //setDate(fullDate);
+        setDate(fullDate);
         const currentWeekdays = getWeek();
-        //setWeek(currentWeekdays);
+        setWeek(currentWeekdays);
         fetchCurrent(positionLatitude, positionLongitude);
 
         const hoursArray = Array.from({length: 25}, (_, index) =>
           index.toString().padStart(2, '0'),
         );
-        //setHour(hoursArray);
+        setHour(hoursArray);
 
         fetchHourly(positionLatitude, positionLongitude);
         fetchForecast(positionLatitude, positionLongitude);
@@ -338,17 +328,17 @@ export const getDate = () => {
   const getCurrentMonth = (monthIndex: number): string => {
     const months = [
       'Jan',
-      'Feb',
+      'Fev',
       'Mar',
-      'Apr',
-      'May',
+      'Abr',
+      'Mai',
       'Jun',
       'Jul',
-      'Aug',
-      'Sep',
-      'Oct',
+      'Ago',
+      'Set',
+      'Out',
       'Nov',
-      'Dec',
+      'Dez',
     ];
     return months[monthIndex];
   };
@@ -367,13 +357,13 @@ export const getWeek = () => {
   console.log('chamou getWeek');
 
   const weekdays = [
-    'Sunday',
-    'Monday',
-    'Tuesday',
-    'Wednesday',
-    'Thursday',
-    'Friday',
-    'Saturday',
+    'Domingo',
+    'Segunda',
+    'Terça',
+    'Quarta',
+    'Quinta',
+    'Sexta',
+    'Sábado',
   ];
   const today = new Date();
   const currentDayIndex = today.getDay();

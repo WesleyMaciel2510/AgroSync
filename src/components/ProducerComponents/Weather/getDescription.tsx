@@ -3,96 +3,96 @@ export const getDescription = (code: number): string => {
 
   switch (code) {
     case 0:
-      description = 'Clear sky';
+      description = 'Céu limpo';
       break;
     case 1:
-      description = 'Mainly clear';
+      description = 'Parcialmente limpo';
       break;
     case 2:
-      description = 'Partly cloudy';
+      description = 'Parcialmente nublado';
       break;
     case 3:
-      description = 'Overcast';
+      description = 'Nublado';
       break;
     case 45:
     case 48:
-      description = 'Fog and depositing rime fog';
+      description = 'Nevoeiro';
       break;
     case 51:
-      description = 'Drizzle: Light';
+      description = 'Chuvisco Leve';
       break;
     case 53:
-      description = 'Drizzle: Moderate';
+      description = 'Chuvisco Moderado';
       break;
     case 55:
-      description = 'Drizzle: Dense intensity';
+      description = 'Chuvisco Intensidade densa';
       break;
     case 56:
-      description = 'Freezing Drizzle: Light';
+      description = 'Chuvisco congelante Leve';
       break;
     case 57:
-      description = 'Freezing Drizzle: Dense intensity';
+      description = 'Chuvisco congelante Intensidade densa';
       break;
     case 61:
-      description = 'Rain: Slight intensity';
+      description = 'Chuva Intensidade leve';
       break;
     case 63:
-      description = 'Rain: Moderate intensity';
+      description = 'Chuva Intensidade moderada';
       break;
     case 65:
-      description = 'Rain: Heavy intensity';
+      description = 'Chuva Intensidade forte';
       break;
     case 66:
-      description = 'Freezing Rain: Light intensity';
+      description = 'Chuva congelante Intensidade leve';
       break;
     case 67:
-      description = 'Freezing Rain: Heavy intensity';
+      description = 'Chuva congelante Intensidade forte';
       break;
     case 71:
-      description = 'Snow fall: Slight intensity';
+      description = 'Queda de neve Intensidade leve';
       break;
     case 73:
-      description = 'Snow fall: Moderate intensity';
+      description = 'Queda de neve Intensidade moderada';
       break;
     case 75:
-      description = 'Snow fall: Heavy intensity';
+      description = 'Queda de neve Intensidade forte';
       break;
     case 77:
-      description = 'Snow grains';
+      description = 'Flocos de neve';
       break;
     case 80:
-      description = 'Rain showers: Slight';
+      description = 'Chuvas Leve';
       break;
     case 81:
-      description = 'Rain showers: Moderate';
+      description = 'Chuvas Moderado';
       break;
     case 82:
-      description = 'Rain showers: Violent';
+      description = 'Chuvas Violento';
       break;
     case 85:
-      description = 'Snow showers: Slight';
+      description = 'Neve Leve';
       break;
     case 86:
-      description = 'Snow showers: Heavy';
+      description = 'Neve Forte';
       break;
     case 95:
-      description = 'Thunderstorm: Slight or moderate';
+      description = 'Trovoada Leve ou moderada';
       break;
     case 96:
-      description = 'Thunderstorm with slight hail';
+      description = 'Trovoada com granizo leve';
       break;
     case 99:
-      description = 'Thunderstorm with heavy hail';
+      description = 'Trovoada com granizo pesado';
       break;
     default:
-      // Find the nearest existing code
+      // Encontrar o código existente mais próximo
       let nearestCode = Object.keys(descriptionMap)
         .map(Number)
         .reduce((prev, curr) =>
           Math.abs(curr - code) < Math.abs(prev - code) ? curr : prev,
         );
 
-      // Set description based on the nearest existing code
+      // Definir a descrição com base no código existente mais próximo
       description = descriptionMap[nearestCode];
   }
 
@@ -100,32 +100,32 @@ export const getDescription = (code: number): string => {
 };
 
 const descriptionMap: {[key: number]: string} = {
-  0: 'Clear sky',
-  1: 'Mainly clear',
-  2: 'Partly cloudy',
-  3: 'Overcast',
-  45: 'Fog and depositing rime fog',
-  48: 'Fog and depositing rime fog',
-  51: 'Drizzle: Light',
-  53: 'Drizzle: Moderate',
-  55: 'Drizzle: Dense intensity',
-  56: 'Freezing Drizzle: Light',
-  57: 'Freezing Drizzle: Dense intensity',
-  61: 'Rain: Slight intensity',
-  63: 'Rain: Moderate intensity',
-  65: 'Rain: Heavy intensity',
-  66: 'Freezing Rain: Light intensity',
-  67: 'Freezing Rain: Heavy intensity',
-  71: 'Snow fall: Slight intensity',
-  73: 'Snow fall: Moderate intensity',
-  75: 'Snow fall: Heavy intensity',
-  77: 'Snow grains',
-  80: 'Rain showers: Slight',
-  81: 'Rain showers: Moderate',
-  82: 'Rain showers: Violent',
-  85: 'Snow showers: Slight',
-  86: 'Snow showers: Heavy',
-  95: 'Thunderstorm: Slight or moderate',
-  96: 'Thunderstorm with slight hail',
-  99: 'Thunderstorm with heavy hail',
+  0: 'Céu limpo',
+  1: 'Parcialmente limpo',
+  2: 'Parcialmente nublado',
+  3: 'Nublado',
+  45: 'Nevoeiro',
+  48: 'Nevoeiro',
+  51: 'Chuvisco Leve',
+  53: 'Chuvisco Moderado',
+  55: 'Chuvisco Intensidade densa',
+  56: 'Chuvisco congelante Leve',
+  57: 'Chuvisco congelante Intensidade densa',
+  61: 'Chuva Intensidade leve',
+  63: 'Chuva Intensidade moderada',
+  65: 'Chuva Intensidade forte',
+  66: 'Chuva congelante Intensidade leve',
+  67: 'Chuva congelante Intensidade forte',
+  71: 'Queda de neve Intensidade leve',
+  73: 'Queda de neve Intensidade moderada',
+  75: 'Queda de neve Intensidade forte',
+  77: 'Flocos de neve',
+  80: 'Chuvas Leve',
+  81: 'Chuvas Moderado',
+  82: 'Chuvas Violento',
+  85: 'Neve Leve',
+  86: 'Neve Forte',
+  95: 'Trovoada Leve ou moderada',
+  96: 'Trovoada com granizo leve',
+  99: 'Trovoada com granizo pesado',
 };

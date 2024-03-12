@@ -12,7 +12,6 @@ import ErrorInfo from '../../components/ProducerComponents/Weather/errorInfo';
 
 const ProducerModules = () => {
   const {
-    cityName,
     description,
     humidity,
     rain,
@@ -38,22 +37,11 @@ const ProducerModules = () => {
   // ============================================================================
   return (
     <ScrollView style={[styles.container, {backgroundColor: '#fff'}]}>
-      {!locationPermission ? (
-        <ErrorInfo />
-      ) : (
+      {!locationPermission && <ErrorInfo />}
+      {locationPermission && (
         <View>
-          <View style={styles.titleArea}>
-            <FontAwesome5
-              name={'map-marker-alt'}
-              size={30}
-              color="#fff"
-              style={styles.iconStyle}
-            />
-            {!loading ? (
-              <Text style={styles.titleText}> {cityName} </Text>
-            ) : null}
-          </View>
           <GreetingComponent />
+
           <LottieView
             source={loading ? loadingAnimation : animationURL}
             autoPlay
@@ -70,11 +58,12 @@ const ProducerModules = () => {
             </Text>
             <Text style={[styles.text, {fontSize: 23}]}>{description}</Text>
           </View>
+
           <View style={styles.weatherBarArea}>
             <View
               style={[
                 styles.simpleBar,
-                {backgroundColor: '#30ACDD', flexDirection: 'row'},
+                {backgroundColor: '#3AC0A0', flexDirection: 'row'},
               ]}>
               <View
                 style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
@@ -84,7 +73,11 @@ const ProducerModules = () => {
                   color="#fff"
                   style={{marginLeft: 10}}
                 />
-                <Text style={[styles.text, {fontSize: 20, marginLeft: 5}]}>
+                <Text
+                  style={[
+                    styles.text,
+                    {fontSize: 20, marginLeft: 5, color: 'white'},
+                  ]}>
                   {rain} %
                 </Text>
               </View>
@@ -92,7 +85,11 @@ const ProducerModules = () => {
               <View
                 style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
                 <FontAwesome5 name={'tint'} size={20} color="#fff" />
-                <Text style={[styles.text, {fontSize: 20, marginLeft: 5}]}>
+                <Text
+                  style={[
+                    styles.text,
+                    {fontSize: 20, marginLeft: 5, color: 'white'},
+                  ]}>
                   {humidity} %
                 </Text>
               </View>
@@ -100,16 +97,20 @@ const ProducerModules = () => {
               <View
                 style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
                 <FontAwesome5 name={'wind'} size={20} color="#fff" />
-                <Text style={[styles.text, {fontSize: 20, marginLeft: 5}]}>
+                <Text
+                  style={[
+                    styles.text,
+                    {fontSize: 20, marginLeft: 5, color: 'white'},
+                  ]}>
                   {windSpeed}
                 </Text>
-              </View>
-              <View>
-                <Text style={[styles.text, {fontSize: 20}]}>'Km/h'</Text>
+                <Text style={[styles.text, {fontSize: 20, color: 'white'}]}>
+                  Km/h
+                </Text>
               </View>
             </View>
 
-            <View style={[styles.boardArea, {backgroundColor: '#30ACDD'}]}>
+            <View style={[styles.boardArea, {backgroundColor: '#3AC0A0'}]}>
               <View style={{flexDirection: 'row', padding: 10}}>
                 <View style={styles.leftTextContainer}>
                   <Text
@@ -126,7 +127,7 @@ const ProducerModules = () => {
                       styles.text,
                       {fontSize: 20, fontWeight: 'bold', color: 'white'},
                     ]}>
-                    {date[0]}, {date[1]}
+                    {date[0]} {date[1]}
                   </Text>
                 </View>
               </View>
@@ -160,7 +161,7 @@ const ProducerModules = () => {
                 <TodayColumn index={23} />
               </ScrollView>
             </View>
-            <View style={[styles.boardArea, {backgroundColor: '#30ACDD'}]}>
+            <View style={[styles.boardArea, {backgroundColor: '#3AC0A0'}]}>
               <View style={{flexDirection: 'row', padding: 10}}>
                 <View style={styles.leftTextContainer}>
                   <Text
@@ -200,6 +201,7 @@ const ProducerModules = () => {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'column',
+    marginTop: 20,
   },
   titleArea: {
     flexDirection: 'row',

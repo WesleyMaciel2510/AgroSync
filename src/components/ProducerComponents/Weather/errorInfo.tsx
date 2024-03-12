@@ -23,19 +23,20 @@ const ErrorInfo = () => {
         />
       </View>
       <Text style={styles.text}>
-        Press the Buton below to request permission again.
+        Pressione o botão abaixo para solicitar permissão novamente.
         {'\n'}
-        {'\n'}If needed, you can go to Settings and check if the permission is
-        granted.
+        {'\n'}Se necessário, você pode ir para Configurações e verificar se a
+        permissão foi concedida.
       </Text>
+
       <View style={styles.buttonContainer}>
         <TouchableOpacity
           style={styles.button}
           onPress={() => Linking.openSettings()}>
-          <Text style={styles.buttonText}>CHECK PERMISSION</Text>
+          <Text style={styles.buttonText}>VERIFICAR PERMISSÃO</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.button} onPress={handlePress}>
-          <Text style={styles.buttonText}>REQUEST PERMISSION</Text>
+          <Text style={styles.buttonText}>SOLICITAR PERMISSÃO</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -81,7 +82,7 @@ const styles = StyleSheet.create({
   },
   button: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: '#3AC0A0',
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 8,
