@@ -35,7 +35,7 @@ export const useOnSearchScheduling = () => {
   const navigation = useNavigation();
   const {setIsLoading, setModalVisible, setNotFound} = useSharedState();
 
-  const {setSchedulingStatus} = useSharedGlobalState();
+  const {setSchedulingInfo} = useSharedGlobalState();
 
   const handleSearchScheduling = async (inputValue: string) => {
     console.log('chamou handleSearchScheduling');
@@ -46,8 +46,7 @@ export const useOnSearchScheduling = () => {
     //check if the result is empty
     if (Object.keys(schedulingInfo).length > 0) {
       console.log('encontrado');
-      const status = schedulingInfo[0]?.Status;
-      setSchedulingStatus(status);
+      setSchedulingInfo(schedulingInfo[0]);
       setModalVisible(false);
       setIsLoading(false);
       navigation.navigate('SchedulingInfo');

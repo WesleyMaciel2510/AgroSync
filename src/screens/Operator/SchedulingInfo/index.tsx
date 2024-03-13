@@ -1,34 +1,73 @@
 import React from 'react';
-import {View, StyleSheet} from 'react-native';
+import {View, StyleSheet, Text} from 'react-native';
 import {StackNavigationProp} from '@react-navigation/stack';
-//import {useSharedState} from './logic';
-//import {useSharedState as useSharedGlobalState} from '../../../context/globalUseState';
+import {/* useSharedState */ useInit} from './logic';
+import {useSharedState as useSharedGlobalState} from '../../../context/globalUseState';
 import DrawerMenu from '../../../components/Drawer/drawerMenu';
 import Header from '../../../components/Header/header';
 import Button from '../../../components/Button/button';
+import InfoTable from '../../../components/infoTable';
+import CalendarComponent from '../../../components/OperatorComponents/calendar';
 
 interface Props {
   navigation: StackNavigationProp<any>;
 }
 
 const SchedulingInfoScreen: React.FC<Props> = ({navigation}) => {
-  //const {photo, setPhoto} = useSharedGlobalState();
+  const {photo, setPhoto, schedulingInfo} = useSharedGlobalState();
+  useInit();
   const handleChangeStatus = () => {
     console.log('CONFIRMED');
     //navigation.navigate();
   };
+  let tableColor: string;
+
+  switch (schedulingInfo.Status) {
+    case 'Criado':
+      tableColor = '#3498DB';
+      break;
+    case 'Iniciado':
+      tableColor = '#EB4C1A';
+      break;
+    case 'Finalizado':
+      tableColor = '#FF0000';
+      break;
+    default:
+      tableColor = '#000';
+      break;
+  }
+  //============================================================================
   return (
     <View style={styles.container}>
       <DrawerMenu>
         <Header />
-        <View style={styles.contentArea}></View>
-        <View style={styles.buttonContainer}>
-          <Button
-            onPress={() => handleChangeStatus()}
-            text={'ENTREGAR'}
-            width={'50%'}
+        <View style={styles.contentArea}>
+          <InfoTable
+            color={tableColor}
+            iconName={'calendar-plus'}
+            title={'Informações do Agendamento'}
+            line1={'Status do Agendamento: Criado'}
+            line2={'Nome do Produto: Soja'}
+            line3={'Peso do Produto: 5000kg'}
+            line4={'Quantidade: 10 Sacas'}
+            highlightText={'Data do Agendamento: 14/03/2024'}
           />
+          {schedulingInfo.Status !== 'Finalizado' ? (
+            <CalendarComponent />
+          ) : null}
         </View>
+
+        {schedulingInfo.Status !== 'Finalizado' ? (
+          <View style={styles.buttonContainer}>
+            <Button
+              onPress={() => handleChangeStatus()}
+              text={
+                schedulingInfo.Status === 'Criado' ? 'INICIAR' : 'FINALIZAR'
+              }
+              width={'50%'}
+            />
+          </View>
+        ) : null}
       </DrawerMenu>
     </View>
   );
@@ -44,7 +83,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingLeft: 20,
     paddingRight: 20,
-    marginTop: 8,
+    padding: 20,
   },
   button: {
     justifyContent: 'center',
@@ -60,6 +99,10 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 22,
     paddingLeft: 20,
+  },
+  title: {
+    fontSize: 22,
+    color: 'gray',
   },
   invoicesImageArea: {
     padding: 10,

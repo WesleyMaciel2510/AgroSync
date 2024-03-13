@@ -28,7 +28,7 @@ const LoadInfoScreen: React.FC<Props> = ({navigation}) => {
             highlightText={'Prazo de Entrega: 16/03/2024'}
           />
           <InfoTable
-            color={'#EB7550'}
+            color={'#EB4C1A'}
             iconName={'truck'}
             title={'Informações da Entrega'}
             line1={'Local de Entrega: Campinas - SP'}
