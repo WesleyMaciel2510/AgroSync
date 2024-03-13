@@ -1,7 +1,8 @@
 import {useEffect, useState} from 'react';
 import {useBetween} from 'use-between';
-import {searchLoad} from '../../../services/loads/index';
+import {searchScheduling} from '../../../services/scheduling/index';
 import {useNavigation} from '@react-navigation/native';
+import {useSharedState as useSharedGlobalState} from '../../../context/globalUseState';
 
 export const useStateVariables = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -30,23 +31,30 @@ export const useInit = () => {
   }, []);
 };
 
-export const useOnSearchLoad = () => {
+export const useOnSearchScheduling = () => {
   const navigation = useNavigation();
-
   const {setIsLoading, setModalVisible, setNotFound} = useSharedState();
-  const handleSearchLoad = async (inputValue: string) => {
-    console.log('chamou handleSearchLoad');
+
+  const {setSchedulingStatus} = useSharedGlobalState();
+
+  const handleSearchScheduling = async (inputValue: string) => {
+    console.log('chamou handleSearchScheduling');
     const inputNumber = parseInt(inputValue, 10);
-    const loadInfo = await searchLoad(inputNumber);
-    console.log('load = ', loadInfo);
+    const schedulingInfo = await searchScheduling(inputNumber);
+    console.log('schedulingInfo = ', schedulingInfo);
+    console.log('found = ', Object.keys(schedulingInfo).length > 0);
     //check if the result is empty
-    if (Object.keys(loadInfo).length > 0) {
+    if (Object.keys(schedulingInfo).length > 0) {
+      console.log('encontrado');
+      const status = schedulingInfo[0]?.Status;
+      setSchedulingStatus(status);
       setModalVisible(false);
       setIsLoading(false);
-      navigation.navigate('LoadInfo');
+      navigation.navigate('SchedulingInfo');
     } else {
+      console.log('nao encontrado');
       setNotFound(true);
     }
   };
-  return {handleSearchLoad};
+  return {handleSearchScheduling};
 };

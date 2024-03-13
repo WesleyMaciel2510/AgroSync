@@ -19,7 +19,7 @@ type PositionType = {
 
 export const useStateVariables = () => {
   const [locationPermission, setLocationPermission] = useState<boolean | null>(
-    null,
+    true,
   );
   const [cityName, setCityName] = useState('');
   const [description, setDescription] = useState('');

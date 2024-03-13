@@ -32,7 +32,7 @@ const ProducerModules = () => {
   const currentHour = currentTime.getHours();
 
   const {width} = Dimensions.get('window');
-  const startPosition = currentHour * (width < 400 ? 75 : 77);
+  const startPosition = currentHour * (width < 400 ? 75 : 74);
 
   // ============================================================================
   return (

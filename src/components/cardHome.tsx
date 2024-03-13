@@ -45,6 +45,7 @@ const styles = StyleSheet.create({
     color: '#1F2024',
     fontSize: 16,
     fontWeight: 'bold',
+    textAlign: 'center',
   },
 });
 

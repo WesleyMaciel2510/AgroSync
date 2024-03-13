@@ -14,6 +14,7 @@ export const useStateVariables = () => {
   const [cameraPermission, setCameraPermission] = useState(false);
   const [savePermission, setSavePermission] = useState(false);
   const [photo, setPhoto] = useState<string | undefined>(undefined);
+  const [schedulingStatus, setSchedulingStatus] = useState('');
 
   return {
     isLoading,
@@ -38,6 +39,8 @@ export const useStateVariables = () => {
     setSavePermission,
     photo,
     setPhoto,
+    schedulingStatus,
+    setSchedulingStatus,
   };
 };
 
