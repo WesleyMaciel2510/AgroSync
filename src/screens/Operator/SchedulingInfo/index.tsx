@@ -17,8 +17,8 @@ const SchedulingInfoScreen: React.FC<Props> = ({navigation}) => {
   const {photo, setPhoto, schedulingInfo} = useSharedGlobalState();
   useInit();
   const handleChangeStatus = () => {
-    console.log('CONFIRMED');
-    //navigation.navigate();
+    console.log('CHAMOU handleChangeStatus');
+    navigation.navigate('Picture');
   };
   let tableColor: string;
 

@@ -7,7 +7,8 @@ import SignUpScreen from '../screens/SignUp';
 import ForgotPasswordScreen from '../screens/ForgotPassword';
 import LoadInfoScreen from '../screens/Driver/loadInfo';
 import InvoiceInfoScreen from '../screens/Driver/InvoiceInfo';
-import SchedulingInfoScreen from '../screens/Operator/SchedulingInfo/index';
+import SchedulingInfoScreen from '../screens/Operator/SchedulingInfo';
+import PictureScreen from '../screens/Operator/Picture';
 
 const AuthStack = createNativeStackNavigator();
 //const DriverStack = createNativeStackNavigator();
@@ -36,6 +37,7 @@ const AppStack = () => {
             name="SchedulingInfo"
             component={SchedulingInfoScreen}
           />
+          <AuthStack.Screen name="Picture" component={PictureScreen} />
         </AuthStack.Navigator>
       ) : (
         <NonAuthStack.Navigator
