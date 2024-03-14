@@ -7,11 +7,11 @@ import {
   Text,
 } from 'react-native';
 import {useSharedState} from '../../screens/Home/logic';
-import {useSharedState as useSharedUserState} from '../../context/userInfo';
+import {useSharedState as useSharedUserState} from '../../context/globalUseState';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import DrawerLine from './drawerLine';
-import {storage} from '../../context/storage';
-import UserImage from '../../components/drawer/userImg';
+import {storage} from '../../helpers/storage';
+import UserImage from './userImg';
 
 interface DrawerMenuProps {
   children: ReactNode;
@@ -19,7 +19,7 @@ interface DrawerMenuProps {
 
 const DrawerMenu: React.FC<DrawerMenuProps> = ({children}) => {
   const drawerRef = useRef<DrawerLayoutAndroid>(null);
-  const {drawerOn, setDrawerOn} = useSharedState();
+  const {setDrawerOn} = useSharedState();
 
   // ==============================================================
   const useLogout = () => {

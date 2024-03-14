@@ -3,9 +3,9 @@ import {View, StyleSheet, TextInput} from 'react-native';
 import {useInit, useOnLogin} from './logic/index';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {DefaultStyles} from '../../styles/styles';
-import {useSharedState} from '../../context/userInfo';
+import {useSharedState} from '../../context/globalUseState';
 import Logo from '../../components/logo';
-import Button from '../../components/button/button';
+import Button from '../../components/Button/button';
 
 interface Props {
   navigation: StackNavigationProp<any>;
@@ -38,8 +38,9 @@ const LoginScreen: React.FC<Props> = ({navigation}) => {
           style={styles.inputContent}
         />
       </View>
-
-      <Button text="Login" onPress={handleLogin} />
+      <View>
+        <Button text="Login" onPress={handleLogin} />
+      </View>
       <View style={{flexDirection: 'row'}}>
         <View style={[DefaultStyles.center, {flex: 1}]}>
           <Button
@@ -69,6 +70,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: 'green',
     borderRadius: 5,
+    color: 'black',
   },
   passwordContainer: {
     flexDirection: 'row',

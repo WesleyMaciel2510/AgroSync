@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, StyleSheet} from 'react-native';
-import {useSharedState} from '../../context/userInfo';
+import {useSharedState} from '../../context/globalUseState';
 import {DefaultStyles} from '../../styles/styles';
 import {StackNavigationProp} from '@react-navigation/stack';
 import LottieView from 'lottie-react-native';

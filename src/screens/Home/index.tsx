@@ -1,10 +1,10 @@
 import React from 'react';
 import {View, StyleSheet} from 'react-native';
 import {StackNavigationProp} from '@react-navigation/stack';
-import {useSharedState} from './logic';
-import {useSharedState as useSharedUserState} from '../../context/userInfo';
-import DrawerMenu from '../../components/drawer/drawerMenu';
-import Header from '../../components/header/header';
+//import {useSharedState} from './logic';
+import {useSharedState as useSharedUserState} from '../../context/globalUseState';
+import DrawerMenu from '../../components/Drawer/drawerMenu';
+import Header from '../../components/Header/header';
 import DriverModules from '../../components/DriverComponents/modules';
 import OperatorModules from '../../components/OperatorComponents/modules';
 import ProducerModules from '../../components/ProducerComponents/modules';
@@ -20,8 +20,16 @@ const HomeScreen: React.FC<Props> = ({navigation}) => {
     <View style={styles.container}>
       <DrawerMenu>
         <Header />
-        <View>{userType === 'Motorista' && <DriverModules />}</View>
-        <View>{userType === 'Operador' && <OperatorModules />}</View>
+        <View>
+          {userType === 'Motorista' && (
+            <DriverModules navigation={navigation} />
+          )}
+        </View>
+        <View>
+          {userType === 'Operador' && (
+            <OperatorModules navigation={navigation} />
+          )}
+        </View>
         <View>{userType === 'Produtor' && <ProducerModules />}</View>
       </DrawerMenu>
     </View>
@@ -38,13 +46,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     margin: 10,
   },
-  headerArea: {
-    backgroundColor: '#3AC0A0',
-    height: 60,
-    borderBottomWidth: 2,
-    borderBottomColor: 'gray',
-  },
-  questionCircle: {position: 'absolute', right: 15, top: 15},
 });
 
 export default HomeScreen;

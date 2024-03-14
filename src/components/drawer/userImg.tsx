@@ -1,10 +1,10 @@
 import React from 'react';
-import {View, Image, StyleSheet} from 'react-native';
-import {useSharedState as useSharedUserState} from '../../context/userInfo';
+import {View, Image, StyleSheet, ImageSourcePropType} from 'react-native';
+import {useSharedState as useSharedUserState} from '../../context/globalUseState';
 
 const UserImage = () => {
   const {userType} = useSharedUserState();
-  let imageSource;
+  let imageSource: ImageSourcePropType;
   switch (userType) {
     case 'Produtor':
       imageSource = require('../../assets/imgs/user1.png');
@@ -23,7 +23,10 @@ const UserImage = () => {
 
   return (
     <View>
-      <Image source={imageSource} style={styles.image} />
+      <Image
+        source={imageSource /* require('../../assets/imgs/user1.png') */}
+        style={styles.image}
+      />
     </View>
   );
 };

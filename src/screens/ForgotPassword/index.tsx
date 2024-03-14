@@ -3,7 +3,7 @@ import {View, Text, StyleSheet, TextInput} from 'react-native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import LottieView from 'lottie-react-native';
 import {DefaultStyles} from '../../styles/styles';
-import Button from '../../components/button/button';
+import Button from '../../components/Button/button';
 
 interface Props {
   navigation: StackNavigationProp<any>;

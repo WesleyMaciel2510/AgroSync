@@ -1,9 +1,9 @@
 import {useEffect} from 'react';
-import {setLogin} from '../../../services/api/login';
-import {useSharedState} from '../../../context/userInfo';
-import LoginErrorAlert from '../../../components/alert/loginFailed';
+import {setLogin} from '../../../services/user/login';
+import {useSharedState} from '../../../context/globalUseState';
+import LoginErrorAlert from '../../../components/Alert/loginFailed';
 import {useNavigation} from '@react-navigation/native';
-import {storage} from '../../../context/storage';
+import {storage} from '../../../helpers/storage';
 
 export const useInit = () => {
   const {setIsLogged, setName, setUserType} = useSharedState();

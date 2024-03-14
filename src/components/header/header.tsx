@@ -1,8 +1,13 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet, View, Text} from 'react-native';
+import {useSharedState} from '../../context/globalUseState';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
 const Header = () => {
+  const {name} = useSharedState();
+  const nameParts = name.split(' ');
+  const firstName = nameParts[0];
+
   return (
     <View style={styles.headerArea}>
       <FontAwesome5
