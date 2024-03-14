@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, StyleSheet, TouchableOpacity, Text, Image} from 'react-native';
 import {StackNavigationProp} from '@react-navigation/stack';
-//import {useSharedState} from './logic';
+import {useSharedState} from './logic';
 import DrawerMenu from '../../../components/Drawer/drawerMenu';
 import Header from '../../../components/Header/header';
 import Button from '../../../components/Button/button';
@@ -39,7 +39,7 @@ const LoadInfoScreen: React.FC<Props> = ({navigation}) => {
       <DrawerMenu>
         <Header />
         <View style={styles.contentArea}>
-          <View style={{flex: 12, backgroundColor: 'green'}}>
+          <View style={{flex: 12}}>
             <InfoTable
               color={'#494A50'}
               iconName={'file-invoice'}
@@ -72,12 +72,10 @@ const LoadInfoScreen: React.FC<Props> = ({navigation}) => {
             </TouchableOpacity>
           </View>
         </View>
-
-        {photo ? (
+        {photo && (
           <Image source={{uri: photo}} style={styles.invoicesImageArea} />
-        ) : (
-          <View style={styles.invoicesImageArea} />
         )}
+        {!photo && <View style={styles.invoicesImageArea} />}
 
         <View style={styles.buttonContainer}>
           <Button
