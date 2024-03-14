@@ -4,13 +4,22 @@ import {useSharedState as useSharedGlobalState} from '../../../../context/global
 
 export const useStateVariables = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const [errorSync, setErrorSync] = useState(false);
   const [schedulingStatus, setSchedulingStatus] = useState('');
+  const [modalVisible, setModalVisible] = useState(false);
+  const [inputValue, setInputValue] = useState('');
 
   return {
     isLoading,
     setIsLoading,
+    errorSync,
+    setErrorSync,
     schedulingStatus,
     setSchedulingStatus,
+    modalVisible,
+    setModalVisible,
+    inputValue,
+    setInputValue,
   };
 };
 

@@ -10,6 +10,7 @@ interface Props {
 }
 const OperatorModules: React.FC<Props> = ({navigation}) => {
   const {setModalVisible} = useSharedState();
+
   const cardsData = [
     {
       cardTitle: 'Consultar Agendamento',
@@ -19,16 +20,16 @@ const OperatorModules: React.FC<Props> = ({navigation}) => {
     {
       cardTitle: 'Registro \nRápido',
       cardIcon: 'dolly-flatbed',
-      cardAction: () => setModalVisible(true),
+      cardAction: () => navigation.navigate('Picture'),
     },
     {
       cardTitle: 'Ler QRCODE',
       cardIcon: 'qrcode',
-      cardAction: () => navigation.navigate('ReaderCamera'),
+      cardAction: () => console.log('QRCode action'),
     },
     {
-      cardTitle: 'Registrar Ocorrência',
-      cardIcon: 'pen-alt',
+      cardTitle: 'Ler Cód. \nde Barras',
+      cardIcon: 'barcode',
       cardAction: () => console.log('Cód. de Barras action'),
     },
   ];

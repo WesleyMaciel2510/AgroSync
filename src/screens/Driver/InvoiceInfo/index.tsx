@@ -39,7 +39,7 @@ const LoadInfoScreen: React.FC<Props> = ({navigation}) => {
       <DrawerMenu>
         <Header />
         <View style={styles.contentArea}>
-          <View style={{flex: 12, bgcolor: 'green'}}>
+          <View style={{flex: 12, backgroundColor: 'green'}}>
             <InfoTable
               color={'#494A50'}
               iconName={'file-invoice'}
@@ -51,7 +51,13 @@ const LoadInfoScreen: React.FC<Props> = ({navigation}) => {
               highlightText={'Status do Canhoto: Não Enviado'}
             />
           </View>
-          <View style={{flex: 5, marginTop: 130}}>
+          <View style={{flex: 7}}>
+            <View style={styles.titleContainer}>
+              <Text style={styles.title}>
+                <FontAwesome5 name={'camera'} size={30} color={'#333'} />{' '}
+                Registro de Fotos
+              </Text>
+            </View>
             <TouchableOpacity
               onPress={() => handleAttachStub({navigation})}
               style={styles.button}>
@@ -76,7 +82,7 @@ const LoadInfoScreen: React.FC<Props> = ({navigation}) => {
         <View style={styles.buttonContainer}>
           <Button
             onPress={() => confirmDelivery()}
-            text={'ENTREGAR'}
+            text={'FINALIZAR'}
             width={'50%'}
           />
         </View>
@@ -111,6 +117,18 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 22,
     paddingLeft: 20,
+  },
+  titleContainer: {
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#333',
+    textAlign: 'center',
+    textTransform: 'uppercase',
+    letterSpacing: 1,
   },
   invoicesImageArea: {
     padding: 10,

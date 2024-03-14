@@ -1,24 +1,28 @@
 import React from 'react';
-import {View, StyleSheet, Image, Text} from 'react-native';
+import {View, StyleSheet, Text} from 'react-native';
 import {StackNavigationProp} from '@react-navigation/stack';
-import {/* useSharedState */ useInit} from './logic';
+import {useSharedState, useInit} from './logic';
 import {useSharedState as useSharedGlobalState} from '../../../context/globalUseState';
 import DrawerMenu from '../../../components/Drawer/drawerMenu';
 import Header from '../../../components/Header/header';
 import Button from '../../../components/Button/button';
 import GridComponent from '../../../components/gridPicture';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
 interface Props {
   navigation: StackNavigationProp<any>;
 }
 
 const PictureScreen: React.FC<Props> = ({navigation}) => {
+  const {modalVisible, setModalVisible} = useSharedState();
   const {photo, setPhoto, schedulingInfo} = useSharedGlobalState();
   useInit();
 
-  const handleChangeStatus = () => {
+  const handleChangeStatus = async () => {
     console.log('CHAMOU handleChangeStatus');
-    navigation.navigate('');
+    //chamar funcao de enviar fotos
+    setModalVisible(true);
+    //navigation.navigate('');
   };
   //============================================================================
   return (
@@ -27,7 +31,10 @@ const PictureScreen: React.FC<Props> = ({navigation}) => {
         <Header />
         <View style={styles.contentArea}>
           <View style={styles.titleContainer}>
-            <Text style={styles.title}>Registro de Fotos</Text>
+            <Text style={styles.title}>
+              <FontAwesome5 name={'camera'} size={30} color={'#333'} /> Registro
+              de Fotos
+            </Text>
           </View>
           <GridComponent />
         </View>

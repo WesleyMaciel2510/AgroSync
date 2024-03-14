@@ -1,5 +1,7 @@
 import React from 'react';
-import {View, StyleSheet, Dimensions} from 'react-native';
+import {TouchableOpacity, StyleSheet, Dimensions, View} from 'react-native';
+import {useSharedState} from '../screens/Operator/Picture/logic';
+import ErrorSendModal from '../components/Modals/errorSendModal';
 
 const {width} = Dimensions.get('window');
 const itemPerRow = 3;
@@ -9,33 +11,45 @@ const childWidth =
   (width - gap * (itemPerRow + 1) - paddingHorizontal * 2) / itemPerRow;
 
 const GridView = () => {
+  const {modalVisible, setModalVisible} = useSharedState();
+  const onPressItem = (index: number) => {
+    console.log('Item pressed:', index);
+  };
+
+  const renderItems = () => {
+    const items = [];
+    for (let i = 0; i < 15; i++) {
+      items.push(
+        <TouchableOpacity
+          key={i}
+          style={[styles.item, i % itemPerRow !== 0 && styles.itemMarginRight]}
+          onPress={() => onPressItem(i)}
+        />,
+      );
+    }
+    return items;
+  };
+
   return (
-    <View style={styles.container}>
-      <View style={styles.row}>
-        <View style={[styles.item, styles.itemMarginRight]} />
-        <View style={[styles.item, styles.itemMarginRight]} />
-        <View style={styles.item} />
-      </View>
-      <View style={styles.row}>
-        <View style={[styles.item, styles.itemMarginRight]} />
-        <View style={[styles.item, styles.itemMarginRight]} />
-        <View style={styles.item} />
-      </View>
-      <View style={styles.row}>
-        <View style={[styles.item, styles.itemMarginRight]} />
-        <View style={[styles.item, styles.itemMarginRight]} />
-        <View style={styles.item} />
-      </View>
-      <View style={styles.row}>
-        <View style={[styles.item, styles.itemMarginRight]} />
-        <View style={[styles.item, styles.itemMarginRight]} />
-        <View style={styles.item} />
-      </View>
-      <View style={styles.row}>
-        <View style={[styles.item, styles.itemMarginRight]} />
-        <View style={[styles.item, styles.itemMarginRight]} />
-        <View style={styles.item} />
-      </View>
+    <View>
+      <TouchableOpacity style={styles.container}>
+        <TouchableOpacity style={styles.row}>
+          {renderItems().slice(0, 3)}
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.row}>
+          {renderItems().slice(3, 6)}
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.row}>
+          {renderItems().slice(6, 9)}
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.row}>
+          {renderItems().slice(9, 12)}
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.row}>
+          {renderItems().slice(12, 15)}
+        </TouchableOpacity>
+      </TouchableOpacity>
+      <ErrorSendModal />
     </View>
   );
 };
@@ -53,12 +67,12 @@ const styles = StyleSheet.create({
     marginBottom: gap,
   },
   item: {
-    backgroundColor: 'lightblue',
+    backgroundColor: 'black',
     width: childWidth,
     height: childWidth,
     borderRadius: 10,
-    borderWidth: 3,
-    borderColor: 'black',
+    borderWidth: 4,
+    borderColor: 'gray',
   },
   itemMarginRight: {
     marginRight: gap,
