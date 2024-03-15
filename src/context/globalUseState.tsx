@@ -35,6 +35,7 @@ export const useStateVariables = () => {
     Quantidade: '',
     Status: '',
   });
+  const [cameraType, setCameraType] = useState('');
 
   return {
     isLoading,
@@ -61,6 +62,8 @@ export const useStateVariables = () => {
     setPhoto,
     schedulingInfo,
     setSchedulingInfo,
+    cameraType,
+    setCameraType,
   };
 };
 

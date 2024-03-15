@@ -5,10 +5,15 @@ import {
   StyleSheet,
   SafeAreaView,
   TouchableOpacity,
+  Dimensions,
 } from 'react-native';
 import {useInit, useSharedState} from './logic';
 import {useSharedState as useSharedGlobalState} from '../../context/globalUseState';
-import {Camera, useCameraDevice} from 'react-native-vision-camera';
+import {
+  Camera,
+  useCameraDevice,
+  useCameraFormat,
+} from 'react-native-vision-camera';
 import {CameraRoll} from '@react-native-camera-roll/camera-roll';
 import {storage} from '../../helpers/storage';
 import {StackNavigationProp} from '@react-navigation/stack';
@@ -20,9 +25,22 @@ interface Props {
 const CameraScreen: React.FC<Props> = ({navigation}) => {
   const {cameraPermission, savePermission} = useSharedState();
   const {setPhoto} = useSharedGlobalState();
-  const device = useCameraDevice('back');
-  const camera = useRef<Camera>(null);
+
   useInit();
+
+  const device = useCameraDevice('back');
+  const {width, height} = Dimensions.get('screen');
+  console.log(' width = ', width, 'height = ', height);
+  const format = useCameraFormat(device, [
+    {photoAspectRatio: 16 / 9},
+    {autoFocusSystem: 'phase-detection'},
+    {photoResolution: 'max'},
+  ]);
+
+  const camera = useRef<Camera>(null);
+  if (device == null) {
+    return null;
+  }
 
   const handleTakePicture = async () => {
     console.log('chamou handleTakePicture');
@@ -52,9 +70,6 @@ const CameraScreen: React.FC<Props> = ({navigation}) => {
       }
     }
   };
-  if (device == null) {
-    return <NoCameraDeviceError />;
-  }
 
   return (
     <SafeAreaView style={{flex: 1}}>
@@ -62,7 +77,8 @@ const CameraScreen: React.FC<Props> = ({navigation}) => {
         {cameraPermission ? (
           <View style={{flex: 1}}>
             <Camera
-              style={StyleSheet.absoluteFill}
+              //style={StyleSheet.absoluteFill}
+              style={{width: width, height: height - 1}}
               device={device}
               isActive={true}
               ref={camera}

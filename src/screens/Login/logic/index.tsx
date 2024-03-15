@@ -37,18 +37,13 @@ export const useOnLogin = () => {
       // Save the JSON string to MMKV storage
       //consider saving the object in smaller pieces to make the search faster
       //storage.set('USERLOGGEDINFO', loginResponseString);
-      storage.set('loggedUserName', loginResponse.FullName);
-
-      try {
-      } catch (error) {
-        console.error('Error setting loggedUserType:', error);
-      }
 
       // =======================================================
 
       console.log('@Logic@ loginResponse = ', loginResponse);
       if (loginResponse) {
         console.log('Login successful!');
+        storage.set('loggedUserName', loginResponse.FullName);
         storage.set('ISLOGGED', true);
         setIsLogged(true);
         setName(loginResponse.FullName);

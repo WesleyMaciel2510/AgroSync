@@ -1,6 +1,7 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import {useSharedState} from './logic';
+import {useSharedState as useSharedGlobalState} from '../../context/globalUseState';
 import CardHome from '../cardHome';
 import SearchLoadModal from '../../components/Modals/searchLoadModal';
 import {StackNavigationProp} from '@react-navigation/stack';
@@ -10,6 +11,7 @@ interface Props {
 }
 const DriverModules: React.FC<Props> = ({navigation}) => {
   const {setModalVisible} = useSharedState();
+  const {setCameraType} = useSharedGlobalState();
 
   const cardsData = [
     {
@@ -25,12 +27,18 @@ const DriverModules: React.FC<Props> = ({navigation}) => {
     {
       cardTitle: 'Ler QRCODE',
       cardIcon: 'qrcode',
-      cardAction: () => navigation.navigate('ReaderCamera'),
+      cardAction: () => {
+        setCameraType('qrcode');
+        navigation.navigate('ReaderCamera');
+      },
     },
     {
       cardTitle: 'Cód. de Barras',
       cardIcon: 'barcode',
-      cardAction: () => console.log('Cód. de Barras action'),
+      cardAction: () => {
+        setCameraType('barcode');
+        navigation.navigate('ReaderCamera');
+      },
     },
   ];
 

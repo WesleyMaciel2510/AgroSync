@@ -53,20 +53,3 @@ export const useInit = () => {
     requestPermissions();
   }, []);
 };
-
-/* export const useOnSendPicture = () => {
-  const {photo} = useSharedState();
-  console.log('chamou useOnSendPicture !! ');
-  if (photo) {
-    const jsonSavedPicture = storage.getString('savedPicture');
-    const pictureStored = JSON.parse(jsonSavedPicture);
-    console.log('@ pictureSaved @ RETRIVED @ = ', pictureStored);
-  }
-
-  const handleSendPicture = () => {
-    console.log('chamou handleSendPicture !! ');
-    console.log('PHOTO = ', photo);
-  };
-  return {handleSendPicture};
-};
- */
