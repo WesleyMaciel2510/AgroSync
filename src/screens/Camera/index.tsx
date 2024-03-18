@@ -9,11 +9,7 @@ import {
 } from 'react-native';
 import {useInit, useSharedState} from './logic';
 import {useSharedState as useSharedGlobalState} from '../../context/globalUseState';
-import {
-  Camera,
-  useCameraDevice,
-  useCameraFormat,
-} from 'react-native-vision-camera';
+import {Camera, useCameraDevice} from 'react-native-vision-camera';
 import {CameraRoll} from '@react-native-camera-roll/camera-roll';
 import {storage} from '../../helpers/storage';
 import {StackNavigationProp} from '@react-navigation/stack';
@@ -24,18 +20,13 @@ interface Props {
 
 const CameraScreen: React.FC<Props> = ({navigation}) => {
   const {cameraPermission, savePermission} = useSharedState();
-  const {setPhoto} = useSharedGlobalState();
+  const {setPhoto, setIsLoading} = useSharedGlobalState();
 
   useInit();
 
   const device = useCameraDevice('back');
   const {width, height} = Dimensions.get('screen');
-  console.log(' width = ', width, 'height = ', height);
-  const format = useCameraFormat(device, [
-    {photoAspectRatio: 16 / 9},
-    {autoFocusSystem: 'phase-detection'},
-    {photoResolution: 'max'},
-  ]);
+  //console.log(' width = ', width, 'height = ', height);
 
   const camera = useRef<Camera>(null);
   if (device == null) {
@@ -48,7 +39,8 @@ const CameraScreen: React.FC<Props> = ({navigation}) => {
     if (camera.current) {
       try {
         console.log('entrou no try');
-
+        navigation.navigate('InvoiceInfo');
+        setIsLoading(true);
         const photo = await camera.current.takePhoto();
         const result = await fetch(`file://${photo.path}`);
         console.log('photo path = ', result);
@@ -63,10 +55,11 @@ const CameraScreen: React.FC<Props> = ({navigation}) => {
           console.log('savedPicture = ', savedPicture);
           storage.set('savedPicture', JSON.stringify(savedPicture));
           setPhoto(savedPicture.node.image.uri);
-          navigation.navigate('InvoiceInfo');
+          setIsLoading(false);
         }
       } catch (error) {
         console.error('Error taking photo:', error);
+        setIsLoading(false);
       }
     }
   };
@@ -78,19 +71,21 @@ const CameraScreen: React.FC<Props> = ({navigation}) => {
           <View style={{flex: 1}}>
             <Camera
               //style={StyleSheet.absoluteFill}
-              style={{width: width, height: height - 1}}
+              style={{width: width, height: height, flex: 1}}
               device={device}
               isActive={true}
               ref={camera}
               photo={true}
             />
-            <TouchableOpacity
-              style={[styles.button, styles.buttonTakePicture]}
-              onPress={() => {
-                handleTakePicture();
-              }}>
-              <Text style={styles.buttonText}>TAKE PICTURE</Text>
-            </TouchableOpacity>
+            <View
+              style={[
+                styles.outerCircle,
+                {bottom: width * 0.05, left: width * 0.4},
+              ]}>
+              <TouchableOpacity onPress={handleTakePicture}>
+                <View style={styles.innerCircle} />
+              </TouchableOpacity>
+            </View>
           </View>
         ) : (
           <View>
@@ -130,6 +125,24 @@ const styles = StyleSheet.create({
     color: 'black',
     fontSize: 16,
     textAlign: 'center',
+  },
+  outerCircle: {
+    justifyContent: 'center',
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+    borderWidth: 5,
+    borderColor: '#dcdcde',
+    backgroundColor: 'transparent',
+    position: 'absolute',
+    alignSelf: 'center',
+  },
+  innerCircle: {
+    width: 80,
+    height: 80,
+    borderRadius: 50,
+    left: 5,
+    backgroundColor: 'white',
   },
 });
 export default CameraScreen;

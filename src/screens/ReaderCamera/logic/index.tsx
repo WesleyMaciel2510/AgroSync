@@ -1,7 +1,8 @@
-import {useEffect, useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import {useBetween} from 'use-between';
 import {useCameraPermission} from 'react-native-vision-camera';
 import {requestSavePermission} from '../../../helpers/savePicture';
+import {searchLoad} from '../../../services/loads/index';
 //import {PhotoIdentifier} from '@react-native-camera-roll/camera-roll';
 import {storage} from '../../../helpers/storage';
 import {useSharedState as useSharedGlobalState} from '../../../context/globalUseState';
@@ -52,4 +53,19 @@ export const useInit = () => {
     };
     requestPermissions();
   }, []);
+};
+
+export const useHandleSearch = () => {
+  const {hasPermission, requestPermission} = useCameraPermission();
+  const {cameraType} = useSharedGlobalState();
+
+  console.log('chamou useHandleSearch');
+  const handleSearch = async (loadNumber: number) => {
+    console.log('chamou handleSearch');
+    const result = await searchLoad(loadNumber);
+
+    console.log('result in logic = ', result);
+    return result;
+  };
+  return handleSearch;
 };

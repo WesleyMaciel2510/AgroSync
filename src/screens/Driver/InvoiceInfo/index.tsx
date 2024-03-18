@@ -9,13 +9,14 @@ import InfoTable from '../../../components/infoTable';
 import {useSharedState as useSharedGlobalState} from '../../../context/globalUseState';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import AlertComponent from '../../../components/Alert/alert';
+import LottieView from 'lottie-react-native';
 
 interface Props {
   navigation: StackNavigationProp<any>;
 }
 
 const LoadInfoScreen: React.FC<Props> = ({navigation}) => {
-  const {photo, setPhoto} = useSharedGlobalState();
+  const {photo, isLoading} = useSharedGlobalState();
   const handleConfirmAction = () => {
     console.log('CONFIRMED');
     //navigation.navigate();
@@ -72,10 +73,20 @@ const LoadInfoScreen: React.FC<Props> = ({navigation}) => {
             </TouchableOpacity>
           </View>
         </View>
-        {photo && (
+        {photo ? (
           <Image source={{uri: photo}} style={styles.invoicesImageArea} />
+        ) : isLoading ? (
+          <View style={styles.invoicesImageArea}>
+            <LottieView
+              source={require('../../../assets/lottie/loading-white.json')}
+              style={{width: 200, height: 200, margin: 20}}
+              autoPlay
+              loop={true}
+            />
+          </View>
+        ) : (
+          <View style={styles.invoicesImageArea} />
         )}
-        {!photo && <View style={styles.invoicesImageArea} />}
 
         <View style={styles.buttonContainer}>
           <Button

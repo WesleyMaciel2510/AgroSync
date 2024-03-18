@@ -20,8 +20,8 @@ export const useStateVariables = () => {
   const [password, setPassword] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [email, setEmail] = useState('');
-  const [userType, setUserType] = useState('');
-  const [isLogged, setIsLogged] = useState(false);
+  const [userType, setUserType] = useState('Motorista');
+  const [isLogged, setIsLogged] = useState(true);
   const [cameraPermission, setCameraPermission] = useState(false);
   const [savePermission, setSavePermission] = useState(false);
   const [photo, setPhoto] = useState<string | undefined>(undefined);
@@ -36,6 +36,7 @@ export const useStateVariables = () => {
     Status: '',
   });
   const [cameraType, setCameraType] = useState('');
+  const [actionType, setActionType] = useState('');
 
   return {
     isLoading,
@@ -64,6 +65,8 @@ export const useStateVariables = () => {
     setSchedulingInfo,
     cameraType,
     setCameraType,
+    actionType,
+    setActionType,
   };
 };
 

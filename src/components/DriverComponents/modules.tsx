@@ -11,7 +11,7 @@ interface Props {
 }
 const DriverModules: React.FC<Props> = ({navigation}) => {
   const {setModalVisible} = useSharedState();
-  const {setCameraType} = useSharedGlobalState();
+  const {setCameraType, setActionType} = useSharedGlobalState();
 
   const cardsData = [
     {
@@ -29,6 +29,7 @@ const DriverModules: React.FC<Props> = ({navigation}) => {
       cardIcon: 'qrcode',
       cardAction: () => {
         setCameraType('qrcode');
+        setActionType('searchLoad');
         navigation.navigate('ReaderCamera');
       },
     },
@@ -37,6 +38,7 @@ const DriverModules: React.FC<Props> = ({navigation}) => {
       cardIcon: 'barcode',
       cardAction: () => {
         setCameraType('barcode');
+        setActionType('searchLoad');
         navigation.navigate('ReaderCamera');
       },
     },
