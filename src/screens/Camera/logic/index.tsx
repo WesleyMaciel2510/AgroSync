@@ -3,7 +3,6 @@ import {useBetween} from 'use-between';
 import {useCameraPermission} from 'react-native-vision-camera';
 import {requestSavePermission} from '../../../helpers/savePicture';
 //import {PhotoIdentifier} from '@react-native-camera-roll/camera-roll';
-import {storage} from '../../../helpers/storage';
 import {useSharedState as useSharedGlobalState} from '../../../context/globalUseState';
 
 export const useStateVariables = () => {

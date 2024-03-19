@@ -1,17 +1,6 @@
-import {PhotoIdentifier} from '@react-native-camera-roll/camera-roll';
 import {useState} from 'react';
 import {useBetween} from 'use-between';
-
-interface SchedulingInfo {
-  DataAgendamento: string;
-  IDAgendamento: number;
-  IDCarga: number;
-  NomeProduto: string;
-  Observacao: string;
-  PesoProduto: string;
-  Quantidade: string;
-  Status: string;
-}
+import {SchedulingInfo, LoadInfo} from './interface';
 
 export const useStateVariables = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -25,6 +14,18 @@ export const useStateVariables = () => {
   const [cameraPermission, setCameraPermission] = useState(false);
   const [savePermission, setSavePermission] = useState(false);
   const [photo, setPhoto] = useState<string | undefined>(undefined);
+  const [loadInfo, setLoadInfo] = useState<LoadInfo>({
+    Destino: '',
+    ID: 0,
+    NomeDestino: '',
+    NomeMotorista: '',
+    NomeOrigem: '',
+    NomeProduto: '',
+    Origem: '',
+    Peso: '',
+    PlacaCaminhão: '',
+    PrazoEntrega: '',
+  });
   const [schedulingInfo, setSchedulingInfo] = useState<SchedulingInfo>({
     DataAgendamento: '',
     IDAgendamento: 0,
@@ -37,6 +38,7 @@ export const useStateVariables = () => {
   });
   const [cameraType, setCameraType] = useState('');
   const [actionType, setActionType] = useState('');
+  const [picturesToSend, setPicturesToSend] = useState<any>([]);
 
   return {
     isLoading,
@@ -61,12 +63,16 @@ export const useStateVariables = () => {
     setSavePermission,
     photo,
     setPhoto,
+    loadInfo,
+    setLoadInfo,
     schedulingInfo,
     setSchedulingInfo,
     cameraType,
     setCameraType,
     actionType,
     setActionType,
+    picturesToSend,
+    setPicturesToSend,
   };
 };
 

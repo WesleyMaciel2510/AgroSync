@@ -10,15 +10,32 @@ import {useSharedState as useSharedGlobalState} from '../../../context/globalUse
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import AlertComponent from '../../../components/Alert/alert';
 import LottieView from 'lottie-react-native';
+import {sendPicture} from '../../../services/pictures';
 
 interface Props {
   navigation: StackNavigationProp<any>;
 }
 
 const LoadInfoScreen: React.FC<Props> = ({navigation}) => {
-  const {photo, isLoading} = useSharedGlobalState();
-  const handleConfirmAction = () => {
+  const {photo, isLoading, picturesToSend, loadInfo} = useSharedGlobalState();
+  const handleConfirmAction = async () => {
     console.log('CONFIRMED');
+    console.log('picturesToSend = ', typeof picturesToSend);
+    console.log('ID = ', loadInfo);
+    console.log('loadInfo.ID', loadInfo.ID);
+    const dataToSend = {
+      ID: loadInfo.ID,
+      IDTYPE: 'LOADID',
+      IMGBASE64: picturesToSend,
+    };
+    console.log(
+      'dataToSend = ',
+      dataToSend.ID,
+      dataToSend.IDTYPE,
+      typeof dataToSend.IMGBASE64,
+    );
+    const result = await sendPicture(dataToSend);
+    console.log('result', result);
     //navigation.navigate();
   };
   const handleAttachStub = ({navigation}) => {

@@ -2,6 +2,7 @@ import {useEffect, useState} from 'react';
 import {useBetween} from 'use-between';
 import {searchLoad} from '../../../services/loads/index';
 import {useNavigation} from '@react-navigation/native';
+import {useSharedState as useSharedGlobalState} from '../../../context/globalUseState';
 
 export const useStateVariables = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -34,6 +35,7 @@ export const useOnSearchLoad = () => {
   const navigation = useNavigation();
 
   const {setIsLoading, setModalVisible, setNotFound} = useSharedState();
+  const {setLoadInfo} = useSharedGlobalState();
   const handleSearchLoad = async (inputValue: string) => {
     console.log('chamou handleSearchLoad');
     const inputNumber = parseInt(inputValue, 10);
@@ -41,6 +43,7 @@ export const useOnSearchLoad = () => {
     console.log('load = ', loadInfo);
     //check if the result is empty
     if (Object.keys(loadInfo).length > 0) {
+      setLoadInfo(loadInfo[0]);
       setModalVisible(false);
       setIsLoading(false);
       navigation.navigate('LoadInfo');
