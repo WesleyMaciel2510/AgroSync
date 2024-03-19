@@ -36,7 +36,7 @@ const PictureScreen: React.FC<Props> = ({navigation}) => {
               de Fotos
             </Text>
           </View>
-          <GridComponent />
+          <GridComponent navigation={navigation} />
         </View>
 
         {schedulingInfo.Status !== 'Finalizado' ? (

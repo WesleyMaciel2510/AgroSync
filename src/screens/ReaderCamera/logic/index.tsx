@@ -3,8 +3,8 @@ import {useBetween} from 'use-between';
 import {useCameraPermission} from 'react-native-vision-camera';
 import {requestSavePermission} from '../../../helpers/savePicture';
 import {searchLoad} from '../../../services/loads/index';
-//import {PhotoIdentifier} from '@react-native-camera-roll/camera-roll';
-import {storage} from '../../../helpers/storage';
+import {searchScheduling} from '../../../services/scheduling/index';
+
 import {useSharedState as useSharedGlobalState} from '../../../context/globalUseState';
 
 export const useStateVariables = () => {
@@ -24,7 +24,7 @@ export const useInit = () => {
   const {hasPermission, requestPermission} = useCameraPermission();
   const {setCameraPermission, savePermission, setSavePermission} =
     useSharedState();
-  const {cameraType} = useSharedGlobalState();
+  const {cameraType, setSchedulingInfo} = useSharedGlobalState();
 
   useEffect(() => {
     console.log('chamou useInit');
@@ -56,13 +56,20 @@ export const useInit = () => {
 };
 
 export const useHandleSearch = () => {
-  const {hasPermission, requestPermission} = useCameraPermission();
-  const {cameraType} = useSharedGlobalState();
-
+  const {actionType, setSchedulingInfo} = useSharedGlobalState();
   console.log('chamou useHandleSearch');
-  const handleSearch = async (loadNumber: number) => {
+  const handleSearch = async (numberToSearch: number) => {
     console.log('chamou handleSearch');
-    const result = await searchLoad(loadNumber);
+    let result;
+
+    if (actionType === 'searchLoad') {
+      console.log('actionType = ', actionType);
+      result = await searchLoad(numberToSearch);
+    } else if (actionType === 'schedulingInfo') {
+      console.log('actionType = ', actionType);
+      result = await searchScheduling(numberToSearch);
+      setSchedulingInfo(result[0]);
+    }
 
     console.log('result in logic = ', result);
     return result;

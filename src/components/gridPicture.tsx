@@ -1,24 +1,39 @@
 import React from 'react';
-import {TouchableOpacity, StyleSheet, Dimensions, View} from 'react-native';
+import {
+  TouchableOpacity,
+  StyleSheet,
+  Dimensions,
+  View,
+  Image,
+} from 'react-native';
 import {useSharedState} from '../screens/Operator/Picture/logic';
+import {useSharedState as useSharedGlobalState} from '../context/globalUseState';
 import ErrorSendModal from '../components/Modals/errorSendModal';
+import {StackNavigationProp} from '@react-navigation/stack';
+import LottieView from 'lottie-react-native';
+
+interface Props {
+  navigation: StackNavigationProp<any>;
+}
 
 const {width} = Dimensions.get('window');
 const itemPerRow = 3;
-const gap = 12;
-const paddingHorizontal = 16; // Adjust as needed
-const childWidth =
-  (width - gap * (itemPerRow + 1) - paddingHorizontal * 2) / itemPerRow;
+const paddingHorizontal = 16;
+const childWidth = width / 3.5;
 
-const GridView = () => {
-  const {modalVisible, setModalVisible} = useSharedState();
+const GridView = ({navigation}: Props) => {
+  const {photo, isLoading, setActionType, setPictureIndex} =
+    useSharedGlobalState();
+
   const onPressItem = (index: number) => {
     console.log('Item pressed:', index);
+    setActionType('CameraOperator');
+    setPictureIndex(index);
   };
 
   const renderItems = () => {
     const items = [];
-    for (let i = 0; i < 15; i++) {
+    for (let i = 0; i < 9; i++) {
       items.push(
         <TouchableOpacity
           key={i}
@@ -32,23 +47,11 @@ const GridView = () => {
 
   return (
     <View>
-      <TouchableOpacity style={styles.container}>
-        <TouchableOpacity style={styles.row}>
-          {renderItems().slice(0, 3)}
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.row}>
-          {renderItems().slice(3, 6)}
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.row}>
-          {renderItems().slice(6, 9)}
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.row}>
-          {renderItems().slice(9, 12)}
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.row}>
-          {renderItems().slice(12, 15)}
-        </TouchableOpacity>
-      </TouchableOpacity>
+      <View style={styles.container}>
+        <View style={styles.row}>{renderItems().slice(0, 3)}</View>
+        <View style={styles.row}>{renderItems().slice(3, 6)}</View>
+        <View style={styles.row}>{renderItems().slice(6, 9)}</View>
+      </View>
       <ErrorSendModal />
     </View>
   );
@@ -57,14 +60,16 @@ const GridView = () => {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'column',
-    justifyContent: 'center',
+    //justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: paddingHorizontal,
-    marginVertical: gap / 2,
+    marginVertical: 30,
   },
   row: {
     flexDirection: 'row',
-    marginBottom: gap,
+    marginBottom: 20,
+    marginLeft: 20,
+    marginRight: 20,
   },
   item: {
     backgroundColor: 'black',
@@ -73,9 +78,23 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderWidth: 4,
     borderColor: 'gray',
+    marginLeft: 10,
   },
   itemMarginRight: {
-    marginRight: gap,
+    //marginRight: gap,
+    marginLeft: 10,
+  },
+  ImageArea: {
+    padding: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 50,
+    borderWidth: 3,
+    borderColor: 'gray',
+    backgroundColor: 'black',
+    width: 250,
+    height: 250,
+    alignSelf: 'center',
   },
 });
 

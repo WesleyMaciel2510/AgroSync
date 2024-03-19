@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from 'react';
+import React, {useRef} from 'react';
 import {View, Text, StyleSheet, SafeAreaView, Dimensions} from 'react-native';
 import {useInit, useSharedState, useHandleSearch} from './logic';
 import {useSharedState as useSharedGlobalState} from '../../context/globalUseState';
@@ -52,28 +52,30 @@ const ReaderCameraScreen: React.FC<Props> = ({navigation}) => {
       try {
         //console.log('codes = ', codes);
         console.log('scannedInfo = ', codes[0]?.value);
-        if (actionType === 'searchLoad') {
-          console.log('entrou em searchLoad');
-          const scannedInfo = codes[0]?.value;
-          if (
-            scannedInfo &&
-            typeof parseInt(scannedInfo, 10) === 'number' &&
-            parseInt(scannedInfo, 10) > 0
-          ) {
-            console.log('number is greater than 0');
-            //parsing to number
-            const loadNumber = parseInt(scannedInfo, 10);
-            const result = await handleSearch(loadNumber);
-            console.log('result = ', result);
-            if (Object.keys(result).length > 0) {
-              console.log('dados encontrados');
-              navigation.navigate('LoadInfo');
-            } else {
-              console.log('dados nao encontrados');
-            }
+        console.log('entrou em searchLoad');
+        const scannedInfo = codes[0]?.value;
+        if (
+          scannedInfo &&
+          typeof parseInt(scannedInfo, 10) === 'number' &&
+          parseInt(scannedInfo, 10) > 0
+        ) {
+          console.log('number is greater than 0');
+          //parsing to number
+          const numberToSearch = parseInt(scannedInfo, 10);
+          let result;
+
+          result = await handleSearch(numberToSearch);
+          console.log('result = ', result);
+          if (Object.keys(result).length > 0) {
+            console.log('dados encontrados');
+            const navigateTo =
+              actionType === 'searchLoad' ? 'LoadInfo' : 'SchedulingInfo';
+            navigation.navigate(navigateTo);
           } else {
-            console.log('please scan a number greater than 0');
+            console.log('dados nao encontrados');
           }
+        } else {
+          console.log('please scan a number greater than 0');
         }
       } catch (error) {
         // Handle any errors that occur during the search

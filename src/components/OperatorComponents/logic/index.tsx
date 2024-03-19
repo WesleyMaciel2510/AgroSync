@@ -41,8 +41,8 @@ export const useOnSearchScheduling = () => {
     console.log('chamou handleSearchScheduling');
     const inputNumber = parseInt(inputValue, 10);
     const schedulingInfo = await searchScheduling(inputNumber);
-    console.log('schedulingInfo = ', schedulingInfo);
-    console.log('found = ', Object.keys(schedulingInfo).length > 0);
+    //console.log('schedulingInfo = ', schedulingInfo);
+    //console.log('found = ', Object.keys(schedulingInfo).length > 0);
     //check if the result is empty
     if (Object.keys(schedulingInfo).length > 0) {
       console.log('encontrado');

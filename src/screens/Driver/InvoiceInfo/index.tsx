@@ -1,12 +1,12 @@
 import React from 'react';
 import {View, StyleSheet, TouchableOpacity, Text, Image} from 'react-native';
 import {StackNavigationProp} from '@react-navigation/stack';
-import {useSharedState} from './logic';
+// {useSharedState} from './logic';
+import {useSharedState as useSharedGlobalState} from '../../../context/globalUseState';
 import DrawerMenu from '../../../components/Drawer/drawerMenu';
 import Header from '../../../components/Header/header';
 import Button from '../../../components/Button/button';
 import InfoTable from '../../../components/infoTable';
-import {useSharedState as useSharedGlobalState} from '../../../context/globalUseState';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import AlertComponent from '../../../components/Alert/alert';
 import LottieView from 'lottie-react-native';
@@ -17,9 +17,9 @@ interface Props {
 }
 
 const LoadInfoScreen: React.FC<Props> = ({navigation}) => {
-  const {photo, isLoading, picturesToSend, loadInfo} = useSharedGlobalState();
+  const {photo, isLoading, picturesToSend, loadInfo, setActionType} =
+    useSharedGlobalState();
   const handleConfirmAction = async () => {
-    console.log('CONFIRMED');
     console.log('picturesToSend = ', typeof picturesToSend);
     console.log('ID = ', loadInfo);
     console.log('loadInfo.ID', loadInfo.ID);
@@ -43,6 +43,7 @@ const LoadInfoScreen: React.FC<Props> = ({navigation}) => {
   const handleAttachStub = ({navigation}) => {
     console.log('CHAMOU handleAttachStub');
     navigation.navigate('Camera');
+    setActionType('CameraDriver');
   };
 
   const confirmDelivery = () => {

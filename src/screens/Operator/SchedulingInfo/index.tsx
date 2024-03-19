@@ -33,7 +33,7 @@ const SchedulingInfoScreen: React.FC<Props> = ({navigation}) => {
       tableColor = '#FF0000';
       break;
     default:
-      tableColor = '#000';
+      tableColor = '#3498DB';
       break;
   }
   //============================================================================
