@@ -50,7 +50,7 @@ const CameraScreen: React.FC<Props> = ({navigation}) => {
           //storage.set('savedPicture', JSON.stringify(savedPicture));
           setPhoto(savedPicture.node.image.uri);
           setIsLoading(false);
-          //navigation.navigate('InvoiceInfo');
+          navigation.navigate('InvoiceInfo');
           //=======================================
           const reader = new FileReader();
           reader.onloadend = function () {

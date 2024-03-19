@@ -8,8 +8,8 @@ export const sendPicture = async (pictureObject: Object) => {
       'http://192.168.100.2:3000/api/pictures',
       pictureObject,
     );
-    console.log('Server response:', response.data);
-    return response.data;
+    console.log('sendPicture response:', response.data);
+    return true;
   } catch (error) {
     if (axios.isAxiosError(error)) {
       if (error.code === 'ECONNABORTED') {

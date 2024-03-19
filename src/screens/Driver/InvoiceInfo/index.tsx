@@ -36,7 +36,9 @@ const LoadInfoScreen: React.FC<Props> = ({navigation}) => {
     );
     const result = await sendPicture(dataToSend);
     console.log('result', result);
-    //navigation.navigate();
+    if (result) {
+      navigation.navigate('Home');
+    }
   };
   const handleAttachStub = ({navigation}) => {
     console.log('CHAMOU handleAttachStub');
