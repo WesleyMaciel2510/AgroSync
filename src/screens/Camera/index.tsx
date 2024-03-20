@@ -1,7 +1,6 @@
 import React, {useRef} from 'react';
 import {
   View,
-  Text,
   StyleSheet,
   SafeAreaView,
   TouchableOpacity,
@@ -12,6 +11,7 @@ import {useSharedState as useSharedGlobalState} from '../../context/globalUseSta
 import {Camera, useCameraDevice} from 'react-native-vision-camera';
 import {CameraRoll} from '@react-native-camera-roll/camera-roll';
 import {StackNavigationProp} from '@react-navigation/stack';
+import DeniedPermission from '../../components/deniedPermission';
 interface Props {
   navigation: StackNavigationProp<any>;
 }
@@ -105,7 +105,7 @@ const CameraScreen: React.FC<Props> = ({navigation}) => {
   return (
     <SafeAreaView style={{flex: 1}}>
       <View style={styles.container}>
-        {cameraPermission ? (
+        {!cameraPermission ? (
           <View style={{flex: 1}}>
             <Camera
               //style={StyleSheet.absoluteFill}
@@ -126,11 +126,7 @@ const CameraScreen: React.FC<Props> = ({navigation}) => {
             </View>
           </View>
         ) : (
-          <View>
-            <Text style={{color: 'red', fontWeight: 'bold'}}>
-              Camera Screen Não tem permissão
-            </Text>
-          </View>
+          <DeniedPermission permissionLabel={'camera'} />
         )}
       </View>
     </SafeAreaView>

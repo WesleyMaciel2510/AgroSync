@@ -8,7 +8,7 @@ import {getAnimationName} from '../../assets/lottie/producer/getAnimationName';
 import GreetingComponent from './Weather/greeting';
 import TodayColumn from '../../components/ProducerComponents/Weather/todayColumn';
 import NextForecast from '../../components/ProducerComponents/Weather/nextForecast';
-import ErrorInfo from '../../components/ProducerComponents/Weather/errorInfo';
+import DeniedPermission from '../deniedPermission';
 
 const ProducerModules = () => {
   const {
@@ -37,7 +37,7 @@ const ProducerModules = () => {
   // ============================================================================
   return (
     <ScrollView style={[styles.container, {backgroundColor: '#fff'}]}>
-      {!locationPermission && <ErrorInfo />}
+      {!locationPermission && <DeniedPermission permissionLabel="location" />}
       {locationPermission && (
         <View>
           <GreetingComponent />

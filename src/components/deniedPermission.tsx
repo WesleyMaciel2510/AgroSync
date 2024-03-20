@@ -1,33 +1,50 @@
 import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import LottieView from 'lottie-react-native';
-import {useSharedState} from '../../../components/ProducerComponents/logic';
+import {useSharedState} from './ProducerComponents/logic';
 import {Linking} from 'react-native';
-import {requestLocationPermission} from '../../../services/weather/askPermission';
+import {requestLocationPermission} from '../services/weather/askPermission';
+import {useCameraPermission} from 'react-native-vision-camera';
 
-const ErrorInfo = () => {
+const DeniedPermission: React.FC<{permissionLabel: string}> = ({
+  permissionLabel,
+}) => {
   const {locationPermission} = useSharedState();
+  const {requestPermission} = useCameraPermission();
   const handlePress = () => {
+    permissionLabel === 'location'
+      ? requestLocationPermission()
+      : requestPermission();
     console.log('locationPermission = ', locationPermission);
-    requestLocationPermission();
   };
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Location Permission {'\n'} Not Granted</Text>
+      <Text style={styles.title}>
+        {permissionLabel === 'location'
+          ? `Permissão de Acesso à ${permissionLabel} não concedida`
+          : `Permissão de Acesso à ${permissionLabel} não concedida`}
+      </Text>
+
       <View style={styles.background}>
         <LottieView
-          source={require('../../../assets/lottie/producer/travel.json')}
+          source={require('../assets/lottie/producer/travel.json')}
           style={styles.lottieView}
           loop
           autoPlay
         />
       </View>
-      <Text style={styles.text}>
-        Pressione o botão abaixo para solicitar permissão novamente.
-        {'\n'}
-        {'\n'}Se necessário, você pode ir para Configurações e verificar se a
-        permissão foi concedida.
-      </Text>
+      <View>
+        <Text style={styles.text}>
+          Pressione o botão abaixo para solicitar permissão novamente.
+          {'\n'}
+        </Text>
+      </View>
+      <View>
+        <Text style={styles.text}>
+          Se necessário, você pode ir para Configurações e verificar se a
+          permissão foi concedida.
+        </Text>
+      </View>
 
       <View style={styles.buttonContainer}>
         <TouchableOpacity
@@ -50,7 +67,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   title: {
-    color: 'white',
+    color: 'black',
     fontSize: 28,
     fontWeight: 'bold',
     margin: 20,
@@ -67,7 +84,7 @@ const styles = StyleSheet.create({
     height: 300,
   },
   text: {
-    color: 'white',
+    color: 'black',
     fontSize: 18,
     fontWeight: 'bold',
     margin: 20,
@@ -95,4 +112,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ErrorInfo;
+export default DeniedPermission;
