@@ -11,18 +11,25 @@ interface Props {
 }
 const OperatorModules: React.FC<Props> = ({navigation}) => {
   const {setModalVisible} = useSharedState();
-  const {setCameraType, setActionType} = useSharedGlobalState();
+  const {setCameraType, setActionType, setQuickRegister} =
+    useSharedGlobalState();
 
   const cardsData = [
     {
       cardTitle: 'Consultar Agendamento',
       cardIcon: 'calendar-check',
-      cardAction: () => setModalVisible(true),
+      cardAction: () => {
+        setModalVisible(true);
+        setQuickRegister(false);
+      },
     },
     {
       cardTitle: 'Registro \nRápido',
       cardIcon: 'dolly-flatbed',
-      cardAction: () => navigation.navigate('Picture'),
+      cardAction: () => {
+        navigation.navigate('Picture');
+        setQuickRegister(true);
+      },
     },
     {
       cardTitle: 'Ler QRCODE',

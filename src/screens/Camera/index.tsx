@@ -73,17 +73,19 @@ const CameraScreen: React.FC<Props> = ({navigation}) => {
               (base64data as string).indexOf(',') + 1,
             );
             if (actionType === 'CameraOperator') {
-              //setPicturesToDisplay(savedPicture.node.image.uri);
-              /* if (picturesToDisplay[pictureIndex].length > 0) */
               setPicturesToDisplay(prevState => {
                 const newState = [...prevState]; // Create a copy of the current state array
                 newState[pictureIndex] = savedPicture.node.image.uri; // Update the value at the specified index
                 return newState; // Return the updated array
               });
-              /* } */
+              setPicturesToSend((prevState: string) => {
+                const newState = [...prevState]; // Create a copy of the current state array
+                newState[pictureIndex] = imageData; // Update the value at the specified index
+                return newState; // Return the updated array
+              });
             } else {
               setPhoto(savedPicture.node.image.uri);
-              setPicturesToSend(imageData);
+              setPicturesToSend([imageData]);
             }
 
             //setIsLoading(false);

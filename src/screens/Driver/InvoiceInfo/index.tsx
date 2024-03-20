@@ -31,12 +31,12 @@ const LoadInfoScreen: React.FC<Props> = ({navigation}) => {
       IDTYPE: 'LOADID',
       IMGBASE64: picturesToSend,
     };
-    console.log(
+    /* console.log(
       'dataToSend = ',
       dataToSend.ID,
       dataToSend.IDTYPE,
       typeof dataToSend.IMGBASE64,
-    );
+    ); */
     const result = await sendPicture(dataToSend);
     console.log('result', result);
     if (result) {

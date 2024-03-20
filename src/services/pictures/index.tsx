@@ -1,3 +1,4 @@
 import {sendPicture} from './sendPicture';
+import {sendArrayofPictures} from './sendArrayofPictures';
 
-export {sendPicture};
+export {sendPicture, sendArrayofPictures};
