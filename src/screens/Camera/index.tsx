@@ -19,6 +19,7 @@ const CameraScreen: React.FC<Props> = ({navigation}) => {
   const {cameraPermission, savePermission} = useSharedState();
   const {
     setPhoto,
+    picturesToDisplay,
     setPicturesToDisplay,
     setIsLoading,
     setPicturesToSend,
@@ -39,7 +40,7 @@ const CameraScreen: React.FC<Props> = ({navigation}) => {
   const handleTakePicture = async () => {
     console.log('chamou handleTakePicture');
     if (camera.current) {
-      setIsLoading(true);
+      //setIsLoading(true);
       try {
         console.log('entrou no try');
         console.log('actionType = ', actionType);
@@ -49,6 +50,12 @@ const CameraScreen: React.FC<Props> = ({navigation}) => {
         console.log('photo path = ', result);
         const blob = await result.blob();
         console.log('Photo blob = ', blob);
+        //=======================================
+        actionType === 'CameraOperator'
+          ? navigation.navigate('Picture')
+          : navigation.navigate('InvoiceInfo');
+        //=======================================
+
         if (savePermission) {
           const savedPicture = await CameraRoll.saveAsset(
             `file://${photo.path}`,
@@ -67,21 +74,19 @@ const CameraScreen: React.FC<Props> = ({navigation}) => {
             );
             if (actionType === 'CameraOperator') {
               //setPicturesToDisplay(savedPicture.node.image.uri);
-
+              /* if (picturesToDisplay[pictureIndex].length > 0) */
               setPicturesToDisplay(prevState => {
                 const newState = [...prevState]; // Create a copy of the current state array
                 newState[pictureIndex] = savedPicture.node.image.uri; // Update the value at the specified index
                 return newState; // Return the updated array
               });
-
-              navigation.navigate('Picture');
+              /* } */
             } else {
               setPhoto(savedPicture.node.image.uri);
-              navigation.navigate('InvoiceInfo');
               setPicturesToSend(imageData);
             }
 
-            setIsLoading(false);
+            //setIsLoading(false);
           };
           reader.readAsDataURL(blob);
           //=======================================

@@ -43,8 +43,7 @@ const GridView = ({navigation}: Props) => {
               style={styles.item}
               key={i}
             />
-          </TouchableOpacity>
-        ) : isLoading ? (
+          </TouchableOpacity> /* : isLoading ? (
           <View style={styles.item} key={i}>
             <LottieView
               source={require('../assets/lottie/loading-white.json')}
@@ -53,6 +52,7 @@ const GridView = ({navigation}: Props) => {
               loop={true}
             />
           </View>
+        ) */
         ) : (
           <TouchableOpacity
             key={i}

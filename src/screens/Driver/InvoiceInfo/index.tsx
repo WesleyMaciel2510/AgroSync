@@ -98,7 +98,8 @@ const LoadInfoScreen: React.FC<Props> = ({navigation}) => {
         </View>
         {photo ? (
           <Image source={{uri: photo}} style={styles.invoicesImageArea} />
-        ) : isLoading ? (
+        ) : (
+          /* isLoading ? (
           <View style={styles.invoicesImageArea}>
             <LottieView
               source={require('../../../assets/lottie/loading-white.json')}
@@ -107,8 +108,7 @@ const LoadInfoScreen: React.FC<Props> = ({navigation}) => {
               loop={true}
             />
           </View>
-        ) : (
-          <View style={styles.invoicesImageArea} />
+        ) : */ <View style={styles.invoicesImageArea} />
         )}
 
         <View style={styles.buttonContainer}>
