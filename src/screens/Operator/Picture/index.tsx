@@ -21,8 +21,9 @@ const PictureScreen: React.FC<Props> = ({navigation}) => {
 
   const handleChangeStatus = async () => {
     console.log('CHAMOU handleChangeStatus');
+    console.log('picturesToDisplay = ', picturesToDisplay);
     //chamar funcao de enviar fotos
-    setModalVisible(true);
+    //setModalVisible(true);
     //navigation.navigate('');
   };
   //============================================================================

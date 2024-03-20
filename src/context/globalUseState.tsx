@@ -16,8 +16,8 @@ export const useStateVariables = () => {
   const [cameraPermission, setCameraPermission] = useState(false);
   const [savePermission, setSavePermission] = useState(false);
   const [photo, setPhoto] = useState<string | undefined>(undefined);
-  const [picturesToDisplay, setPicturesToDisplay] = useState('');
-  //const [picturesToDisplay, setPicturesToDisplay] = useState<string[]>([]);
+  //const [picturesToDisplay, setPicturesToDisplay] = useState('');
+  const [picturesToDisplay, setPicturesToDisplay] = useState<string[]>([]);
   const [picturesToSend, setPicturesToSend] = useState<any>([]);
   const [pictureIndex, setPictureIndex] = useState(0);
   const [loadInfo, setLoadInfo] = useState<LoadInfo>({

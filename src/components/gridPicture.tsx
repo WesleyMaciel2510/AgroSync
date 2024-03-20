@@ -36,12 +36,14 @@ const GridView = ({navigation}: Props) => {
     const items = [];
     for (let i = 0; i < 9; i++) {
       items.push(
-        picturesToDisplay ? (
-          <Image
-            source={{uri: picturesToDisplay}}
-            style={styles.item}
-            key={i}
-          />
+        picturesToDisplay[i] ? (
+          <TouchableOpacity onPress={() => onPressItem(i)} key={i}>
+            <Image
+              source={{uri: picturesToDisplay[i]}}
+              style={styles.item}
+              key={i}
+            />
+          </TouchableOpacity>
         ) : isLoading ? (
           <View style={styles.item} key={i}>
             <LottieView

@@ -23,6 +23,7 @@ const CameraScreen: React.FC<Props> = ({navigation}) => {
     setIsLoading,
     setPicturesToSend,
     actionType,
+    pictureIndex,
   } = useSharedGlobalState();
 
   const device = useCameraDevice('back');
@@ -65,8 +66,14 @@ const CameraScreen: React.FC<Props> = ({navigation}) => {
               (base64data as string).indexOf(',') + 1,
             );
             if (actionType === 'CameraOperator') {
-              console.log('PIC = ', savedPicture.node.image.uri);
-              setPicturesToDisplay(savedPicture.node.image.uri);
+              //setPicturesToDisplay(savedPicture.node.image.uri);
+
+              setPicturesToDisplay(prevState => {
+                const newState = [...prevState]; // Create a copy of the current state array
+                newState[pictureIndex] = savedPicture.node.image.uri; // Update the value at the specified index
+                return newState; // Return the updated array
+              });
+
               navigation.navigate('Picture');
             } else {
               setPhoto(savedPicture.node.image.uri);
