@@ -19,6 +19,9 @@ interface Props {
 const LoadInfoScreen: React.FC<Props> = ({navigation}) => {
   const {photo, isLoading, picturesToSend, loadInfo, setActionType} =
     useSharedGlobalState();
+  {
+    console.log('photo = ', photo);
+  }
   const handleConfirmAction = async () => {
     console.log('picturesToSend = ', typeof picturesToSend);
     console.log('ID = ', loadInfo);

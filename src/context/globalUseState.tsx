@@ -15,9 +15,11 @@ export const useStateVariables = () => {
   //const [isLogged, setIsLogged] = useState(true);
   const [cameraPermission, setCameraPermission] = useState(false);
   const [savePermission, setSavePermission] = useState(false);
-  //const [photo, setPhoto] = useState<string | undefined>(undefined);
-  const [photo, setPhoto] = useState<any>([]);
-
+  const [photo, setPhoto] = useState<string | undefined>(undefined);
+  const [picturesToDisplay, setPicturesToDisplay] = useState('');
+  //const [picturesToDisplay, setPicturesToDisplay] = useState<string[]>([]);
+  const [picturesToSend, setPicturesToSend] = useState<any>([]);
+  const [pictureIndex, setPictureIndex] = useState(0);
   const [loadInfo, setLoadInfo] = useState<LoadInfo>({
     Destino: '',
     ID: 0,
@@ -42,9 +44,6 @@ export const useStateVariables = () => {
   });
   const [cameraType, setCameraType] = useState('');
   const [actionType, setActionType] = useState('');
-  const [picturesToSend, setPicturesToSend] = useState<any>([]);
-  const [pictureIndex, setPictureIndex] = useState(0);
-
   return {
     isLoading,
     setIsLoading,
@@ -68,6 +67,8 @@ export const useStateVariables = () => {
     setSavePermission,
     photo,
     setPhoto,
+    picturesToDisplay,
+    setPicturesToDisplay,
     loadInfo,
     setLoadInfo,
     schedulingInfo,

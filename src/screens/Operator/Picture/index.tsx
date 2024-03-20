@@ -15,7 +15,8 @@ interface Props {
 
 const PictureScreen: React.FC<Props> = ({navigation}) => {
   const {modalVisible, setModalVisible} = useSharedState();
-  const {photo, setPhoto, schedulingInfo} = useSharedGlobalState();
+  const {photo, setPhoto, schedulingInfo, picturesToDisplay} =
+    useSharedGlobalState();
   useInit();
 
   const handleChangeStatus = async () => {

@@ -22,24 +22,42 @@ const paddingHorizontal = 16;
 const childWidth = width / 3.5;
 
 const GridView = ({navigation}: Props) => {
-  const {photo, isLoading, setActionType, setPictureIndex} =
+  const {photo, isLoading, setActionType, setPictureIndex, picturesToDisplay} =
     useSharedGlobalState();
 
   const onPressItem = (index: number) => {
     console.log('Item pressed:', index);
     setActionType('CameraOperator');
     setPictureIndex(index);
+    navigation.navigate('Camera');
   };
 
   const renderItems = () => {
     const items = [];
     for (let i = 0; i < 9; i++) {
       items.push(
-        <TouchableOpacity
-          key={i}
-          style={[styles.item, i % itemPerRow !== 0 && styles.itemMarginRight]}
-          onPress={() => onPressItem(i)}
-        />,
+        picturesToDisplay ? (
+          <Image
+            source={{uri: picturesToDisplay}}
+            style={styles.item}
+            key={i}
+          />
+        ) : isLoading ? (
+          <View style={styles.item} key={i}>
+            <LottieView
+              source={require('../assets/lottie/loading-white.json')}
+              style={{width: 200, height: 200, margin: 20}}
+              autoPlay
+              loop={true}
+            />
+          </View>
+        ) : (
+          <TouchableOpacity
+            key={i}
+            style={[styles.item, i % itemPerRow !== 0 && styles.itemMargin]}
+            onPress={() => onPressItem(i)}
+          />
+        ),
       );
     }
     return items;
@@ -60,7 +78,6 @@ const GridView = ({navigation}: Props) => {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'column',
-    //justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: paddingHorizontal,
     marginVertical: 30,
@@ -80,7 +97,7 @@ const styles = StyleSheet.create({
     borderColor: 'gray',
     marginLeft: 10,
   },
-  itemMarginRight: {
+  itemMargin: {
     //marginRight: gap,
     marginLeft: 10,
   },

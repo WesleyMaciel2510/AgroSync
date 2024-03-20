@@ -17,7 +17,13 @@ interface Props {
 }
 const CameraScreen: React.FC<Props> = ({navigation}) => {
   const {cameraPermission, savePermission} = useSharedState();
-  const {setPhoto, setIsLoading, setPicturesToSend} = useSharedGlobalState();
+  const {
+    setPhoto,
+    setPicturesToDisplay,
+    setIsLoading,
+    setPicturesToSend,
+    actionType,
+  } = useSharedGlobalState();
 
   const device = useCameraDevice('back');
   const {width, height} = Dimensions.get('screen');
@@ -35,6 +41,7 @@ const CameraScreen: React.FC<Props> = ({navigation}) => {
       setIsLoading(true);
       try {
         console.log('entrou no try');
+        console.log('actionType = ', actionType);
 
         const photo = await camera.current.takePhoto();
         const result = await fetch(`file://${photo.path}`);
@@ -48,9 +55,7 @@ const CameraScreen: React.FC<Props> = ({navigation}) => {
           );
           console.log('savedPicture = ', savedPicture);
           //storage.set('savedPicture', JSON.stringify(savedPicture));
-          setPhoto(savedPicture.node.image.uri);
-          setIsLoading(false);
-          navigation.navigate('InvoiceInfo');
+
           //=======================================
           const reader = new FileReader();
           reader.onloadend = function () {
@@ -59,11 +64,17 @@ const CameraScreen: React.FC<Props> = ({navigation}) => {
             const imageData = (base64data as string).substring(
               (base64data as string).indexOf(',') + 1,
             );
-            setPicturesToSend(imageData);
-            /* setPicturesToSend((prevPictures: any) => [
-              ...prevPictures,
-              base64data,
-            ]); */
+            if (actionType === 'CameraOperator') {
+              console.log('PIC = ', savedPicture.node.image.uri);
+              setPicturesToDisplay(savedPicture.node.image.uri);
+              navigation.navigate('Picture');
+            } else {
+              setPhoto(savedPicture.node.image.uri);
+              navigation.navigate('InvoiceInfo');
+              setPicturesToSend(imageData);
+            }
+
+            setIsLoading(false);
           };
           reader.readAsDataURL(blob);
           //=======================================
