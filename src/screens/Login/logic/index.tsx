@@ -40,13 +40,14 @@ export const useOnLogin = () => {
 
       // =======================================================
       console.log('@Logic@ loginResponse = ', loginResponse);
+      console.log('@Logic@ loginResponse?.data = ', loginResponse?.data);
 
       if (loginResponse?.timeout) {
         LoginErrorAlert(
           'Não foi possível se conectar com o servidor. Verifique sua conexão ou tente novamente mais tarde..',
         );
       }
-      if (loginResponse?.data) {
+      if (loginResponse?.ID) {
         console.log('Login successful!');
         storage.set('loggedUserName', loginResponse.FullName);
         storage.set('ISLOGGED', true);

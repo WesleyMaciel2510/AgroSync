@@ -92,90 +92,93 @@ const ReaderCameraScreen: React.FC<Props> = ({navigation}) => {
   }
 
   return (
-    <SafeAreaView style={{flex: 1}}>
-      <View style={styles.container}>
-        {cameraPermission ? (
-          <View
+    <View style={styles.container}>
+      {cameraPermission ? (
+        <View style={styles.cameraContainer}>
+          <Camera
             style={{
               flex: 1,
-            }}>
-            <Camera
-              style={{
-                width: width,
-                height: height,
-                flex: 1,
-              }}
-              codeScanner={codeScanner}
-              device={device}
-              isActive={true}
-              ref={camera}
-            />
-            {cameraType === 'qrcode' ? (
-              <View
-                style={[
-                  styles.codeBorder,
-                  {
-                    width: width * 0.5,
-                    height: width * 0.5,
-                    left: width * 0.25,
-                    bottom: width * 0.8,
-                  },
-                ]}
-              />
-            ) : (
-              <View
-                style={[
-                  styles.codeBorder,
-                  {
-                    width: width * 0.5,
-                    height: width * 1.35,
-                    left: width * 0.25,
-                    bottom: width * 0.4,
-                  },
-                ]}
-              />
-            )}
-          </View>
-        ) : (
-          <DeniedPermission permissionLabel={'camera'} />
-        )}
-      </View>
-    </SafeAreaView>
+            }}
+            codeScanner={codeScanner}
+            device={device}
+            isActive={true}
+            ref={camera}
+          />
+          {cameraType === 'qrcode' && (
+            <View style={styles.borderContainer}>
+              <View style={[styles.border, {width: 300, height: 300}]}>
+                <View style={styles.cornerTopLeft} />
+                <View style={styles.cornerTopRight} />
+                <View style={styles.cornerBottomLeft} />
+                <View style={styles.cornerBottomRight} />
+              </View>
+            </View>
+          )}
+        </View>
+      ) : (
+        <DeniedPermission permissionLabel={'camera'} />
+      )}
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row',
     flex: 1,
   },
-  button: {
-    backgroundColor: 'white',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 8,
-    marginHorizontal: 5,
+  cameraContainer: {
+    flex: 1,
   },
-  buttonTakePicture: {
+  borderContainer: {
+    ...StyleSheet.absoluteFillObject,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  border: {
+    width: 200,
+    height: 200,
+    backgroundColor: 'transparent',
+    position: 'relative',
+  },
+  cornerTopLeft: {
     position: 'absolute',
-    bottom: 30,
-    left: '33%',
-  },
-  buttonSendPicture: {
-    position: 'absolute',
-    bottom: 90,
-    left: '33%',
-  },
-  buttonText: {
-    color: 'black',
-    fontSize: 16,
-    textAlign: 'center',
-  },
-  codeBorder: {
-    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: 50,
+    height: 50,
+    borderTopWidth: 4,
+    borderLeftWidth: 4,
     borderColor: 'white',
-    borderWidth: 4,
-    borderRadius: 15,
+  },
+  cornerTopRight: {
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    width: 50,
+    height: 50,
+    borderTopWidth: 4,
+    borderRightWidth: 4,
+    borderColor: 'white',
+  },
+  cornerBottomLeft: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    width: 50,
+    height: 50,
+    borderBottomWidth: 4,
+    borderLeftWidth: 4,
+    borderColor: 'white',
+  },
+  cornerBottomRight: {
+    position: 'absolute',
+    bottom: 0,
+    right: 0,
+    width: 50,
+    height: 50,
+    borderBottomWidth: 4,
+    borderRightWidth: 2,
+    borderColor: 'white',
   },
 });
 export default ReaderCameraScreen;

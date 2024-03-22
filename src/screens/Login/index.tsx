@@ -26,19 +26,18 @@ const LoginScreen: React.FC<Props> = ({navigation}) => {
       <View style={{flexDirection: 'row'}}>
         <LottieView
           source={require('../../assets/lottie/login1.json')}
-          style={{width: 200, height: 200, margin: 20, flex: 1}}
+          style={{width: 200, height: 200, margin: 20, top: 70, flex: 1}}
           autoPlay
           loop={true}
         />
         <LottieView
           source={require('../../assets/lottie/login2.json')}
-          style={{width: 200, height: 200, margin: 20, flex: 1}}
+          style={{width: 200, height: 200, margin: 20, top: 70, flex: 1}}
           autoPlay
           loop={true}
         />
       </View>
       <Logo />
-      <Text style={styles.title}>Agrosync</Text>
 
       <View style={styles.inputArea}>
         <FontAwesome5 name={'user-tie'} size={30} color={'#000'} />
@@ -84,12 +83,6 @@ const LoginScreen: React.FC<Props> = ({navigation}) => {
 };
 
 const styles = StyleSheet.create({
-  title: {
-    fontSize: 36,
-    fontWeight: 'bold',
-    color: '#3deb82',
-    marginBottom: 20,
-  },
   inputArea: {
     padding: 20,
     flexDirection: 'row',

@@ -24,7 +24,7 @@ export const DefaultStyles = StyleSheet.create({
     backgroundColor: '#edf7f1',
     resizeMode: 'center',
     width: width,
-    height: height - 575,
+    height: height - 550,
   },
   center: {
     flex: 1,
