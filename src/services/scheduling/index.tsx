@@ -1,3 +1,3 @@
-import {searchScheduling} from './searchScheduling';
+import {SearchScheduling} from './searchScheduling';
 
-export {searchScheduling};
+export {SearchScheduling};

@@ -39,9 +39,14 @@ export const useOnLogin = () => {
       //storage.set('USERLOGGEDINFO', loginResponseString);
 
       // =======================================================
-
       console.log('@Logic@ loginResponse = ', loginResponse);
-      if (loginResponse) {
+
+      if (loginResponse?.timeout) {
+        LoginErrorAlert(
+          'Não foi possível se conectar com o servidor. Verifique sua conexão ou tente novamente mais tarde..',
+        );
+      }
+      if (loginResponse?.data) {
         console.log('Login successful!');
         storage.set('loggedUserName', loginResponse.FullName);
         storage.set('ISLOGGED', true);
@@ -50,17 +55,20 @@ export const useOnLogin = () => {
         storage.set('fullName', loginResponse.FullName);
         setUserType(loginResponse.UserType);
         storage.set('loggedUserType', loginResponse.UserType);
-
         navigation.navigate('Home');
-      } else if (loginResponse === 'Incorrect password') {
+      } else if (loginResponse?.passwordIncorrect) {
         console.log('Incorrect Password!');
-        LoginErrorAlert('Incorrect Password! Please check your Password');
-      } else {
+        LoginErrorAlert(
+          'Senha Incorreta. Por favor, verifique ou redefina sua senha.',
+        );
+      } else if (loginResponse?.userNotFound) {
         console.log('Login failed!');
-        LoginErrorAlert();
+        LoginErrorAlert(
+          'Usuário não encontrado. Por favor, verifique o seu usuário.',
+        );
       }
     } catch (error) {
-      console.error('Error during login:', error);
+      console.error('Erro no Login:', error);
       LoginErrorAlert();
     }
   };

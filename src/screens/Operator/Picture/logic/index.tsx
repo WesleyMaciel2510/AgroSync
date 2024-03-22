@@ -30,6 +30,6 @@ export const useInit = () => {
   const {schedulingInfo} = useSharedGlobalState();
   useEffect(() => {
     console.log('chamou useInit');
-    console.log('schedulingInfo = ', schedulingInfo.Status);
+    console.log('schedulingInfo = ', schedulingInfo?.Status);
   }, []);
 };

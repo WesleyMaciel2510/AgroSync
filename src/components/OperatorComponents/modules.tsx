@@ -3,7 +3,7 @@ import {StyleSheet, View} from 'react-native';
 import {useSharedState} from './logic';
 import {useSharedState as useSharedGlobalState} from '../../context/globalUseState';
 import {StackNavigationProp} from '@react-navigation/stack';
-import SearchScheduling from '../Modals/searchScheduling';
+import SearchSchedulingModal from '../Modals/searchSchedulingModal';
 import CardHome from '../cardHome';
 
 interface Props {
@@ -61,7 +61,7 @@ const OperatorModules: React.FC<Props> = ({navigation}) => {
           onPress={data.cardAction}
         />
       ))}
-      <SearchScheduling />
+      <SearchSchedulingModal />
     </View>
   );
 };

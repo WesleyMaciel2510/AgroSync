@@ -15,7 +15,7 @@ import {
 import Button from '../Button/button';
 import LottieView from 'lottie-react-native';
 
-const SearchScheduling = () => {
+const SearchSchedulingModal = () => {
   const {
     isLoading,
     setIsLoading,
@@ -25,6 +25,8 @@ const SearchScheduling = () => {
     setInputValue,
     notFound,
     setNotFound,
+    serverTimeout,
+    setServerTimeout,
   } = useSharedState();
   const {handleSearchScheduling} = useOnSearchScheduling();
   const AnimationPath = notFound
@@ -51,6 +53,8 @@ const SearchScheduling = () => {
               style={styles.icon}
               onPress={() => {
                 setModalVisible(!modalVisible);
+                setNotFound(false);
+                setServerTimeout(false);
               }}>
               <FontAwesome5 name={'times'} size={30} color={'gray'} />
             </TouchableOpacity>
@@ -66,6 +70,13 @@ const SearchScheduling = () => {
           {notFound && (
             <Text style={styles.errorText}>Agendamento não encontrado.</Text>
           )}
+          {serverTimeout && (
+            <Text style={styles.errorText}>
+              Não foi possível enviar sua solicitação ao servidor. Por favor,
+              tente novamente mais tarde.
+            </Text>
+          )}
+
           <View style={{padding: 20}}>
             <TextInput
               value={inputValue}
@@ -137,4 +148,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SearchScheduling;
+export default SearchSchedulingModal;

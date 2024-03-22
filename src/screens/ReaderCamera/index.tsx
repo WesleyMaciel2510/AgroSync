@@ -9,6 +9,7 @@ import {
   useCodeScanner,
 } from 'react-native-vision-camera';
 import {StackNavigationProp} from '@react-navigation/stack';
+import DeniedPermission from '../../components/deniedPermission';
 
 interface Props {
   navigation: StackNavigationProp<any>;
@@ -136,11 +137,7 @@ const ReaderCameraScreen: React.FC<Props> = ({navigation}) => {
             )}
           </View>
         ) : (
-          <View>
-            <Text style={{color: 'red', fontWeight: 'bold'}}>
-              Camera Screen Não tem permissão
-            </Text>
-          </View>
+          <DeniedPermission permissionLabel={'camera'} />
         )}
       </View>
     </SafeAreaView>

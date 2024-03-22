@@ -1,3 +1,3 @@
-import {searchLoad} from './searchLoad';
+import {SearchLoad} from './searchLoad';
 
-export {searchLoad};
+export {SearchLoad};

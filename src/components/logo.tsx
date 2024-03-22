@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     elevation: 15,
   },
   logoArea: {
-    marginTop: 50,
+    paddingBottom: 20,
   },
 });
 

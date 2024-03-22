@@ -1,4 +1,5 @@
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Dimensions} from 'react-native';
+const {width, height} = Dimensions.get('window');
 
 export const colors = {
   background: '#FFF',
@@ -15,7 +16,15 @@ export const colors = {
 export const DefaultStyles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.background,
+    //backgroundColor: colors.background,
+  },
+  loginContainer: {
+    flex: 1,
+    //backgroundColor: '#5ea8f2',
+    backgroundColor: '#edf7f1',
+    resizeMode: 'center',
+    width: width,
+    height: height - 575,
   },
   center: {
     flex: 1,

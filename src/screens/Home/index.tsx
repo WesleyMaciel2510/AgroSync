@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View, StyleSheet} from 'react-native';
 import {StackNavigationProp} from '@react-navigation/stack';
 //import {useSharedState} from './logic';
@@ -8,14 +8,15 @@ import Header from '../../components/Header/header';
 import DriverModules from '../../components/DriverComponents/modules';
 import OperatorModules from '../../components/OperatorComponents/modules';
 import ProducerModules from '../../components/ProducerComponents/modules';
+import Snackbar from 'react-native-snackbar';
 
 interface Props {
   navigation: StackNavigationProp<any>;
 }
 
 const HomeScreen: React.FC<Props> = ({navigation}) => {
-  const {userType} = useSharedUserState();
-
+  const {userType, successSendingPictures, setSuccessSendingPictures} =
+    useSharedUserState();
   return (
     <View style={styles.container}>
       <DrawerMenu>

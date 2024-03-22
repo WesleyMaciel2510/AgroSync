@@ -22,6 +22,8 @@ const SearchLoadModal = () => {
     setInputValue,
     notFound,
     setNotFound,
+    serverTimeout,
+    setServerTimeout,
   } = useSharedState();
   const {handleSearchLoad} = useOnSearchLoad();
   const AnimationPath = notFound
@@ -45,6 +47,8 @@ const SearchLoadModal = () => {
               style={styles.icon}
               onPress={() => {
                 setModalVisible(!modalVisible);
+                setNotFound(false);
+                setServerTimeout(false);
               }}>
               <FontAwesome5 name={'times'} size={30} color={'gray'} />
             </TouchableOpacity>
@@ -59,6 +63,12 @@ const SearchLoadModal = () => {
           </View>
           {notFound && (
             <Text style={styles.errorText}>Carga não encontrada.</Text>
+          )}
+          {serverTimeout && (
+            <Text style={styles.errorText}>
+              Não foi possível enviar sua solicitação ao servidor. Por favor,
+              tente novamente mais tarde.
+            </Text>
           )}
           <View style={{padding: 20}}>
             <TextInput

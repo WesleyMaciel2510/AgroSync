@@ -21,8 +21,7 @@ const SchedulingInfoScreen: React.FC<Props> = ({navigation}) => {
     navigation.navigate('Picture');
   };
   let tableColor: string;
-
-  switch (schedulingInfo.Status) {
+  switch (schedulingInfo?.Status) {
     case 'Criado':
       tableColor = '#3498DB';
       break;
@@ -36,6 +35,7 @@ const SchedulingInfoScreen: React.FC<Props> = ({navigation}) => {
       tableColor = '#3498DB';
       break;
   }
+
   //============================================================================
   return (
     <View style={styles.container}>
@@ -52,17 +52,17 @@ const SchedulingInfoScreen: React.FC<Props> = ({navigation}) => {
             line4={'Quantidade: 10 Sacas'}
             highlightText={'Data do Agendamento: 14/03/2024'}
           />
-          {schedulingInfo.Status !== 'Finalizado' ? (
+          {schedulingInfo?.Status !== 'Finalizado' ? (
             <CalendarComponent />
           ) : null}
         </View>
 
-        {schedulingInfo.Status !== 'Finalizado' ? (
+        {schedulingInfo?.Status !== 'Finalizado' ? (
           <View style={styles.buttonContainer}>
             <Button
               onPress={() => handleChangeStatus()}
               text={
-                schedulingInfo.Status === 'Criado' ? 'INICIAR' : 'FINALIZAR'
+                schedulingInfo?.Status === 'Criado' ? 'INICIAR' : 'FINALIZAR'
               }
               width={'50%'}
             />

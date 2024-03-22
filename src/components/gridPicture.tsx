@@ -8,9 +8,7 @@ import {
 } from 'react-native';
 import {useSharedState} from '../screens/Operator/Picture/logic';
 import {useSharedState as useSharedGlobalState} from '../context/globalUseState';
-import ErrorSendModal from '../components/Modals/errorSendModal';
 import {StackNavigationProp} from '@react-navigation/stack';
-import LottieView from 'lottie-react-native';
 
 interface Props {
   navigation: StackNavigationProp<any>;
@@ -72,7 +70,6 @@ const GridView = ({navigation}: Props) => {
         <View style={styles.row}>{renderItems().slice(3, 6)}</View>
         <View style={styles.row}>{renderItems().slice(6, 9)}</View>
       </View>
-      <ErrorSendModal />
     </View>
   );
 };

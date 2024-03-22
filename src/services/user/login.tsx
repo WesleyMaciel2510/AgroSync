@@ -28,16 +28,16 @@ export const setLogin = async (email: string, password: string) => {
       return response.data;
     }
   } catch (error: any) {
-    console.error('Error sending data to server:', error);
-    if (error.code === 'ECONNABORTED') {
+    console.error('Error sending data to server:', error.code);
+    if (error.code === 'ECONNABORTED' || error.code === 'ERR_NETWORK') {
       console.log('@@@@ Request timed out');
-      return 'Request timed out';
+      return {timeout: true};
     } else if (error.response && error.response.status === 401) {
       console.log('@@@@ Incorrect password');
-      return 'Incorrect password';
+      return {passwordIncorrect: true};
     } else if (error.response && error.response.status === 404) {
       console.log('@@@@ User not found');
-      return 'User not found';
+      return {userNotFound: true};
     }
     return false;
   }

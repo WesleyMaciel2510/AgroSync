@@ -8,6 +8,8 @@ import Header from '../../../components/Header/header';
 import Button from '../../../components/Button/button';
 import GridComponent from '../../../components/gridPicture';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import ErrorSendModal from '../../../components/Modals/errorSendModal';
+
 import {sendArrayofPictures} from '../../../services/pictures/sendArrayofPictures';
 
 interface Props {
@@ -16,19 +18,19 @@ interface Props {
 
 const PictureScreen: React.FC<Props> = ({navigation}) => {
   const {setModalVisible} = useSharedState();
-  const {schedulingInfo, picturesToDisplay, picturesToSend, quickRegister} =
-    useSharedGlobalState();
+  const {
+    schedulingInfo,
+    picturesToDisplay,
+    picturesToSend,
+    quickRegister,
+    setSuccessSendingPictures,
+  } = useSharedGlobalState();
   useInit();
 
-  const handleChangeStatus = async () => {
-    console.log('CHAMOU handleChangeStatus');
-    console.log('Amount of pictures = ', picturesToDisplay.length);
-    console.log('Amount of picture data = ', picturesToSend.length);
+  const handleSendPictures = async () => {
+    console.log('CHAMOU handleSendPictures');
 
-    console.log('picturesToSend = ', typeof picturesToSend);
-    console.log('ID', schedulingInfo.IDAgendamento);
-
-    const dataToSend = {
+    /* const dataToSend = {
       ID: quickRegister ? 0 : schedulingInfo.IDAgendamento,
       IDTYPE: 'SCHEDULINGID',
       IMGBASE64: {} as {[key: number]: string},
@@ -39,12 +41,14 @@ const PictureScreen: React.FC<Props> = ({navigation}) => {
     }
 
     const result = await sendArrayofPictures(dataToSend);
-    console.log('result', result);
-    if (result) {
+    console.log('result', result); */
+    /* if (result) {
       navigation.navigate('Home');
     } else {
       setModalVisible(true);
-    }
+    } */
+    navigation.navigate('Home');
+    setSuccessSendingPictures(true);
   };
   //============================================================================
   return (
@@ -59,12 +63,13 @@ const PictureScreen: React.FC<Props> = ({navigation}) => {
             </Text>
           </View>
           <GridComponent navigation={navigation} />
+          <ErrorSendModal />
         </View>
 
-        {schedulingInfo.Status !== 'Finalizado' ? (
+        {schedulingInfo?.Status !== 'Finalizado' ? (
           <View style={styles.buttonContainer}>
             <Button
-              onPress={() => handleChangeStatus()}
+              onPress={() => handleSendPictures()}
               text={'ENVIAR FOTOS'}
               width={'50%'}
             />

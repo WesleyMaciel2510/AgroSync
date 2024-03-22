@@ -2,8 +2,8 @@ import {useEffect, useRef, useState} from 'react';
 import {useBetween} from 'use-between';
 import {useCameraPermission} from 'react-native-vision-camera';
 import {requestSavePermission} from '../../../helpers/savePicture';
-import {searchLoad} from '../../../services/loads/index';
-import {searchScheduling} from '../../../services/scheduling/index';
+import {SearchLoad} from '../../../services/loads/index';
+import {SearchSchedulingModal} from '../../../services/scheduling/index';
 
 import {useSharedState as useSharedGlobalState} from '../../../context/globalUseState';
 
@@ -67,7 +67,7 @@ export const useHandleSearch = () => {
       result = await searchLoad(numberToSearch);
     } else if (actionType === 'schedulingInfo') {
       console.log('actionType = ', actionType);
-      result = await searchScheduling(numberToSearch);
+      result = await SearchSchedulingModal(numberToSearch);
       setSchedulingInfo(result[0]);
     }
 

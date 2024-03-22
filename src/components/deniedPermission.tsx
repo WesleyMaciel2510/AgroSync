@@ -10,12 +10,13 @@ const DeniedPermission: React.FC<{permissionLabel: string}> = ({
   permissionLabel,
 }) => {
   const {locationPermission} = useSharedState();
-  const {requestPermission} = useCameraPermission();
+  const {requestPermission, hasPermission} = useCameraPermission();
   const handlePress = () => {
     permissionLabel === 'location'
       ? requestLocationPermission()
       : requestPermission();
     console.log('locationPermission = ', locationPermission);
+    console.log('cameraPermission = ', hasPermission);
   };
   return (
     <View style={styles.container}>
@@ -41,7 +42,7 @@ const DeniedPermission: React.FC<{permissionLabel: string}> = ({
       </View>
       <View>
         <Text style={styles.text}>
-          Se necessário, você pode ir para Configurações e verificar se a
+          Se necessário, você pode ir para Configurações e verificar se {'\n'}a
           permissão foi concedida.
         </Text>
       </View>
@@ -89,6 +90,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     margin: 20,
     paddingHorizontal: 10,
+    textAlign: 'center',
   },
   buttonContainer: {
     flexDirection: 'row',

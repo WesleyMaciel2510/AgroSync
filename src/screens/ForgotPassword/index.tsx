@@ -49,7 +49,9 @@ const ForgotPasswordScreen: React.FC<Props> = ({navigation}) => {
           Por favor, digite o código enviado por SMS para redefinir sua senha.
         </Text>
       )}
-      <Button onPress={() => console.log('aaaa')} text={'ENVIAR'} />
+      <View style={{flex: 1, width: '100%', paddingHorizontal: 20}}>
+        <Button onPress={() => console.log('aaaa')} text={'ENVIAR'} />
+      </View>
     </View>
   );
 };

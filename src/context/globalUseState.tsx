@@ -45,6 +45,7 @@ export const useStateVariables = () => {
   const [cameraType, setCameraType] = useState('');
   const [actionType, setActionType] = useState('');
   const [quickRegister, setQuickRegister] = useState(false);
+  const [successSendingPictures, setSuccessSendingPictures] = useState(false);
   return {
     isLoading,
     setIsLoading,
@@ -84,6 +85,8 @@ export const useStateVariables = () => {
     setPictureIndex,
     quickRegister,
     setQuickRegister,
+    successSendingPictures,
+    setSuccessSendingPictures,
   };
 };
 

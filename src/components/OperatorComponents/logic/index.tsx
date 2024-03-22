@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react';
 import {useBetween} from 'use-between';
-import {searchScheduling} from '../../../services/scheduling/index';
+import {SearchScheduling} from '../../../services/scheduling/index';
 import {useNavigation} from '@react-navigation/native';
 import {useSharedState as useSharedGlobalState} from '../../../context/globalUseState';
 
@@ -9,6 +9,7 @@ export const useStateVariables = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [inputValue, setInputValue] = useState('');
   const [notFound, setNotFound] = useState(false);
+  const [serverTimeout, setServerTimeout] = useState(false);
 
   return {
     isLoading,
@@ -19,6 +20,8 @@ export const useStateVariables = () => {
     setInputValue,
     notFound,
     setNotFound,
+    serverTimeout,
+    setServerTimeout,
   };
 };
 
@@ -33,25 +36,38 @@ export const useInit = () => {
 
 export const useOnSearchScheduling = () => {
   const navigation = useNavigation();
-  const {setIsLoading, setModalVisible, setNotFound} = useSharedState();
+  const {setIsLoading, setModalVisible, setNotFound, setServerTimeout} =
+    useSharedState();
 
   const {setSchedulingInfo} = useSharedGlobalState();
 
   const handleSearchScheduling = async (inputValue: string) => {
     console.log('chamou handleSearchScheduling');
     const inputNumber = parseInt(inputValue, 10);
-    const schedulingInfo = await searchScheduling(inputNumber);
-    //console.log('schedulingInfo = ', schedulingInfo);
-    //console.log('found = ', Object.keys(schedulingInfo).length > 0);
+    const schedulingInfo = await SearchScheduling(inputNumber);
+    console.log('schedulingInfo = ', schedulingInfo);
+    console.log('validation = ', schedulingInfo.timeout);
+    console.log(
+      'Type of schedulingInfo.timeout:',
+      typeof schedulingInfo.timeout,
+    );
+
+    if (schedulingInfo.timeout) {
+      console.log('Timeout occurred');
+      setServerTimeout(true);
+    }
     //check if the result is empty
-    if (Object.keys(schedulingInfo).length > 0) {
-      console.log('encontrado');
-      setSchedulingInfo(schedulingInfo[0]);
+    if (
+      Object.keys(schedulingInfo.data)?.length > 0 &&
+      schedulingInfo.success
+    ) {
+      console.log('Scheduling info found');
+      setSchedulingInfo(schedulingInfo.data?.[0]);
       setModalVisible(false);
       setIsLoading(false);
       navigation.navigate('SchedulingInfo');
     } else {
-      console.log('nao encontrado');
+      console.log('Scheduling info not found');
       setNotFound(true);
     }
   };
