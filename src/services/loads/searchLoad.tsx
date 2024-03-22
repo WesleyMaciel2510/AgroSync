@@ -10,7 +10,7 @@ export const SearchLoad = async (loadNumber: number) => {
       {timeout: 5000},
     );
     console.log('Server response:', response.data);
-    return response.data;
+    return {success: true, data: response.data};
   } catch (error) {
     if (axios.isAxiosError(error)) {
       if (error.code === 'ECONNABORTED' || error.code === 'ERR_NETWORK') {

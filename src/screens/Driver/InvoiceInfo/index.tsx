@@ -9,7 +9,7 @@ import Button from '../../../components/Button/button';
 import InfoTable from '../../../components/infoTable';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import AlertComponent from '../../../components/Alert/alert';
-import LottieView from 'lottie-react-native';
+//import LottieView from 'lottie-react-native';
 import {sendPicture} from '../../../services/pictures';
 
 interface Props {
@@ -17,11 +17,8 @@ interface Props {
 }
 
 const LoadInfoScreen: React.FC<Props> = ({navigation}) => {
-  const {photo, isLoading, picturesToSend, loadInfo, setActionType} =
+  const {photo, /* isLoading, */ picturesToSend, loadInfo, setActionType} =
     useSharedGlobalState();
-  {
-    console.log('photo = ', photo);
-  }
   const handleConfirmAction = async () => {
     console.log('picturesToSend = ', typeof picturesToSend);
     console.log('ID = ', loadInfo);
@@ -68,7 +65,7 @@ const LoadInfoScreen: React.FC<Props> = ({navigation}) => {
               color={'#494A50'}
               iconName={'file-invoice'}
               title={'Informações da Nota'}
-              line1={'Número da Nota: 5555'}
+              line1={'Número da Nota: ' + (loadInfo?.ID ?? '')}
               line2={'Valor da Nota: R$ 35.000'}
               line3={'Cliente: CropConnect Inc'}
               line4={'Data de Emissão: 20/03/2024'}

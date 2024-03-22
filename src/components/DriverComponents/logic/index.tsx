@@ -44,7 +44,8 @@ export const useOnSearchLoad = () => {
     console.log('chamou handleSearchLoad');
     const inputNumber = parseInt(inputValue, 10);
     const loadInfo = await SearchLoad(inputNumber);
-    console.log('load = ', loadInfo);
+    console.log('load = ', loadInfo.success);
+    console.log('lenght = ', Object.keys(loadInfo.data).length);
 
     if (loadInfo.timeout) {
       console.log('timeout');
@@ -52,7 +53,7 @@ export const useOnSearchLoad = () => {
     }
     //check if the result is empty
     if (Object.keys(loadInfo.data).length > 0 && loadInfo.success) {
-      setLoadInfo(loadInfo[0]);
+      setLoadInfo(loadInfo.data?.[0]);
       setModalVisible(false);
       setIsLoading(false);
       navigation.navigate('LoadInfo');

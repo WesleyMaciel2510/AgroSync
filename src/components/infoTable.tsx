@@ -10,6 +10,7 @@ interface InfoTableProps {
   line2: string;
   line3: string;
   line4?: string; //Optional
+  line5?: string; //Optional
   highlightText: string;
 }
 
@@ -21,6 +22,7 @@ const InfoTable: React.FC<InfoTableProps> = ({
   line2,
   line3,
   line4,
+  line5,
   highlightText,
 }) => {
   return (
@@ -43,6 +45,9 @@ const InfoTable: React.FC<InfoTableProps> = ({
         </View>
         <View style={styles.line2}>
           <Text style={styles.lineText}>{line4}</Text>
+        </View>
+        <View style={styles.line1}>
+          <Text style={styles.lineText}>{line5}</Text>
         </View>
       </View>
       <View style={[styles.highlightArea, {backgroundColor: color}]}>

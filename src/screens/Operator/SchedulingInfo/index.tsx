@@ -15,6 +15,10 @@ interface Props {
 
 const SchedulingInfoScreen: React.FC<Props> = ({navigation}) => {
   const {photo, setPhoto, schedulingInfo} = useSharedGlobalState();
+  const formattedDate = schedulingInfo?.DataAgendamento
+    ? new Date(schedulingInfo.DataAgendamento).toLocaleDateString('pt-BR')
+    : '';
+
   useInit();
   const handleChangeStatus = () => {
     console.log('CHAMOU handleChangeStatus');
@@ -46,11 +50,14 @@ const SchedulingInfoScreen: React.FC<Props> = ({navigation}) => {
             color={tableColor}
             iconName={'calendar-plus'}
             title={'Informações do Agendamento'}
-            line1={'Status do Agendamento: Criado'}
-            line2={'Nome do Produto: Soja'}
-            line3={'Peso do Produto: 5000kg'}
-            line4={'Quantidade: 10 Sacas'}
-            highlightText={'Data do Agendamento: 14/03/2024'}
+            line1={
+              'Número do Agendamento: ' + (schedulingInfo?.IDAgendamento ?? '')
+            }
+            line2={'Nome do Produto: ' + (schedulingInfo?.NomeProduto ?? '')}
+            line3={'Peso do Produto: ' + (schedulingInfo?.PesoProduto ?? '')}
+            line4={'Quantidade: ' + (schedulingInfo?.Quantidade ?? '')}
+            line5={'Status do Agendamento: ' + (schedulingInfo?.Status ?? '')}
+            highlightText={'Data do Agendamento: ' + (formattedDate ?? '')}
           />
           {schedulingInfo?.Status !== 'Finalizado' ? (
             <CalendarComponent />
