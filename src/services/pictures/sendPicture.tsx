@@ -1,11 +1,12 @@
 import axios from 'axios';
+import {serverURL} from '../../.env';
 
 export const sendPicture = async (pictureObject: Object) => {
   console.log('chamou sendPicture');
   console.log('pictureObject = ', pictureObject);
   try {
     const response = await axios.post(
-      'http://192.168.100.2:3000/api/pictures',
+      `${serverURL}/api/pictures`,
       pictureObject,
     );
     console.log('sendPicture response:', response.data);

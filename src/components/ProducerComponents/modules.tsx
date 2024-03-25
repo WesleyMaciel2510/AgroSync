@@ -37,8 +37,7 @@ const ProducerModules = () => {
   // ============================================================================
   return (
     <ScrollView style={[styles.container, {backgroundColor: '#fff'}]}>
-      {!locationPermission && <DeniedPermission permissionLabel="location" />}
-      {locationPermission && (
+      {locationPermission ? (
         <View>
           <GreetingComponent />
 
@@ -102,7 +101,7 @@ const ProducerModules = () => {
                     styles.text,
                     {fontSize: 20, marginLeft: 5, color: 'white'},
                   ]}>
-                  {windSpeed}
+                  {windSpeed > 0 ? windSpeed : 5 + ' '}
                 </Text>
                 <Text style={[styles.text, {fontSize: 20, color: 'white'}]}>
                   Km/h
@@ -193,6 +192,8 @@ const ProducerModules = () => {
             </View>
           </View>
         </View>
+      ) : (
+        <DeniedPermission permissionLabel="location" />
       )}
     </ScrollView>
   );

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {serverURL} from '../../.env';
 
 export const setLogin = async (email: string, password: string) => {
   console.log('chamou setLogin');
@@ -16,15 +17,13 @@ export const setLogin = async (email: string, password: string) => {
 
   try {
     const response = await axios.post(
-      'http://192.168.100.2:3000/api/users/login',
-      //'http://localhost:3000/api/users/login',
+      `${serverURL}/api/users/login`,
       data,
       {timeout: 5000}, // 5 seconds
     );
     if (response.status === 200) {
       console.log('@@@@ LOGIN SUCCESSFUL');
       console.log('response = ', response.data);
-      //console.log('@ setLogin @ response= ', response.config.data);
       return response.data;
     }
   } catch (error: any) {

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {serverURL} from '../../.env';
 
 export const SearchScheduling = async (schedulingNumber: number) => {
   console.log('chamou SearchScheduling');
@@ -6,7 +7,7 @@ export const SearchScheduling = async (schedulingNumber: number) => {
   console.log('schedulingNumber = ', typeof schedulingNumber);
   try {
     const response = await axios.get(
-      `http://192.168.100.2:3000/api/schedulings/${schedulingNumber}`,
+      `${serverURL}/api/schedulings/${schedulingNumber}`,
       {timeout: 5000},
     );
     console.log('Server response:', response.data);

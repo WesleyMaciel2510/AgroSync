@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {serverURL} from '../../.env';
 
 export const updateUser = async () => {
   console.log('chamou updateUser');
@@ -10,10 +11,7 @@ export const updateUser = async () => {
     IsActive: true,
   };
   try {
-    const response = await axios.put(
-      `http://192.168.100.2:3000/api/users/${index}`,
-      data,
-    );
+    const response = await axios.put(`${serverURL}/api/users/${index}`, data);
     console.log('Server response:', response.data);
   } catch (error: any) {
     console.error('Error sending data to server:', error);

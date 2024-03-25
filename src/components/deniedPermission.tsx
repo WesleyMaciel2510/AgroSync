@@ -11,6 +11,8 @@ const DeniedPermission: React.FC<{permissionLabel: string}> = ({
 }) => {
   const {locationPermission} = useSharedState();
   const {requestPermission, hasPermission} = useCameraPermission();
+
+  const label = permissionLabel === 'location' ? 'Localização' : 'Camera';
   const handlePress = () => {
     permissionLabel === 'location'
       ? requestLocationPermission()
@@ -22,8 +24,8 @@ const DeniedPermission: React.FC<{permissionLabel: string}> = ({
     <View style={styles.container}>
       <Text style={styles.title}>
         {permissionLabel === 'location'
-          ? `Permissão de Acesso à ${permissionLabel} não concedida`
-          : `Permissão de Acesso à ${permissionLabel} não concedida`}
+          ? `Permissão de Acesso à ${label} não concedida`
+          : `Permissão de Acesso à ${label} não concedida`}
       </Text>
 
       <View style={styles.background}>

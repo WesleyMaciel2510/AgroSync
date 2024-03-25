@@ -1,14 +1,14 @@
 import axios from 'axios';
+import {serverURL} from '../../.env';
 
 export const SearchLoad = async (loadNumber: number) => {
   console.log('chamou searchLoad');
   console.log('loadNumber = ', loadNumber);
   console.log('loadNumber = ', typeof loadNumber);
   try {
-    const response = await axios.get(
-      `http://192.168.100.2:3000/api/loads/${loadNumber}`,
-      {timeout: 5000},
-    );
+    const response = await axios.get(`${serverURL}/api/loads/${loadNumber}`, {
+      timeout: 5000,
+    });
     console.log('Server response:', response.data);
     return {success: true, data: response.data};
   } catch (error) {
