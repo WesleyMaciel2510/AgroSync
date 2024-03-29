@@ -8,31 +8,22 @@ import Header from '../../components/Header/header';
 import DriverModules from '../../components/DriverComponents/modules';
 import OperatorModules from '../../components/OperatorComponents/modules';
 import ProducerModules from '../../components/ProducerComponents/modules';
-import Snackbar from 'react-native-snackbar';
 
 interface Props {
   navigation: StackNavigationProp<any>;
 }
 
 const HomeScreen: React.FC<Props> = ({navigation}) => {
-  const {userType, successSendingPictures, setSuccessSendingPictures} =
-    useSharedUserState();
+  const {userType} = useSharedUserState();
   return (
     <View style={styles.container}>
-      <DrawerMenu>
-        <Header />
-        <View>
-          {userType === 'Motorista' && (
-            <DriverModules navigation={navigation} />
-          )}
-        </View>
-        <View>
-          {userType === 'Operador' && (
-            <OperatorModules navigation={navigation} />
-          )}
-        </View>
-        <View>{userType === 'Produtor' && <ProducerModules />}</View>
-      </DrawerMenu>
+      <View>
+        {userType === 'Motorista' && <DriverModules navigation={navigation} />}
+      </View>
+      <View>
+        {userType === 'Operador' && <OperatorModules navigation={navigation} />}
+      </View>
+      <View>{userType === 'Produtor' && <ProducerModules />}</View>
     </View>
   );
 };

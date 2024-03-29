@@ -56,6 +56,7 @@ export const useOnLogin = () => {
         storage.set('fullName', loginResponse.FullName);
         setUserType(loginResponse.UserType);
         storage.set('loggedUserType', loginResponse.UserType);
+        //navigation.navigate('Home');
         navigation.navigate('Home');
       } else if (loginResponse?.passwordIncorrect) {
         console.log('Incorrect Password!');

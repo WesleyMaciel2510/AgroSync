@@ -30,7 +30,7 @@ export const useSharedState = () => useBetween(useStateVariables);
 export const useInit = () => {
   const {} = useSharedState();
   useEffect(() => {
-    console.log('chamou useInit');
+    console.log('chamou useInit em DriverComponents');
   }, []);
 };
 

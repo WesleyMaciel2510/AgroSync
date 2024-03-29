@@ -1,5 +1,7 @@
 import {StyleSheet, Dimensions} from 'react-native';
 const {width, height} = Dimensions.get('window');
+const middle = height > 800 ? 430 : 280;
+//console.log('height = ', height);
 
 export const colors = {
   background: '#FFF',
@@ -16,20 +18,19 @@ export const colors = {
 export const DefaultStyles = StyleSheet.create({
   container: {
     flex: 1,
-    //backgroundColor: colors.background,
   },
   loginContainer: {
     flex: 1,
-    //backgroundColor: '#5ea8f2',
+    flexDirection: 'column',
     backgroundColor: '#edf7f1',
     resizeMode: 'center',
     width: width,
-    height: height - 550,
+    height: middle,
   },
   center: {
     flex: 1,
-    justifyContent: 'center', // centers child components vertically
-    alignItems: 'center', // centers child components horizontally
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   title: {
     color: '#71727A',

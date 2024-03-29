@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <!-- Base configuration allowing cleartext traffic -->
+    <base-config cleartextTrafficPermitted="true">
+        <trust-anchors>
+            <certificates src="system" />
+            <certificates src="user" />
+        </trust-anchors>
+    </base-config>
+
+    <!-- Domain configurations for specific domains -->
+    <domain-config cleartextTrafficPermitted="true">
+        <!-- Add domains here -->
+        <domain includeSubdomains="true">localhost</domain>
+    </domain-config>
+
+    <!-- Domain configurations for HTTPS domains -->
+    <domain-config>
+        <domain includeSubdomains="true">api.open-meteo.com</domain>
+        <domain includeSubdomains="true">appserver-5jxo.onrender.com</domain>
+        <trust-anchors>
+            <certificates src="system" />
+        </trust-anchors>
+    </domain-config>
+</network-security-config>

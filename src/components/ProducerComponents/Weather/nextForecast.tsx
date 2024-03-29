@@ -22,9 +22,20 @@ const NextForecast = ({index}) => {
       />
       <View style={styles.headerArea}>
         <Text style={[styles.text, {marginRight: 20}]}>
-          {temperatureDaily.tempMin[index]}º{' '}
+          {temperatureDaily &&
+            temperatureDaily.tempMin &&
+            temperatureDaily.tempMin[index] !== undefined && (
+              <> {temperatureDaily.tempMin[index]}º </>
+            )}
         </Text>
-        <Text style={styles.text}> {temperatureDaily.tempMax[index]}º</Text>
+
+        <Text style={styles.text}>
+          {temperatureDaily &&
+            temperatureDaily.tempMax &&
+            temperatureDaily.tempMax[index] !== undefined && (
+              <> {temperatureDaily.tempMax[index]}º </>
+            )}
+        </Text>
       </View>
     </View>
   );

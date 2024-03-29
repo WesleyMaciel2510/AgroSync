@@ -21,6 +21,8 @@ export const setLogin = async (email: string, password: string) => {
       data,
       {timeout: 5000}, // 5 seconds
     );
+    console.log('response = ', response);
+    console.log('serverURL = ', serverURL);
     if (response.status === 200) {
       console.log('@@@@ LOGIN SUCCESSFUL');
       console.log('response = ', response.data);

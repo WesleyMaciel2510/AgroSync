@@ -57,46 +57,44 @@ const LoadInfoScreen: React.FC<Props> = ({navigation}) => {
   };
   return (
     <View style={styles.container}>
-      <DrawerMenu>
-        <Header />
-        <View style={styles.contentArea}>
-          <View style={{flex: 12}}>
-            <InfoTable
-              color={'#494A50'}
-              iconName={'file-invoice'}
-              title={'Informações da Nota'}
-              line1={'Número da Nota: ' + (loadInfo?.ID ?? '')}
-              line2={'Valor da Nota: R$ 35.000'}
-              line3={'Cliente: CropConnect Inc'}
-              line4={'Data de Emissão: 20/03/2024'}
-              highlightText={'Status do Canhoto: Não Enviado'}
-            />
-          </View>
-          <View style={{flex: 7}}>
-            <View style={styles.titleContainer}>
-              <Text style={styles.title}>
-                <FontAwesome5 name={'camera'} size={30} color={'#333'} />{' '}
-                Registro de Fotos
-              </Text>
-            </View>
-            <TouchableOpacity
-              onPress={() => handleAttachStub({navigation})}
-              style={styles.button}>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                }}>
-                <FontAwesome5 name={'camera'} size={40} color="#fff" />
-                <Text style={styles.text}> Anexar Recibo</Text>
-              </View>
-            </TouchableOpacity>
-          </View>
+      <View style={styles.contentArea}>
+        <View style={{flex: 12}}>
+          <InfoTable
+            color={'#494A50'}
+            iconName={'file-invoice'}
+            title={'Informações da Nota'}
+            line1={'Número da Nota: ' + (loadInfo?.ID ?? '')}
+            line2={'Valor da Nota: R$ 35.000'}
+            line3={'Cliente: CropConnect Inc'}
+            line4={'Data de Emissão: 20/03/2024'}
+            highlightText={'Status do Canhoto: Não Enviado'}
+          />
         </View>
-        {photo ? (
-          <Image source={{uri: photo}} style={styles.invoicesImageArea} />
-        ) : (
-          /* isLoading ? (
+        <View style={{flex: 7}}>
+          <View style={styles.titleContainer}>
+            <Text style={styles.title}>
+              <FontAwesome5 name={'camera'} size={30} color={'#333'} /> Registro
+              de Fotos
+            </Text>
+          </View>
+          <TouchableOpacity
+            onPress={() => handleAttachStub({navigation})}
+            style={styles.button}>
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+              }}>
+              <FontAwesome5 name={'camera'} size={40} color="#fff" />
+              <Text style={styles.text}> Anexar Recibo</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+      </View>
+      {photo ? (
+        <Image source={{uri: photo}} style={styles.invoicesImageArea} />
+      ) : (
+        /* isLoading ? (
           <View style={styles.invoicesImageArea}>
             <LottieView
               source={require('../../../assets/lottie/loading-white.json')}
@@ -106,16 +104,15 @@ const LoadInfoScreen: React.FC<Props> = ({navigation}) => {
             />
           </View>
         ) : */ <View style={styles.invoicesImageArea} />
-        )}
+      )}
 
-        <View style={styles.buttonContainer}>
-          <Button
-            onPress={() => confirmDelivery()}
-            text={'FINALIZAR'}
-            width={'50%'}
-          />
-        </View>
-      </DrawerMenu>
+      <View style={styles.buttonContainer}>
+        <Button
+          onPress={() => confirmDelivery()}
+          text={'FINALIZAR'}
+          width={'50%'}
+        />
+      </View>
     </View>
   );
 };

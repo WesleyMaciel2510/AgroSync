@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {StyleSheet, Text, View, ScrollView, Dimensions} from 'react-native';
 import {useInit, useSharedState} from './logic';
 //import {useSharedState as useSharedStateUser} from '../User/logic';
@@ -8,7 +8,12 @@ import {getAnimationName} from '../../assets/lottie/producer/getAnimationName';
 import GreetingComponent from './Weather/greeting';
 import TodayColumn from '../../components/ProducerComponents/Weather/todayColumn';
 import NextForecast from '../../components/ProducerComponents/Weather/nextForecast';
-import DeniedPermission from '../deniedPermission';
+import DeniedPermission from '../../screens/DeniedPermissionScreen';
+import {
+  requestLocationPermission,
+  checkLocationPermission,
+} from '../../services/weather/askPermission';
+import {storage} from '../../helpers/storage';
 
 const ProducerModules = () => {
   const {
@@ -20,13 +25,36 @@ const ProducerModules = () => {
     windSpeed,
     date,
     weatherCode,
-    locationPermission,
     loading,
   } = useSharedState();
   useInit();
-  // ============================================================================
+  // ==================================================================
+  const [locationPermission, setLocationPermission] = useState<boolean>(false);
+
+  useEffect(() => {
+    const getLocationPermission = async () => {
+      // Retrieve the location status from storage
+      const locationStatus = storage.getBoolean('locationStatus');
+
+      // Update location permission state if status is true
+      if (locationStatus) {
+        setLocationPermission(locationStatus);
+      } else {
+        // Check and request location permission if not granted
+        const isLocationPermissionGranted = await checkLocationPermission();
+        if (!isLocationPermissionGranted) {
+          await requestLocationPermission();
+        }
+        setLocationPermission(isLocationPermissionGranted);
+      }
+    };
+
+    // Call the function to handle location permission
+    getLocationPermission();
+  }, []);
+  // ==================================================================
   const animationURL = getAnimationName(weatherCode, null, false);
-  const loadingAnimation = require('../../assets/lottie/producer/time-passing.json');
+  const loadingAnimation = require('../../assets/lottie/loading-black.json');
 
   const currentTime = new Date();
   const currentHour = currentTime.getHours();
@@ -37,164 +65,147 @@ const ProducerModules = () => {
   // ============================================================================
   return (
     <ScrollView style={[styles.container, {backgroundColor: '#fff'}]}>
-      {locationPermission ? (
-        <View>
-          <GreetingComponent />
+      {/*       {locationPermission ? ( */}
+      <View>
+        <GreetingComponent />
 
-          <LottieView
-            source={loading ? loadingAnimation : animationURL}
-            autoPlay
-            loop
-            style={[styles.animationArea, {width: 150, height: 150}]}
-          />
-          <View style={styles.temperatureArea}>
-            <Text style={[styles.text, {fontSize: 50, fontWeight: 'bold'}]}>
-              {temperature}º
-            </Text>
-            <Text style={[styles.text, {fontSize: 23}]}>
-              Min.: {temperatureDaily.tempMin[0]}º Max.:{' '}
-              {temperatureDaily.tempMax[0]}º
-            </Text>
-            <Text style={[styles.text, {fontSize: 23}]}>{description}</Text>
+        <LottieView
+          source={loading ? loadingAnimation : animationURL}
+          autoPlay
+          loop
+          style={[styles.animationArea, {width: 150, height: 150}]}
+        />
+        <View style={styles.temperatureArea}>
+          <Text style={[styles.text, {fontSize: 50, fontWeight: 'bold'}]}>
+            {temperature}º
+          </Text>
+          <Text style={[styles.text, {fontSize: 23}]}>
+            {temperatureDaily &&
+              temperatureDaily.tempMin &&
+              temperatureDaily.tempMin[0] && (
+                <>Min.: {temperatureDaily.tempMin[0]}º </>
+              )}
+            {temperatureDaily &&
+              temperatureDaily.tempMax &&
+              temperatureDaily.tempMax[0] && (
+                <>Max.: {temperatureDaily.tempMax[0]}º </>
+              )}
+          </Text>
+
+          <Text style={[styles.text, {fontSize: 23}]}>{description}</Text>
+        </View>
+
+        <View style={styles.weatherBarArea}>
+          <View
+            style={[
+              styles.simpleBar,
+              {backgroundColor: '#3AC0A0', flexDirection: 'row'},
+            ]}>
+            <View style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
+              <FontAwesome5
+                name={'cloud-showers-heavy'}
+                size={20}
+                color="#fff"
+                style={{marginLeft: 10}}
+              />
+              <Text
+                style={[
+                  styles.text,
+                  {fontSize: 20, marginLeft: 5, color: 'white'},
+                ]}>
+                {rain} %
+              </Text>
+            </View>
+
+            <View style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
+              <FontAwesome5 name={'tint'} size={20} color="#fff" />
+              <Text
+                style={[
+                  styles.text,
+                  {fontSize: 20, marginLeft: 5, color: 'white'},
+                ]}>
+                {humidity} %
+              </Text>
+            </View>
+
+            <View style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
+              <FontAwesome5 name={'wind'} size={20} color="#fff" />
+              <Text
+                style={[
+                  styles.text,
+                  {fontSize: 20, marginLeft: 5, color: 'white'},
+                ]}>
+                {windSpeed > 0 ? windSpeed : 5 + ' '}
+              </Text>
+              <Text style={[styles.text, {fontSize: 20, color: 'white'}]}>
+                Km/h
+              </Text>
+            </View>
           </View>
 
-          <View style={styles.weatherBarArea}>
-            <View
-              style={[
-                styles.simpleBar,
-                {backgroundColor: '#3AC0A0', flexDirection: 'row'},
-              ]}>
-              <View
-                style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
+          <View style={[styles.boardArea, {backgroundColor: '#3AC0A0'}]}>
+            <View style={{flexDirection: 'row', padding: 10}}>
+              <View style={styles.leftTextContainer}>
+                <Text
+                  style={[
+                    styles.text,
+                    {fontSize: 20, fontWeight: 'bold', color: 'white'},
+                  ]}>
+                  Hoje
+                </Text>
+              </View>
+              <View style={styles.rightTextContainer}>
+                <Text
+                  style={[
+                    styles.text,
+                    {fontSize: 20, fontWeight: 'bold', color: 'white'},
+                  ]}>
+                  {date[0]} {date[1]}
+                </Text>
+              </View>
+            </View>
+            <ScrollView
+              horizontal
+              contentOffset={{x: startPosition, y: 0}}
+              showsHorizontalScrollIndicator={false}>
+              {/* Using a loop to dynamically render TodayColumn components instead of writing the same code many times */}
+              {Array.from({length: 24}, (_, index) => (
+                <TodayColumn key={index} index={index} />
+              ))}
+            </ScrollView>
+          </View>
+          <View style={[styles.boardArea, {backgroundColor: '#3AC0A0'}]}>
+            <View style={{flexDirection: 'row', padding: 10}}>
+              <View style={styles.leftTextContainer}>
+                <Text
+                  style={[
+                    styles.text,
+                    {fontSize: 20, fontWeight: 'bold', color: 'white'},
+                  ]}>
+                  Próxima Previsão
+                </Text>
+              </View>
+              <View style={styles.rightTextContainer}>
                 <FontAwesome5
-                  name={'cloud-showers-heavy'}
-                  size={20}
+                  name={'calendar-week'}
+                  size={30}
                   color="#fff"
-                  style={{marginLeft: 10}}
+                  style={styles.iconStyle}
                 />
-                <Text
-                  style={[
-                    styles.text,
-                    {fontSize: 20, marginLeft: 5, color: 'white'},
-                  ]}>
-                  {rain} %
-                </Text>
-              </View>
-
-              <View
-                style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
-                <FontAwesome5 name={'tint'} size={20} color="#fff" />
-                <Text
-                  style={[
-                    styles.text,
-                    {fontSize: 20, marginLeft: 5, color: 'white'},
-                  ]}>
-                  {humidity} %
-                </Text>
-              </View>
-
-              <View
-                style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
-                <FontAwesome5 name={'wind'} size={20} color="#fff" />
-                <Text
-                  style={[
-                    styles.text,
-                    {fontSize: 20, marginLeft: 5, color: 'white'},
-                  ]}>
-                  {windSpeed > 0 ? windSpeed : 5 + ' '}
-                </Text>
-                <Text style={[styles.text, {fontSize: 20, color: 'white'}]}>
-                  Km/h
-                </Text>
               </View>
             </View>
-
-            <View style={[styles.boardArea, {backgroundColor: '#3AC0A0'}]}>
-              <View style={{flexDirection: 'row', padding: 10}}>
-                <View style={styles.leftTextContainer}>
-                  <Text
-                    style={[
-                      styles.text,
-                      {fontSize: 20, fontWeight: 'bold', color: 'white'},
-                    ]}>
-                    Hoje
-                  </Text>
-                </View>
-                <View style={styles.rightTextContainer}>
-                  <Text
-                    style={[
-                      styles.text,
-                      {fontSize: 20, fontWeight: 'bold', color: 'white'},
-                    ]}>
-                    {date[0]} {date[1]}
-                  </Text>
-                </View>
-              </View>
-              <ScrollView
-                horizontal
-                contentOffset={{x: startPosition, y: 0}}
-                showsHorizontalScrollIndicator={false}>
-                <TodayColumn index={0} />
-                <TodayColumn index={1} />
-                <TodayColumn index={2} />
-                <TodayColumn index={3} />
-                <TodayColumn index={4} />
-                <TodayColumn index={5} />
-                <TodayColumn index={6} />
-                <TodayColumn index={7} />
-                <TodayColumn index={8} />
-                <TodayColumn index={9} />
-                <TodayColumn index={10} />
-                <TodayColumn index={11} />
-                <TodayColumn index={12} />
-                <TodayColumn index={13} />
-                <TodayColumn index={14} />
-                <TodayColumn index={15} />
-                <TodayColumn index={16} />
-                <TodayColumn index={17} />
-                <TodayColumn index={18} />
-                <TodayColumn index={19} />
-                <TodayColumn index={20} />
-                <TodayColumn index={21} />
-                <TodayColumn index={22} />
-                <TodayColumn index={23} />
-              </ScrollView>
-            </View>
-            <View style={[styles.boardArea, {backgroundColor: '#3AC0A0'}]}>
-              <View style={{flexDirection: 'row', padding: 10}}>
-                <View style={styles.leftTextContainer}>
-                  <Text
-                    style={[
-                      styles.text,
-                      {fontSize: 20, fontWeight: 'bold', color: 'white'},
-                    ]}>
-                    Próxima Previsão
-                  </Text>
-                </View>
-                <View style={styles.rightTextContainer}>
-                  <FontAwesome5
-                    name={'calendar-week'}
-                    size={30}
-                    color="#fff"
-                    style={styles.iconStyle}
-                  />
-                </View>
-              </View>
-              <View style={styles.rowView}>
-                <NextForecast index={0} />
-                <NextForecast index={1} />
-                <NextForecast index={2} />
-                <NextForecast index={3} />
-                <NextForecast index={4} />
-                <NextForecast index={5} />
-                <NextForecast index={6} />
-              </View>
+            <View style={styles.rowView}>
+              {/* Using a loop to dynamically render NextForecast components instead of writing the same code many times */}
+              {Array.from({length: 7}, (_, index) => (
+                <NextForecast key={index} index={index} />
+              ))}
             </View>
           </View>
         </View>
-      ) : (
+      </View>
+      {/*       ) : (
         <DeniedPermission permissionLabel="location" />
-      )}
+      )} */}
     </ScrollView>
   );
 };

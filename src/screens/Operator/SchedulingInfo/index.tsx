@@ -43,39 +43,32 @@ const SchedulingInfoScreen: React.FC<Props> = ({navigation}) => {
   //============================================================================
   return (
     <View style={styles.container}>
-      <DrawerMenu>
-        <Header />
-        <View style={styles.contentArea}>
-          <InfoTable
-            color={tableColor}
-            iconName={'calendar-plus'}
-            title={'Informações do Agendamento'}
-            line1={
-              'Número do Agendamento: ' + (schedulingInfo?.IDAgendamento ?? '')
-            }
-            line2={'Nome do Produto: ' + (schedulingInfo?.NomeProduto ?? '')}
-            line3={'Peso do Produto: ' + (schedulingInfo?.PesoProduto ?? '')}
-            line4={'Quantidade: ' + (schedulingInfo?.Quantidade ?? '')}
-            line5={'Status do Agendamento: ' + (schedulingInfo?.Status ?? '')}
-            highlightText={'Data do Agendamento: ' + (formattedDate ?? '')}
-          />
-          {schedulingInfo?.Status !== 'Finalizado' ? (
-            <CalendarComponent />
-          ) : null}
-        </View>
+      <View style={styles.contentArea}>
+        <InfoTable
+          color={tableColor}
+          iconName={'calendar-plus'}
+          title={'Informações do Agendamento'}
+          line1={
+            'Número do Agendamento: ' + (schedulingInfo?.IDAgendamento ?? '')
+          }
+          line2={'Nome do Produto: ' + (schedulingInfo?.NomeProduto ?? '')}
+          line3={'Peso do Produto: ' + (schedulingInfo?.PesoProduto ?? '')}
+          line4={'Quantidade: ' + (schedulingInfo?.Quantidade ?? '')}
+          line5={'Status do Agendamento: ' + (schedulingInfo?.Status ?? '')}
+          highlightText={'Data do Agendamento: ' + (formattedDate ?? '')}
+        />
+        {schedulingInfo?.Status !== 'Finalizado' ? <CalendarComponent /> : null}
+      </View>
 
-        {schedulingInfo?.Status !== 'Finalizado' ? (
-          <View style={styles.buttonContainer}>
-            <Button
-              onPress={() => handleChangeStatus()}
-              text={
-                schedulingInfo?.Status === 'Criado' ? 'INICIAR' : 'FINALIZAR'
-              }
-              width={'50%'}
-            />
-          </View>
-        ) : null}
-      </DrawerMenu>
+      {schedulingInfo?.Status !== 'Finalizado' ? (
+        <View style={styles.buttonContainer}>
+          <Button
+            onPress={() => handleChangeStatus()}
+            text={schedulingInfo?.Status === 'Criado' ? 'INICIAR' : 'FINALIZAR'}
+            width={'50%'}
+          />
+        </View>
+      ) : null}
     </View>
   );
 };

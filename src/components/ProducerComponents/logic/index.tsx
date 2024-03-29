@@ -18,9 +18,6 @@ type PositionType = {
 };
 
 export const useStateVariables = () => {
-  const [locationPermission, setLocationPermission] = useState<boolean | null>(
-    true,
-  );
   const [cityName, setCityName] = useState('');
   const [description, setDescription] = useState('');
   const [humidity, setHumidity] = useState(0);
@@ -28,10 +25,10 @@ export const useStateVariables = () => {
   const [temperature, setTemperature] = useState(0);
   const [windSpeed, setWindSpeed] = useState(0);
   const [date, setDate] = useState([]);
-  const [temperatureHourly, setTemperatureHourly] = useState([]);
-  const [weatherCodeHourly, setWeatherCodeHourly] = useState([] || null);
+  const [temperatureHourly, setTemperatureHourly] = useState<number[]>([]);
+  const [weatherCodeHourly, setWeatherCodeHourly] = useState<number[]>([]);
   const [weatherCodeDaily, setWeatherCodeDaily] = useState([]);
-  const [hour, setHour] = useState([]);
+  const [hour, setHour] = useState<string[]>([]);
   const [week, setWeek] = useState([]);
   const [temperatureDaily, setTemperatureDaily] = useState({
     tempMin: [] as number[],
@@ -45,8 +42,6 @@ export const useStateVariables = () => {
   const [loading, setLoading] = useState(false);
 
   return {
-    locationPermission,
-    setLocationPermission,
     cityName,
     setCityName,
     description,
@@ -92,7 +87,6 @@ export const useSharedState = () => useBetween(useStateVariables);
 
 export const useInit = () => {
   const {
-    setLocationPermission,
     setCityName,
     setDescription,
     setTemperatureHourly,
@@ -113,7 +107,6 @@ export const useInit = () => {
   useEffect(() => {
     console.log('useInit funcionando em Home!!');
     setLoading(true);
-    setLocationPermission(storage.getBoolean('locationStatus') || null);
     // ==================================================================
     const storedCurrentDay = storage.getString('currentDay');
     const currentDate = new Date();
@@ -144,10 +137,15 @@ export const useInit = () => {
       const currentMonth = storage.getString('currentMonth');
       const jsonTemperatureHourly =
         storage.getString('temperatureHourly') || '';
-      const temperatureHourlyArray = JSON.parse(jsonTemperatureHourly);
+      const temperatureHourlyArray = jsonTemperatureHourly
+        ? JSON.parse(jsonTemperatureHourly)
+        : [];
       const jsonWeatherCodeHourly =
-        storage.getString('weatherCodeHourly') || '';
-      const weatherCodeHourlyArray = JSON.parse(jsonWeatherCodeHourly);
+        storage.getString('weatherCodeHourly') || ''; // If empty, set to empty string
+      const weatherCodeHourlyArray = jsonWeatherCodeHourly
+        ? JSON.parse(jsonWeatherCodeHourly)
+        : []; // Check if not empty before parsing
+
       // SET ============================================================
       setDate([currentDay, currentMonth]);
       setTemperatureHourly(temperatureHourlyArray);
@@ -158,39 +156,31 @@ export const useInit = () => {
       const stringCurrentWeekdays = storage.getString('currentWeekdays') || '';
       const currentWeekdays = JSON.parse(stringCurrentWeekdays);
       const jsonTemperatureDaily = storage.getString('temperatureDaily');
-      const temperatureDailyArray = JSON.parse(jsonTemperatureDaily) || '';
       const jsonWeatherCodeDaily = storage.getString('weatherCodeDaily');
-      const weatherCodeDailyArray = JSON.parse(jsonWeatherCodeDaily) || '';
+
+      const weatherCodeDailyArray = jsonWeatherCodeDaily
+        ? JSON.parse(jsonWeatherCodeDaily)
+        : '';
+
+      const temperatureDailyArray = jsonTemperatureDaily
+        ? JSON.parse(jsonTemperatureDaily)
+        : '';
       // SET ========================================================
       setWeek(currentWeekdays);
-      setTemperatureDaily(temperatureDailyArray);
       setWeatherCodeDaily(weatherCodeDailyArray);
+      setTemperatureDaily(temperatureDailyArray);
     }
     // ================================================
     //Asking for Permission only if not granted to optimize the app
-    const requestLocation = async () => {
-      const locationStatus = await requestLocationPermission();
+    /* const checkAndRequestLocationPermission = async () => {
+      const isLocationPermissionGranted = await checkLocationPermission();
+      if (!isLocationPermissionGranted) {
+        await requestLocationPermission();
+      }
+      setLocationPermission(isLocationPermissionGranted);
+    };
 
-      if (locationStatus === PermissionsAndroid.RESULTS.GRANTED) {
-        console.log('@PEGOU PERMISSAO !');
-        setLocationPermission(true);
-        storage.set('locationStatus', true);
-      } else {
-        setLocationPermission(false);
-        storage.set('locationStatus', false);
-      }
-    };
-    const checkLocation = async () => {
-      const locationStatus = await checkLocationPermission();
-      console.log('Location permission:', locationStatus);
-      if (locationStatus === false) {
-        requestLocation();
-      } else {
-        setLocationPermission(true);
-        storage.set('locationStatus', true);
-      }
-    };
-    checkLocation();
+    checkAndRequestLocationPermission(); */
     // ================================================
     const fetchCurrent = async (
       lat: any /* : Geocoder.fromParams */,
@@ -236,8 +226,8 @@ export const useInit = () => {
         );
         // SET ===========================================================
         setHour(hoursArray);
-        //setTemperatureHourly(formattedArray);
-        //setWeatherCodeHourly(Array.from(hourly.weatherCode));
+        setTemperatureHourly(formattedArray);
+        setWeatherCodeHourly(Array.from(hourly.weatherCode));
         // GET STORED DATA ================================================
 
         storage.set('temperatureHourly', JSON.stringify(formattedArray));
@@ -318,8 +308,6 @@ export const useInit = () => {
       }
     };
     optimizer();
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 };
 

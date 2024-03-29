@@ -1,22 +1,28 @@
-import React, {useRef} from 'react';
+import React, {useEffect, useRef} from 'react';
 import {
   View,
   StyleSheet,
   SafeAreaView,
   TouchableOpacity,
   Dimensions,
+  Text,
+  DrawerLayoutAndroid,
 } from 'react-native';
 import {useInit, useSharedState} from './logic';
+import {useSharedState as useSharedHomeState} from '../Home/logic';
 import {useSharedState as useSharedGlobalState} from '../../context/globalUseState';
 import {Camera, useCameraDevice} from 'react-native-vision-camera';
 import {CameraRoll} from '@react-native-camera-roll/camera-roll';
 import {StackNavigationProp} from '@react-navigation/stack';
-import DeniedPermission from '../../components/deniedPermission';
+import Header from '../../components/Header/header';
+import DeniedPermission from '../DeniedPermissionScreen';
+import DrawerMenu from '../../components/Drawer/drawerMenu';
 interface Props {
   navigation: StackNavigationProp<any>;
 }
 const CameraScreen: React.FC<Props> = ({navigation}) => {
   const {cameraPermission, savePermission} = useSharedState();
+  const {setDrawerOn} = useSharedHomeState();
   const {
     setPhoto,
     picturesToDisplay,
@@ -29,7 +35,22 @@ const CameraScreen: React.FC<Props> = ({navigation}) => {
 
   const device = useCameraDevice('back');
   const {width, height} = Dimensions.get('screen');
-  //console.log(' width = ', width, 'height = ', height);
+  const drawerRef = useRef<DrawerLayoutAndroid>(null);
+  let currentDrawerRef = drawerRef.current;
+
+  //=======================================
+  useEffect(() => {
+    // Disable the drawer menu when the camera screen mounts
+    currentDrawerRef?.closeDrawer();
+
+    setDrawerOn(false);
+    return () => {
+      // Re-enable the drawer menu when the camera screen unmounts
+      //currentDrawerRef?.openDrawer();
+      //setDrawerOn(true);
+    };
+  }, []);
+  //=======================================
 
   const camera = useRef<Camera>(null);
   useInit();
@@ -105,29 +126,24 @@ const CameraScreen: React.FC<Props> = ({navigation}) => {
   return (
     <SafeAreaView style={{flex: 1}}>
       <View style={styles.container}>
-        {!cameraPermission ? (
-          <View style={{flex: 1}}>
-            <Camera
-              //style={StyleSheet.absoluteFill}
-              style={{width: width, height: height - 1}}
-              device={device}
-              isActive={true}
-              ref={camera}
-              photo={true}
-            />
-            <View
-              style={[
-                styles.outerCircle,
-                {bottom: width * 0.05, left: width * 0.4},
-              ]}>
-              <TouchableOpacity onPress={handleTakePicture}>
-                <View style={styles.innerCircle} />
-              </TouchableOpacity>
-            </View>
+        <View style={{flex: 1}}>
+          <Camera
+            style={{width: width, height: height}}
+            device={device}
+            isActive={true}
+            ref={camera}
+            photo={true}
+          />
+          <View
+            style={[
+              styles.outerCircle,
+              {bottom: width * 0.05, left: width * 0.4},
+            ]}>
+            <TouchableOpacity onPress={handleTakePicture}>
+              <View style={styles.innerCircle} />
+            </TouchableOpacity>
           </View>
-        ) : (
-          <DeniedPermission permissionLabel={'camera'} />
-        )}
+        </View>
       </View>
     </SafeAreaView>
   );

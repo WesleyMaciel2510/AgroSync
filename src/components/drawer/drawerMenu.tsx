@@ -39,11 +39,13 @@ const DrawerMenu: React.FC<DrawerMenuProps> = ({children}) => {
   const {name, userType} = useSharedUserState();
 
   const handleOpen = () => {
+    console.log('drawerRef = ', drawerRef);
     drawerRef.current?.openDrawer();
     setDrawerOn(true);
   };
 
   const handleClose = () => {
+    console.log('drawerRef = ', drawerRef);
     drawerRef.current?.closeDrawer();
     setDrawerOn(false);
   };
@@ -86,7 +88,11 @@ const DrawerMenu: React.FC<DrawerMenuProps> = ({children}) => {
           iconName="cog"
         />
         <DrawerLine
-          onPress={handleLogout}
+          onPress={() => {
+            drawerRef.current?.closeDrawer();
+            setDrawerOn(false);
+            handleLogout();
+          }}
           text={'Logout'}
           iconName="sign-out-alt"
         />

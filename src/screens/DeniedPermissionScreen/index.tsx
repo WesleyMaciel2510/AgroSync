@@ -1,53 +1,62 @@
 import React from 'react';
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity, Linking} from 'react-native';
 import LottieView from 'lottie-react-native';
-import {useSharedState} from './ProducerComponents/logic';
-import {Linking} from 'react-native';
-import {requestLocationPermission} from '../services/weather/askPermission';
+import {useSharedState} from '../../components/ProducerComponents/logic';
+import {requestLocationPermission} from '../../services/weather/askPermission';
 import {useCameraPermission} from 'react-native-vision-camera';
+import {StackNavigationProp} from '@react-navigation/stack';
 
-const DeniedPermission: React.FC<{permissionLabel: string}> = ({
+interface Props {
+  navigation: StackNavigationProp<any>;
+}
+
+const DeniedPermissionScreen: React.FC<Props> = ({navigation}) => {
+  /* const DeniedPermissionScreen: React.FC<{permissionLabel: string}> = ({
   permissionLabel,
-}) => {
-  const {locationPermission} = useSharedState();
-  const {requestPermission, hasPermission} = useCameraPermission();
+}) => { */
+  const {setLocationPermission} = useSharedState();
+  const {hasPermission, requestPermission} = useCameraPermission();
 
-  const label = permissionLabel === 'location' ? 'Localização' : 'Camera';
+  //const label = permissionLabel === 'location' ? 'Localização' : 'Câmera';
+  const label = 'camera';
+  const permissionLabel = 'camera';
   const handlePress = () => {
-    permissionLabel === 'location'
-      ? requestLocationPermission()
-      : requestPermission();
-    console.log('locationPermission = ', locationPermission);
-    console.log('cameraPermission = ', hasPermission);
+    if (permissionLabel === 'location') {
+      const result = requestLocationPermission();
+      console.log('requestLocationPermission@result = ', result);
+    } else {
+      // REQUEST CAMERA PERMISSION
+      const result = requestPermission();
+      console.log('requestPermission@result = ', result);
+      if (hasPermission) {
+        navigation.navigate('Home');
+      }
+    }
   };
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>
-        {permissionLabel === 'location'
-          ? `Permissão de Acesso à ${label} não concedida`
-          : `Permissão de Acesso à ${label} não concedida`}
+        {`Permissão de Acesso à ${label} não concedida`}
       </Text>
 
       <View style={styles.background}>
         <LottieView
-          source={require('../assets/lottie/producer/travel.json')}
+          source={require('../../assets/lottie/producer/travel.json')}
           style={styles.lottieView}
           loop
           autoPlay
         />
       </View>
-      <View>
-        <Text style={styles.text}>
-          Pressione o botão abaixo para solicitar permissão novamente.
-          {'\n'}
-        </Text>
-      </View>
-      <View>
-        <Text style={styles.text}>
-          Se necessário, você pode ir para Configurações e verificar se {'\n'}a
-          permissão foi concedida.
-        </Text>
-      </View>
+
+      <Text style={styles.text}>
+        Pressione o botão abaixo para solicitar permissão novamente.
+        {'\n'}
+      </Text>
+      <Text style={styles.text}>
+        Se necessário, você pode ir para Configurações e verificar se {'\n'}a
+        permissão foi concedida.
+      </Text>
 
       <View style={styles.buttonContainer}>
         <TouchableOpacity
@@ -55,6 +64,7 @@ const DeniedPermission: React.FC<{permissionLabel: string}> = ({
           onPress={() => Linking.openSettings()}>
           <Text style={styles.buttonText}>VERIFICAR PERMISSÃO</Text>
         </TouchableOpacity>
+
         <TouchableOpacity style={styles.button} onPress={handlePress}>
           <Text style={styles.buttonText}>SOLICITAR PERMISSÃO</Text>
         </TouchableOpacity>
@@ -116,4 +126,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default DeniedPermission;
+export default DeniedPermissionScreen;

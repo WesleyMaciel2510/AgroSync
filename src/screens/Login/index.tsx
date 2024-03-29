@@ -1,5 +1,11 @@
 import React from 'react';
-import {View, StyleSheet, TextInput, Text, ImageBackground} from 'react-native';
+import {
+  View,
+  StyleSheet,
+  TextInput,
+  ImageBackground,
+  Dimensions,
+} from 'react-native';
 import {useInit, useOnLogin} from './logic/index';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {DefaultStyles} from '../../styles/styles';
@@ -17,22 +23,24 @@ const LoginScreen: React.FC<Props> = ({navigation}) => {
   const {email, setEmail, password, setPassword} = useSharedState();
   const {handleLogin} = useOnLogin();
   useInit();
+  const {height} = Dimensions.get('window');
+  const margin = height > 800 ? 0 : 40;
   // ========================================
   return (
     <ImageBackground
       style={[DefaultStyles.loginContainer, DefaultStyles.center]}
       source={require('../../assets/imgs/bgImage.png')}
       imageStyle={{opacity: 0.6}}>
-      <View style={{flexDirection: 'row'}}>
+      <View style={{flexDirection: 'row', flex: 1}}>
         <LottieView
           source={require('../../assets/lottie/login1.json')}
-          style={{width: 200, height: 200, margin: 20, top: 70, flex: 1}}
+          style={{width: 200, height: 200, margin: 15, flex: 1, bottom: margin}}
           autoPlay
           loop={true}
         />
         <LottieView
           source={require('../../assets/lottie/login2.json')}
-          style={{width: 200, height: 200, margin: 20, top: 70, flex: 1}}
+          style={{width: 200, height: 200, margin: 15, flex: 1, bottom: margin}}
           autoPlay
           loop={true}
         />

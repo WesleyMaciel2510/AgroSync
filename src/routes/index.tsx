@@ -11,6 +11,8 @@ import SchedulingInfoScreen from '../screens/Operator/SchedulingInfo';
 import PictureScreen from '../screens/Operator/Picture';
 import CameraScreen from '../screens/Camera';
 import ReaderCameraScreen from '../screens/ReaderCamera';
+import DeniedPermissionScreen from '../screens/DeniedPermissionScreen/';
+import NewScreen from '../screens/screen/index';
 
 const AuthStack = createNativeStackNavigator();
 //const DriverStack = createNativeStackNavigator();
@@ -45,6 +47,11 @@ const AppStack = () => {
             name="ReaderCamera"
             component={ReaderCameraScreen}
           />
+          <AuthStack.Screen
+            name="DeniedPermission"
+            component={DeniedPermissionScreen}
+          />
+          <AuthStack.Screen name="NewScreen" component={NewScreen} />
         </AuthStack.Navigator>
       ) : (
         <NonAuthStack.Navigator
