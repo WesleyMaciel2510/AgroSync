@@ -20,7 +20,6 @@ const PictureScreen: React.FC<Props> = ({navigation}) => {
   const {setModalVisible} = useSharedState();
   const {
     schedulingInfo,
-    picturesToDisplay,
     picturesToSend,
     quickRegister,
     setSuccessSendingPictures,
@@ -30,7 +29,7 @@ const PictureScreen: React.FC<Props> = ({navigation}) => {
   const handleSendPictures = async () => {
     console.log('CHAMOU handleSendPictures');
 
-    /* const dataToSend = {
+    const dataToSend = {
       ID: quickRegister ? 0 : schedulingInfo.IDAgendamento,
       IDTYPE: 'SCHEDULINGID',
       IMGBASE64: {} as {[key: number]: string},
@@ -39,43 +38,38 @@ const PictureScreen: React.FC<Props> = ({navigation}) => {
     for (let i = 0; i < picturesToSend.length; i++) {
       dataToSend.IMGBASE64[i] = picturesToSend[i];
     }
-
+    console.log('dataToSend = ', dataToSend.IMGBASE64);
     const result = await sendArrayofPictures(dataToSend);
-    console.log('result', result); */
-    /* if (result) {
+    console.log('result', result);
+    if (result) {
       navigation.navigate('Home');
     } else {
       setModalVisible(true);
-    } */
+    }
     navigation.navigate('Home');
     setSuccessSendingPictures(true);
   };
   //============================================================================
   return (
     <View style={styles.container}>
-      <DrawerMenu>
-        <Header />
-        <View style={styles.contentArea}>
-          <View style={styles.titleContainer}>
-            <Text style={styles.title}>
-              <FontAwesome5 name={'camera'} size={30} color={'#333'} /> Registro
-              de Fotos
-            </Text>
-          </View>
-          <GridComponent navigation={navigation} />
-          <ErrorSendModal />
+      <View style={styles.contentArea}>
+        <View style={styles.titleContainer}>
+          <Text style={styles.title}>
+            <FontAwesome5 name={'camera'} size={30} color={'#333'} /> Registro
+            de Fotos
+          </Text>
         </View>
+        <GridComponent navigation={navigation} />
+        <ErrorSendModal />
+      </View>
 
-        {schedulingInfo?.Status !== 'Finalizado' ? (
-          <View style={styles.buttonContainer}>
-            <Button
-              onPress={() => handleSendPictures()}
-              text={'ENVIAR FOTOS'}
-              width={'50%'}
-            />
-          </View>
-        ) : null}
-      </DrawerMenu>
+      <View style={styles.buttonContainer}>
+        <Button
+          onPress={() => handleSendPictures()}
+          text={'ENVIAR FOTOS'}
+          width={'50%'}
+        />
+      </View>
     </View>
   );
 };

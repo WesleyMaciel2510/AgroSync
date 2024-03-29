@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react';
 import {useBetween} from 'use-between';
-import {SearchLoad} from '../../../services/loads/index';
+import {searchLoad} from '../../../services/loads/index';
 import {useNavigation} from '@react-navigation/native';
 import {useSharedState as useSharedGlobalState} from '../../../context/globalUseState';
 
@@ -43,22 +43,27 @@ export const useOnSearchLoad = () => {
   const handleSearchLoad = async (inputValue: string) => {
     console.log('chamou handleSearchLoad');
     const inputNumber = parseInt(inputValue, 10);
-    const loadInfo = await SearchLoad(inputNumber);
-    console.log('load = ', loadInfo.success);
-    console.log('lenght = ', Object.keys(loadInfo.data).length);
 
-    if (loadInfo.timeout) {
-      console.log('timeout');
-      setServerTimeout(true);
-    }
-    //check if the result is empty
-    if (Object.keys(loadInfo.data).length > 0 && loadInfo.success) {
-      setLoadInfo(loadInfo.data?.[0]);
-      setModalVisible(false);
-      setIsLoading(false);
-      navigation.navigate('LoadInfo');
-    } else {
-      setNotFound(true);
+    try {
+      const loadInfo = await searchLoad(inputNumber);
+      console.log('load = ', loadInfo.success);
+      console.log('lenght = ', Object.keys(loadInfo.data).length);
+
+      if (loadInfo.timeout) {
+        console.log('timeout');
+        setServerTimeout(true);
+      }
+      //check if the result is empty
+      if (Object.keys(loadInfo.data).length > 0 && loadInfo.success) {
+        setLoadInfo(loadInfo.data?.[0]);
+        setModalVisible(false);
+        setIsLoading(false);
+        navigation.navigate('LoadInfo');
+      } else {
+        setNotFound(true);
+      }
+    } catch (error) {
+      console.error('Error during search load:', error);
     }
   };
   return {handleSearchLoad};

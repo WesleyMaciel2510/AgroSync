@@ -29,7 +29,7 @@ export const useInit = () => {
     console.log('cameraType = ', cameraType);
     console.log('savePermission = ', savePermission);
 
-    /* const requestPermissions = async () => {
+    const requestPermissions = async () => {
       if (!hasPermission) {
         try {
           const status = await requestPermission();
@@ -49,7 +49,7 @@ export const useInit = () => {
         permissionToSave ? setSavePermission(true) : setSavePermission(false);
       }
     };
-    requestPermissions(); */
+    requestPermissions();
   }, []);
 };
 

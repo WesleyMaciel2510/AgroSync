@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react';
 import {useBetween} from 'use-between';
-import {SearchScheduling} from '../../../services/scheduling/index';
+import {searchScheduling} from '../../../services/scheduling/index';
 import {useNavigation} from '@react-navigation/native';
 import {useSharedState as useSharedGlobalState} from '../../../context/globalUseState';
 
@@ -44,7 +44,7 @@ export const useOnSearchScheduling = () => {
   const handleSearchScheduling = async (inputValue: string) => {
     console.log('chamou handleSearchScheduling');
     const inputNumber = parseInt(inputValue, 10);
-    const schedulingInfo = await SearchScheduling(inputNumber);
+    const schedulingInfo = await searchScheduling(inputNumber);
     console.log('schedulingInfo = ', schedulingInfo);
     console.log('validation = ', schedulingInfo.timeout);
     console.log(

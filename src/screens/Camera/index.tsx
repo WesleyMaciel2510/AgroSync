@@ -71,6 +71,7 @@ const CameraScreen: React.FC<Props> = ({navigation}) => {
         console.log('photo path = ', result);
         const blob = await result.blob();
         console.log('Photo blob = ', blob);
+        console.log('savePermission = ', savePermission);
         //=======================================
         actionType === 'CameraOperator'
           ? navigation.navigate('Picture')
