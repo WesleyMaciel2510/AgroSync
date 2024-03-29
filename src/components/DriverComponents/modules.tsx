@@ -5,6 +5,7 @@ import {useSharedState as useSharedGlobalState} from '../../context/globalUseSta
 import CardHome from '../cardHome';
 import SearchLoadModal from '../../components/Modals/searchLoadModal';
 import {StackNavigationProp} from '@react-navigation/stack';
+import {useOnHandlePermission} from '../../screens/Camera/requestPermission';
 
 interface Props {
   navigation: StackNavigationProp<any>;
@@ -12,6 +13,17 @@ interface Props {
 const DriverModules: React.FC<Props> = ({navigation}) => {
   const {setModalVisible} = useSharedState();
   const {setCameraType, setActionType} = useSharedGlobalState();
+  const handlePermission = useOnHandlePermission();
+
+  const checkIfPermissionIsTrue = async () => {
+    const result = await handlePermission();
+    console.log('result = ', result);
+    if (result) {
+      navigation.navigate('ReaderCamera');
+    } else {
+      navigation.navigate('DeniedPermission');
+    }
+  };
 
   const cardsData = [
     {
@@ -30,7 +42,7 @@ const DriverModules: React.FC<Props> = ({navigation}) => {
       cardAction: () => {
         setCameraType('qrcode');
         setActionType('searchLoad');
-        navigation.navigate('ReaderCamera');
+        checkIfPermissionIsTrue();
       },
     },
     {
@@ -39,7 +51,7 @@ const DriverModules: React.FC<Props> = ({navigation}) => {
       cardAction: () => {
         setCameraType('barcode');
         setActionType('searchLoad');
-        navigation.navigate('ReaderCamera');
+        checkIfPermissionIsTrue();
       },
     },
   ];

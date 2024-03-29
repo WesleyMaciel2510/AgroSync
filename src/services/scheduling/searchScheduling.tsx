@@ -1,8 +1,8 @@
 import axios from 'axios';
 import {serverURL} from '../../.env';
 
-export const SearchScheduling = async (schedulingNumber: number) => {
-  console.log('chamou SearchScheduling');
+export const searchScheduling = async (schedulingNumber: number) => {
+  console.log('chamou searchScheduling');
   console.log('schedulingNumber = ', schedulingNumber);
   console.log('schedulingNumber = ', typeof schedulingNumber);
   try {

@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View, Dimensions} from 'react-native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
 interface InfoTableProps {
@@ -9,10 +9,13 @@ interface InfoTableProps {
   line1: string;
   line2: string;
   line3: string;
-  line4?: string; //Optional
-  line5?: string; //Optional
+  line4?: string; // Optional
+  line5?: string; // Optional
   highlightText: string;
 }
+
+const screenHeight = Dimensions.get('window').height;
+const tableHeight = screenHeight * 0.3;
 
 const InfoTable: React.FC<InfoTableProps> = ({
   color,
@@ -26,7 +29,7 @@ const InfoTable: React.FC<InfoTableProps> = ({
   highlightText,
 }) => {
   return (
-    <View style={styles.container}>
+    <View style={[styles.container]}>
       <View style={[styles.infoBar, {backgroundColor: color}]}>
         <View style={[styles.iconArea, {backgroundColor: color}]}>
           <FontAwesome5 name={iconName} size={40} color="#fff" />
@@ -34,21 +37,25 @@ const InfoTable: React.FC<InfoTableProps> = ({
         <Text style={styles.title}> {title} </Text>
       </View>
       <View style={styles.tableContainer}>
-        <View style={styles.line1}>
+        <View style={[styles.line1, {height: tableHeight / 5}]}>
           <Text style={styles.lineText}>{line1}</Text>
         </View>
-        <View style={styles.line2}>
+        <View style={[styles.line2, {height: tableHeight / 5}]}>
           <Text style={styles.lineText}>{line2}</Text>
         </View>
-        <View style={styles.line1}>
+        <View style={[styles.line1, {height: tableHeight / 5}]}>
           <Text style={styles.lineText}>{line3}</Text>
         </View>
-        <View style={styles.line2}>
-          <Text style={styles.lineText}>{line4}</Text>
-        </View>
-        <View style={styles.line1}>
-          <Text style={styles.lineText}>{line5}</Text>
-        </View>
+        {line4 && (
+          <View style={[styles.line2, {height: tableHeight / 5}]}>
+            <Text style={styles.lineText}>{line4}</Text>
+          </View>
+        )}
+        {line5 && (
+          <View style={[styles.line1, {height: tableHeight / 5}]}>
+            <Text style={styles.lineText}>{line5}</Text>
+          </View>
+        )}
       </View>
       <View style={[styles.highlightArea, {backgroundColor: color}]}>
         <Text style={[styles.lineText, {color: 'white', marginLeft: 10}]}>
@@ -61,7 +68,7 @@ const InfoTable: React.FC<InfoTableProps> = ({
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flexDirection: 'column',
   },
   producArea: {
     backgroundColor: '#3AC0A0',
@@ -82,24 +89,20 @@ const styles = StyleSheet.create({
     borderRadius: 30,
   },
   tableContainer: {
+    flexDirection: 'column',
     borderLeftWidth: 2,
     borderRightWidth: 2,
     borderBottomWidth: 2,
-    borderBottomLeftRadius: 5,
-    borderBottomRightRadius: 5,
+    borderRadius: 5,
     borderColor: 'gray',
   },
   line1: {
     width: '100%',
-    height: 50,
-    borderRadius: 5,
     backgroundColor: '#E8E9F1',
   },
   line2: {
     width: '100%',
-    height: 50,
     backgroundColor: '#FFF',
-    borderRadius: 5,
   },
   highlightArea: {
     backgroundColor: '#3498DB',

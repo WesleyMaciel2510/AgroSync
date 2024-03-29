@@ -19,7 +19,7 @@ export const setLogin = async (email: string, password: string) => {
     const response = await axios.post(
       `${serverURL}/api/users/login`,
       data,
-      {timeout: 5000}, // 5 seconds
+      {timeout: 10000}, // 5 seconds
     );
     console.log('response = ', response);
     console.log('serverURL = ', serverURL);

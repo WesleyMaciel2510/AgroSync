@@ -1,9 +1,10 @@
-import {useEffect, useRef, useState} from 'react';
+import {useEffect, useState} from 'react';
 import {useBetween} from 'use-between';
 import {useCameraPermission} from 'react-native-vision-camera';
 import {requestSavePermission} from '../../../helpers/savePicture';
-import {SearchLoad} from '../../../services/loads/index';
-import {SearchSchedulingModal} from '../../../services/scheduling/index';
+import {searchLoad} from '../../../services/loads/index';
+import {searchScheduling} from '../../../services/scheduling/index';
+//import {searchScheduling} from '../../../services/scheduling/index';
 
 import {useSharedState as useSharedGlobalState} from '../../../context/globalUseState';
 
@@ -24,7 +25,7 @@ export const useInit = () => {
   const {hasPermission, requestPermission} = useCameraPermission();
   const {setCameraPermission, savePermission, setSavePermission} =
     useSharedState();
-  const {cameraType, setSchedulingInfo} = useSharedGlobalState();
+  const {cameraType} = useSharedGlobalState();
 
   useEffect(() => {
     console.log('chamou useInit');
@@ -56,7 +57,7 @@ export const useInit = () => {
 };
 
 export const useHandleSearch = () => {
-  const {actionType, setSchedulingInfo} = useSharedGlobalState();
+  const {actionType, setLoadInfo, setSchedulingInfo} = useSharedGlobalState();
   console.log('chamou useHandleSearch');
   const handleSearch = async (numberToSearch: number) => {
     console.log('chamou handleSearch');
@@ -65,13 +66,14 @@ export const useHandleSearch = () => {
     if (actionType === 'searchLoad') {
       console.log('actionType = ', actionType);
       result = await searchLoad(numberToSearch);
+      setLoadInfo(result?.data[0]);
     } else if (actionType === 'schedulingInfo') {
       console.log('actionType = ', actionType);
-      result = await SearchSchedulingModal(numberToSearch);
-      setSchedulingInfo(result[0]);
+      result = await searchScheduling(numberToSearch);
+      setSchedulingInfo(result?.data[0]);
     }
 
-    console.log('result in logic = ', result);
+    console.log('result in logic = ', result?.data);
     return result;
   };
   return handleSearch;

@@ -1,9 +1,6 @@
 import React from 'react';
 import {View, StyleSheet} from 'react-native';
 import {StackNavigationProp} from '@react-navigation/stack';
-//import {useSharedState} from './logic';
-import DrawerMenu from '../../../components/Drawer/drawerMenu';
-import Header from '../../../components/Header/header';
 import InfoTable from '../../../components/infoTable';
 import Button from '../../../components/Button/button';
 import {useSharedState as useSharedGlobalState} from '../../../context/globalUseState';
@@ -17,26 +14,31 @@ const LoadInfoScreen: React.FC<Props> = ({navigation}) => {
   return (
     <View style={styles.container}>
       <View style={styles.contentArea}>
-        <InfoTable
-          color={'#3498DB'}
-          iconName={'info-circle'}
-          title={'Informações da Carga'}
-          line1={'Local de Coleta: ' + (loadInfo?.NomeOrigem ?? '')}
-          line2={'Produto: ' + (loadInfo?.NomeProduto ?? '')}
-          line3={'Peso: ' + (loadInfo?.Peso ?? '')}
-          line4={''}
-          highlightText={'Prazo de Entrega: ' + (loadInfo?.PrazoEntrega ?? '')}
-        />
-        <InfoTable
-          color={'#EB4C1A'}
-          iconName={'truck'}
-          title={'Informações da Entrega'}
-          line1={'Local de Entrega: ' + (loadInfo?.NomeDestino ?? '')}
-          line2={' Falar com: Joaquim da Silva'}
-          line3={'Contato: (34) 9 8872-9600'}
-          line4={'Placa do Caminhão:' + (loadInfo?.PlacaCaminhão ?? '')}
-          highlightText={'Status da Entrega: Não Iniciada'}
-        />
+        <View style={styles.tableContainer}>
+          <InfoTable
+            color={'#3498DB'}
+            iconName={'info-circle'}
+            title={'Informações da Carga'}
+            line1={'Local de Coleta: ' + (loadInfo?.NomeOrigem ?? '')}
+            line2={'Produto: ' + (loadInfo?.NomeProduto ?? '')}
+            line3={'Peso: ' + (loadInfo?.Peso ?? '')}
+            highlightText={
+              'Prazo de Entrega: ' + (loadInfo?.PrazoEntrega ?? '')
+            }
+          />
+        </View>
+        <View style={styles.tableContainer}>
+          <InfoTable
+            color={'#EB4C1A'}
+            iconName={'truck'}
+            title={'Informações da Entrega'}
+            line1={'Local de Entrega: ' + (loadInfo?.NomeDestino ?? '')}
+            line2={' Falar com: Joaquim da Silva'}
+            line3={'Contato: (34) 9 8872-9600'}
+            line4={'Placa do Caminhão:' + (loadInfo?.PlacaCaminhão ?? '')}
+            highlightText={'Status da Entrega: Não Iniciada'}
+          />
+        </View>
       </View>
 
       <View
@@ -63,15 +65,9 @@ const styles = StyleSheet.create({
   contentArea: {
     flex: 1,
     flexDirection: 'column',
-    padding: 20,
+    padding: 10,
   },
-  title: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-    color: '#fff',
-  },
-  table: {
+  tableContainer: {
     flex: 1,
   },
 });

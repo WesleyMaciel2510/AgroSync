@@ -28,7 +28,7 @@ const AppStack = () => {
     <>
       {isLogged ? (
         <AuthStack.Navigator
-          initialRouteName="Home"
+          initialRouteName="LoadInfo"
           screenOptions={{
             headerShown: false,
             headerTitle: '',

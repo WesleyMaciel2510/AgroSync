@@ -1,5 +1,5 @@
 import React, {useRef} from 'react';
-import {View, Text, StyleSheet, SafeAreaView, Dimensions} from 'react-native';
+import {View, StyleSheet, Dimensions} from 'react-native';
 import {useInit, useSharedState, useHandleSearch} from './logic';
 import {useSharedState as useSharedGlobalState} from '../../context/globalUseState';
 import {
@@ -50,7 +50,6 @@ const ReaderCameraScreen: React.FC<Props> = ({navigation}) => {
         return;
       } // If isScanning is true, exit the function
       try {
-        //console.log('codes = ', codes);
         console.log('scannedInfo = ', codes[0]?.value);
         console.log('entrou em searchLoad');
         const scannedInfo = codes[0]?.value;
@@ -83,7 +82,7 @@ const ReaderCameraScreen: React.FC<Props> = ({navigation}) => {
       }
       setTimeout(() => {
         isScanning = false;
-      }, 10000);
+      }, 2000);
     },
   });
   if (device == null) {

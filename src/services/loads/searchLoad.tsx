@@ -1,7 +1,7 @@
 import axios from 'axios';
 import {serverURL} from '../../.env';
 
-export const SearchLoad = async (loadNumber: number) => {
+export const searchLoad = async (loadNumber: number) => {
   console.log('chamou searchLoad');
   console.log('loadNumber = ', loadNumber);
   console.log('loadNumber = ', typeof loadNumber);

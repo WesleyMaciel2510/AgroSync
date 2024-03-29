@@ -12,7 +12,7 @@ const App: React.FC = () => {
 
   return (
     <>
-      {isLogged && notCameraScreen ? (
+      {isLogged || notCameraScreen ? (
         <NavigationContainer>
           <DrawerMenu>
             <Header />
