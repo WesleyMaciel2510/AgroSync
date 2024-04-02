@@ -3,8 +3,6 @@ import {View, StyleSheet, Text} from 'react-native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {useSharedState, useInit} from './logic';
 import {useSharedState as useSharedGlobalState} from '../../../context/globalUseState';
-import DrawerMenu from '../../../components/Drawer/drawerMenu';
-import Header from '../../../components/Header/header';
 import Button from '../../../components/Button/button';
 import GridComponent from '../../../components/gridPicture';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
@@ -23,16 +21,23 @@ const PictureScreen: React.FC<Props> = ({navigation}) => {
     picturesToSend,
     quickRegister,
     setSuccessSendingPictures,
+    setPictureIndex,
+    setPicturesToDisplay,
+    setPicturesToSend,
   } = useSharedGlobalState();
   useInit();
 
   const handleSendPictures = async () => {
     console.log('CHAMOU handleSendPictures');
 
+    const currentDate = new Date();
+    const formattedDate = currentDate.toISOString();
+
     const dataToSend = {
       ID: quickRegister ? 0 : schedulingInfo.IDAgendamento,
       IDTYPE: 'SCHEDULINGID',
       IMGBASE64: {} as {[key: number]: string},
+      DATETIME: formattedDate,
     };
     // Add all the pictures improving the performance of the database architecture
     for (let i = 0; i < picturesToSend.length; i++) {
@@ -43,11 +48,14 @@ const PictureScreen: React.FC<Props> = ({navigation}) => {
     console.log('result', result);
     if (result) {
       navigation.navigate('Home');
+      setSuccessSendingPictures(true);
+      sendArrayofPictures('');
+      setPictureIndex(0);
+      setPicturesToDisplay(['']);
+      setPicturesToSend(['']);
     } else {
       setModalVisible(true);
     }
-    navigation.navigate('Home');
-    setSuccessSendingPictures(true);
   };
   //============================================================================
   return (

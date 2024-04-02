@@ -87,8 +87,8 @@ const CalendarComponent = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
-    backgroundColor: '#f4f4f4', // Light gray background
+    padding: 10,
+    backgroundColor: '#f4f4f4',
   },
   calendar: {
     borderRadius: 10,
