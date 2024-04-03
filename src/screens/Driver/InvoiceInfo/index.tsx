@@ -19,7 +19,7 @@ interface Props {
 }
 
 const LoadInfoScreen: React.FC<Props> = ({navigation}) => {
-  const {photo, picturesToSend, loadInfo, setActionType} =
+  const {photo, picturesToSend, loadInfo, setActionType, setCameraScreen} =
     useSharedGlobalState();
 
   const handleConfirmAction = async () => {
@@ -37,6 +37,7 @@ const LoadInfoScreen: React.FC<Props> = ({navigation}) => {
   const handleAttachStub = () => {
     navigation.navigate('Camera');
     setActionType('CameraDriver');
+    setCameraScreen(true);
   };
 
   const confirmDelivery = () => {

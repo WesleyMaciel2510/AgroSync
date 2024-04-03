@@ -7,18 +7,23 @@ import Header from './src/components/Header/header';
 import {NavigationContainer} from '@react-navigation/native';
 
 const App: React.FC = () => {
-  const {isLogged, cameraType, actionType} = useSharedState();
-  const notCameraScreen: boolean = cameraType !== '' && actionType !== '';
+  const {isLogged, cameraScreen} = useSharedState();
 
   return (
     <>
-      {isLogged || notCameraScreen ? (
-        <NavigationContainer>
-          <DrawerMenu>
-            <Header />
+      {isLogged ? (
+        cameraScreen ? (
+          <NavigationContainer>
             <AppStack />
-          </DrawerMenu>
-        </NavigationContainer>
+          </NavigationContainer>
+        ) : (
+          <NavigationContainer>
+            <DrawerMenu>
+              <Header />
+              <AppStack />
+            </DrawerMenu>
+          </NavigationContainer>
+        )
       ) : (
         <NavigationContainer>
           <AppStack />

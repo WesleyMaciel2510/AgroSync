@@ -12,7 +12,7 @@ interface Props {
 }
 const OperatorModules: React.FC<Props> = ({navigation}) => {
   const {setModalVisible} = useSharedState();
-  const {setCameraType, setActionType, setQuickRegister} =
+  const {setCameraType, setActionType, setQuickRegister, setCameraScreen} =
     useSharedGlobalState();
   const handlePermission = useOnHandlePermission();
 
@@ -21,6 +21,7 @@ const OperatorModules: React.FC<Props> = ({navigation}) => {
     console.log('result = ', result);
     if (result) {
       navigation.navigate('ReaderCamera');
+      setCameraScreen(true);
     } else {
       navigation.navigate('DeniedPermission');
     }

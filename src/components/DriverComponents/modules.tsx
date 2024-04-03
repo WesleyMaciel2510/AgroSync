@@ -12,7 +12,8 @@ interface Props {
 }
 const DriverModules: React.FC<Props> = ({navigation}) => {
   const {setModalVisible} = useSharedState();
-  const {setCameraType, setActionType} = useSharedGlobalState();
+  const {setCameraType, setActionType, setCameraScreen} =
+    useSharedGlobalState();
   const handlePermission = useOnHandlePermission();
 
   const checkIfPermissionIsTrue = async () => {
@@ -20,6 +21,7 @@ const DriverModules: React.FC<Props> = ({navigation}) => {
     console.log('result = ', result);
     if (result) {
       navigation.navigate('ReaderCamera');
+      setCameraScreen(true);
     } else {
       navigation.navigate('DeniedPermission');
     }
@@ -42,6 +44,7 @@ const DriverModules: React.FC<Props> = ({navigation}) => {
       cardAction: () => {
         setCameraType('qrcode');
         setActionType('searchLoad');
+        setCameraScreen(false);
         checkIfPermissionIsTrue();
       },
     },
@@ -51,6 +54,7 @@ const DriverModules: React.FC<Props> = ({navigation}) => {
       cardAction: () => {
         setCameraType('barcode');
         setActionType('searchLoad');
+        setCameraScreen(false);
         checkIfPermissionIsTrue();
       },
     },

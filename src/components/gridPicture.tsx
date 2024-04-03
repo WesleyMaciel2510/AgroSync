@@ -20,12 +20,19 @@ const paddingHorizontal = 16;
 const childWidth = width / 3.5;
 
 const GridView = ({navigation}: Props) => {
-  const {photo, isLoading, setActionType, setPictureIndex, picturesToDisplay} =
-    useSharedGlobalState();
+  const {
+    photo,
+    isLoading,
+    setActionType,
+    setPictureIndex,
+    picturesToDisplay,
+    setCameraScreen,
+  } = useSharedGlobalState();
 
   const onPressItem = (index: number) => {
     console.log('Item pressed:', index);
     setActionType('CameraOperator');
+    setCameraScreen(true);
     setPictureIndex(index);
     navigation.navigate('Camera');
   };

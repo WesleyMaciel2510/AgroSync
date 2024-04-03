@@ -5,61 +5,54 @@ import {
   SafeAreaView,
   TouchableOpacity,
   Dimensions,
-  Text,
-  DrawerLayoutAndroid,
+  BackHandler,
 } from 'react-native';
 import {useInit, useSharedState} from './logic';
-import {useSharedState as useSharedHomeState} from '../Home/logic';
 import {useSharedState as useSharedGlobalState} from '../../context/globalUseState';
 import {Camera, useCameraDevice} from 'react-native-vision-camera';
 import {CameraRoll} from '@react-native-camera-roll/camera-roll';
 import {StackNavigationProp} from '@react-navigation/stack';
-import Header from '../../components/Header/header';
-import DeniedPermission from '../DeniedPermissionScreen';
-import DrawerMenu from '../../components/Drawer/drawerMenu';
 interface Props {
   navigation: StackNavigationProp<any>;
 }
 const CameraScreen: React.FC<Props> = ({navigation}) => {
-  const {cameraPermission, savePermission} = useSharedState();
-  const {setDrawerOn} = useSharedHomeState();
+  const {savePermission} = useSharedState();
   const {
     setPhoto,
-    picturesToDisplay,
     setPicturesToDisplay,
-    setIsLoading,
     setPicturesToSend,
     actionType,
     pictureIndex,
+    setCameraScreen,
   } = useSharedGlobalState();
 
   const device = useCameraDevice('back');
   const {width, height} = Dimensions.get('screen');
-  const drawerRef = useRef<DrawerLayoutAndroid>(null);
-  let currentDrawerRef = drawerRef.current;
-
-  //=======================================
-  useEffect(() => {
-    // Disable the drawer menu when the camera screen mounts
-    currentDrawerRef?.closeDrawer();
-
-    setDrawerOn(false);
-    return () => {
-      // Re-enable the drawer menu when the camera screen unmounts
-      //currentDrawerRef?.openDrawer();
-      //setDrawerOn(true);
-    };
-  }, []);
-  //=======================================
-
   const camera = useRef<Camera>(null);
   useInit();
+  //=======================================
+  useEffect(() => {
+    const backAction = () => {
+      setCameraScreen(false);
+      navigation.navigate('Picture');
+      return false;
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backAction,
+    );
+
+    return () => backHandler.remove();
+  }, [navigation, setCameraScreen]);
+  //=======================================
   if (device == null) {
     return null;
   }
 
   const handleTakePicture = async () => {
     console.log('chamou handleTakePicture');
+    setCameraScreen(true);
     if (camera.current) {
       //setIsLoading(true);
       try {
@@ -77,13 +70,13 @@ const CameraScreen: React.FC<Props> = ({navigation}) => {
           ? navigation.navigate('Picture')
           : navigation.navigate('InvoiceInfo');
         //=======================================
-
+        setCameraScreen(false);
         if (savePermission) {
           const savedPicture = await CameraRoll.saveAsset(
             `file://${photo.path}`,
             {type: 'photo'},
           );
-          console.log('savedPicture = ', savedPicture);
+          //console.log('savedPicture = ', savedPicture);
           //storage.set('savedPicture', JSON.stringify(savedPicture));
 
           //=======================================
