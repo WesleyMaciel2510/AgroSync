@@ -1,10 +1,12 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   View,
   StyleSheet,
   TextInput,
   ImageBackground,
   Dimensions,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
 } from 'react-native';
 import {useInit, useOnLogin} from './logic/index';
 import {StackNavigationProp} from '@react-navigation/stack';
@@ -21,10 +23,14 @@ interface Props {
 
 const LoginScreen: React.FC<Props> = ({navigation}) => {
   const {email, setEmail, password, setPassword} = useSharedState();
+  const [passwordVisible, setPasswordVisible] = useState(false);
+
   const {handleLogin} = useOnLogin();
   useInit();
   const {height} = Dimensions.get('window');
   const margin = height > 800 ? 0 : 40;
+  const eyeHorizontalPosition = height > 800 ? 30 : 30; //keep logic if needed in other devices
+  const eyeVerticalPosition = height > 800 ? 300 : 270;
   // ========================================
   return (
     <ImageBackground
@@ -65,9 +71,21 @@ const LoginScreen: React.FC<Props> = ({navigation}) => {
           value={password}
           onChangeText={setPassword}
           placeholder="Digite sua Senha"
-          secureTextEntry
+          secureTextEntry={!passwordVisible}
           style={styles.inputContent}
         />
+        <TouchableWithoutFeedback
+          onPress={() => setPasswordVisible(!passwordVisible)}>
+          <FontAwesome5
+            name={passwordVisible ? 'eye-slash' : 'eye'}
+            size={25}
+            color="#000"
+            style={[
+              styles.hidePassword,
+              {bottom: eyeHorizontalPosition, left: eyeVerticalPosition},
+            ]}
+          />
+        </TouchableWithoutFeedback>
       </View>
       <View style={{width: '50%', padding: 20}}>
         <Button text="Login" onPress={handleLogin} />
@@ -112,6 +130,9 @@ const styles = StyleSheet.create({
     flex: 1,
     width: '80%',
     paddingHorizontal: 30,
+  },
+  hidePassword: {
+    position: 'absolute',
   },
 });
 

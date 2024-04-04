@@ -47,6 +47,8 @@ export const useStateVariables = () => {
   const [cameraScreen, setCameraScreen] = useState(false);
   const [quickRegister, setQuickRegister] = useState(false);
   const [successSendingPictures, setSuccessSendingPictures] = useState(false);
+  const [internetOn, setInternetOn] = useState(true);
+  const [gpsOn, setGpsOn] = useState(true);
   return {
     isLoading,
     setIsLoading,
@@ -90,6 +92,10 @@ export const useStateVariables = () => {
     setQuickRegister,
     successSendingPictures,
     setSuccessSendingPictures,
+    internetOn,
+    setInternetOn,
+    gpsOn,
+    setGpsOn,
   };
 };
 

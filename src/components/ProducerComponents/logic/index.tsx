@@ -36,8 +36,7 @@ export const useStateVariables = () => {
   const [position, setPosition] = useState<PositionType | null>(null);
   const [weatherCode, setWeatherCode] = useState<number | null>(null);
   const [updateAllData, setUpdateAllData] = useState(true);
-  const [internetOn, setInternetOn] = useState(true);
-  const [gpsOn, setGpsOn] = useState(true);
+
   const [loading, setLoading] = useState(false);
 
   return {
@@ -73,10 +72,6 @@ export const useStateVariables = () => {
     setWeatherCode,
     updateAllData,
     setUpdateAllData,
-    internetOn,
-    setInternetOn,
-    gpsOn,
-    setGpsOn,
     loading,
     setLoading,
   };
