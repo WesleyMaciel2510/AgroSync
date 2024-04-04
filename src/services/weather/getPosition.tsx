@@ -6,15 +6,16 @@ type Position = {
 export const getPosition = (): Promise<Position> => {
   return new Promise((resolve, reject) => {
     Geolocation.getCurrentPosition(
-      position => {
+      (position: {coords: {latitude: number; longitude: number}}) => {
         const positionLatitude = position.coords.latitude.toFixed(4);
         const positionLongitude = position.coords.longitude.toFixed(4);
         resolve({positionLatitude, positionLongitude});
       },
-      error => {
+      (error: any) => {
         console.error('ERROR IN GETPOSITION = ', error);
         reject(error);
       },
+      {}, // options object
     );
   });
 };

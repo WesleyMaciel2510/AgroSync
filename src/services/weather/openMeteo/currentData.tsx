@@ -1,6 +1,7 @@
 import {fetchWeatherApi} from 'openmeteo';
 import 'url-search-params-polyfill';
 import 'text-encoding';
+import Geocoder from 'react-native-geocoding';
 
 async function fetchWeatherData(
   positionLatitude: Geocoder.fromParams,

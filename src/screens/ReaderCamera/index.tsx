@@ -1,5 +1,5 @@
-import React, {useRef} from 'react';
-import {View, StyleSheet, Dimensions} from 'react-native';
+import React, {useEffect, useRef} from 'react';
+import {View, StyleSheet, Dimensions, BackHandler} from 'react-native';
 import {useInit, useSharedState, useHandleSearch} from './logic';
 import {useSharedState as useSharedGlobalState} from '../../context/globalUseState';
 import {
@@ -9,22 +9,45 @@ import {
   useCodeScanner,
 } from 'react-native-vision-camera';
 import {StackNavigationProp} from '@react-navigation/stack';
+import {
+  SearchResultSuccess,
+  SearchResultTimeout,
+} from '../../helpers/interface';
 //import DeniedPermission from '../../components/deniedPermission';
 
 interface Props {
   navigation: StackNavigationProp<any>;
 }
+type SearchResult = SearchResultSuccess | SearchResultTimeout;
 
 const ReaderCameraScreen: React.FC<Props> = ({navigation}) => {
   const {cameraPermission, savePermission} = useSharedState();
-  const {cameraType, actionType} = useSharedGlobalState();
+  const {cameraType, actionType, setCameraScreen} = useSharedGlobalState();
   const handleSearch = useHandleSearch();
   useInit();
+  //==================================================
+  const navigateTo =
+    actionType === 'CameraOperator' ? 'Picture' : 'InvoiceInfo';
+  //==================================================
+  useEffect(() => {
+    const backAction = () => {
+      setCameraScreen(false);
+      navigation.navigate(navigateTo);
+      return false;
+    };
 
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backAction,
+    );
+
+    return () => backHandler.remove();
+  }, [navigation, setCameraScreen]);
+  //==================================================
   const device = useCameraDevice('back');
 
   const camera = useRef<Camera>(null);
-  const {width, height} = Dimensions.get('screen');
+  const {width} = Dimensions.get('screen');
 
   const qrCodeTypes: CodeType[] = ['qr', 'pdf-417', 'aztec', 'data-matrix'];
   const barcodeTypes: CodeType[] = [
@@ -61,15 +84,14 @@ const ReaderCameraScreen: React.FC<Props> = ({navigation}) => {
           console.log('number is greater than 0');
           //parsing to number
           const numberToSearch = parseInt(scannedInfo, 10);
-          let result;
 
-          result = await handleSearch(numberToSearch);
+          const result: SearchResult | undefined = await handleSearch(
+            numberToSearch,
+          );
+
           console.log('result = ', result);
-          if (Object.keys(result).length > 0) {
+          if (result && Object.keys(result).length > 0) {
             console.log('dados encontrados');
-            const navigateTo =
-              actionType === 'searchLoad' ? 'LoadInfo' : 'SchedulingInfo';
-            navigation.navigate(navigateTo);
           } else {
             console.log('dados nao encontrados');
           }

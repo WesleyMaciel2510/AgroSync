@@ -30,11 +30,14 @@ const CameraScreen: React.FC<Props> = ({navigation}) => {
   const {width, height} = Dimensions.get('screen');
   const camera = useRef<Camera>(null);
   useInit();
-  //=======================================
+  //==================================================
+  const navigateTo =
+    actionType === 'CameraOperator' ? 'Picture' : 'InvoiceInfo';
+  //==================================================
   useEffect(() => {
     const backAction = () => {
       setCameraScreen(false);
-      navigation.navigate('Picture');
+      navigation.navigate(navigateTo);
       return false;
     };
 
@@ -44,8 +47,8 @@ const CameraScreen: React.FC<Props> = ({navigation}) => {
     );
 
     return () => backHandler.remove();
-  }, [navigation, setCameraScreen]);
-  //=======================================
+  }, [navigateTo, navigation, setCameraScreen]);
+  //==================================================
   if (device == null) {
     return null;
   }
@@ -66,9 +69,7 @@ const CameraScreen: React.FC<Props> = ({navigation}) => {
         console.log('Photo blob = ', blob);
         console.log('savePermission = ', savePermission);
         //=======================================
-        actionType === 'CameraOperator'
-          ? navigation.navigate('Picture')
-          : navigation.navigate('InvoiceInfo');
+        navigation.navigate(navigateTo);
         //=======================================
         setCameraScreen(false);
         if (savePermission) {

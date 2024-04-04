@@ -7,7 +7,6 @@ import {
   requestLocationPermission,
   checkLocationPermission,
 } from '../../../services/weather/askPermission';
-import {PermissionsAndroid} from 'react-native';
 import {getDescription} from '../../../components/ProducerComponents/Weather/getDescription';
 import {getPosition} from '../../../services/weather/getPosition';
 import {storage} from '../../../helpers/storage';
@@ -24,12 +23,12 @@ export const useStateVariables = () => {
   const [rain, setRain] = useState(0);
   const [temperature, setTemperature] = useState(0);
   const [windSpeed, setWindSpeed] = useState(0);
-  const [date, setDate] = useState([]);
+  const [date, setDate] = useState<string[]>([]);
   const [temperatureHourly, setTemperatureHourly] = useState<number[]>([]);
   const [weatherCodeHourly, setWeatherCodeHourly] = useState<number[]>([]);
   const [weatherCodeDaily, setWeatherCodeDaily] = useState([]);
   const [hour, setHour] = useState<string[]>([]);
-  const [week, setWeek] = useState([]);
+  const [week, setWeek] = useState<string[]>([]);
   const [temperatureDaily, setTemperatureDaily] = useState({
     tempMin: [] as number[],
     tempMax: [] as number[],
@@ -87,7 +86,6 @@ export const useSharedState = () => useBetween(useStateVariables);
 
 export const useInit = () => {
   const {
-    setCityName,
     setDescription,
     setTemperatureHourly,
     setHour,
@@ -113,63 +111,56 @@ export const useInit = () => {
     const currentDay = currentDate.getDate().toString().padStart(2, '0');
     // ==================================================================
     // if not loading for the first time, load the data stored
-    if (currentDay === storedCurrentDay) {
-      // TITLE AREA =====================================================
-      // GET STORED DATA ================================================
-      const cityName = storage.getString('cityName') || '';
-      const currentTemperature = storage.getNumber('currentTemperature') || 0;
-      const relativeHumidity = storage.getNumber('relativeHumidity') || 0;
-      const rain = storage.getNumber('rain') || 0;
-      const weatherCode = storage.getNumber('weatherCode') || 0;
-      const windSpeed = storage.getNumber('windSpeed') || 0;
-      const description = storage.getString('description') || '';
-      // SET ============================================================
-      setCityName(cityName);
-      setTemperature(currentTemperature);
-      setHumidity(relativeHumidity);
-      setRain(rain);
-      setWeatherCode(weatherCode);
-      setWindSpeed(windSpeed);
-      setDescription(description);
-      // TODAY AREA =====================================================
-      // GET STORED DATA ================================================
+    // TITLE AREA =====================================================
+    // GET STORED DATA ================================================
+    const currentTemperature = storage.getNumber('currentTemperature') || 0;
+    const relativeHumidity = storage.getNumber('relativeHumidity') || 0;
+    const rain = storage.getNumber('rain') || 0;
+    const weatherCode = storage.getNumber('weatherCode') || 0;
+    const windSpeed = storage.getNumber('windSpeed') || 0;
+    const description = storage.getString('description') || '';
+    // SET ============================================================
+    setTemperature(currentTemperature);
+    setHumidity(relativeHumidity);
+    setRain(rain);
+    setWeatherCode(weatherCode);
+    setWindSpeed(windSpeed);
+    setDescription(description);
+    // TODAY AREA =====================================================
+    // GET STORED DATA ================================================
 
-      const currentMonth = storage.getString('currentMonth');
-      const jsonTemperatureHourly =
-        storage.getString('temperatureHourly') || '';
-      const temperatureHourlyArray = jsonTemperatureHourly
-        ? JSON.parse(jsonTemperatureHourly)
-        : [];
-      const jsonWeatherCodeHourly =
-        storage.getString('weatherCodeHourly') || ''; // If empty, set to empty string
-      const weatherCodeHourlyArray = jsonWeatherCodeHourly
-        ? JSON.parse(jsonWeatherCodeHourly)
-        : []; // Check if not empty before parsing
+    const currentMonth = storage.getString('currentMonth') || '';
+    const jsonTemperatureHourly = storage.getString('temperatureHourly') || '';
+    const temperatureHourlyArray = jsonTemperatureHourly
+      ? JSON.parse(jsonTemperatureHourly)
+      : [];
+    const jsonWeatherCodeHourly = storage.getString('weatherCodeHourly') || ''; // If empty, set to empty string
+    const weatherCodeHourlyArray = jsonWeatherCodeHourly
+      ? JSON.parse(jsonWeatherCodeHourly)
+      : []; // Check if not empty before parsing
 
-      // SET ============================================================
-      setDate([currentDay, currentMonth]);
-      setTemperatureHourly(temperatureHourlyArray);
-      setWeatherCodeHourly(Array.from(weatherCodeHourlyArray));
-      // FORECAST AREA ==================================================
-      // GET STORED DATA ================================================
+    // SET ============================================================
+    setDate([currentDay, currentMonth]);
+    setTemperatureHourly(temperatureHourlyArray);
+    setWeatherCodeHourly(Array.from(weatherCodeHourlyArray));
+    // FORECAST AREA ==================================================
+    // GET STORED DATA ================================================
+    const stringCurrentWeekdays = storage.getString('currentWeekdays') || '';
+    let currentWeekdays =
+      stringCurrentWeekdays && JSON.parse(stringCurrentWeekdays);
 
-      const stringCurrentWeekdays = storage.getString('currentWeekdays') || '';
-      const currentWeekdays = JSON.parse(stringCurrentWeekdays);
-      const jsonTemperatureDaily = storage.getString('temperatureDaily');
-      const jsonWeatherCodeDaily = storage.getString('weatherCodeDaily');
+    const jsonTemperatureDaily = storage.getString('temperatureDaily') || '';
+    const temperatureDailyArray =
+      jsonTemperatureDaily && JSON.parse(jsonTemperatureDaily);
 
-      const weatherCodeDailyArray = jsonWeatherCodeDaily
-        ? JSON.parse(jsonWeatherCodeDaily)
-        : '';
+    const jsonWeatherCodeDaily = storage.getString('weatherCodeDaily') || '';
+    const weatherCodeDailyArray =
+      jsonWeatherCodeDaily && JSON.parse(jsonWeatherCodeDaily);
 
-      const temperatureDailyArray = jsonTemperatureDaily
-        ? JSON.parse(jsonTemperatureDaily)
-        : '';
-      // SET ========================================================
-      setWeek(currentWeekdays);
-      setWeatherCodeDaily(weatherCodeDailyArray);
-      setTemperatureDaily(temperatureDailyArray);
-    }
+    // SET ========================================================
+    setWeek(currentWeekdays);
+    setWeatherCodeDaily(weatherCodeDailyArray);
+    setTemperatureDaily(temperatureDailyArray);
     // ================================================
     //Asking for Permission only if not granted to optimize the app
     /* const checkAndRequestLocationPermission = async () => {
@@ -276,6 +267,8 @@ export const useInit = () => {
     // ================================================
     const optimizer = async () => {
       console.log('chegou em optimizer');
+      console.log('currentDay = ', currentDay);
+      console.log('storedCurrentDay = ', storedCurrentDay);
       const {positionLatitude, positionLongitude} =
         await requestCurrentPosition();
       //Store the currentDay, if the storedCurrentDay is the same as currentDay,
@@ -293,7 +286,7 @@ export const useInit = () => {
         console.log('atualiza tudo');
         const fullDate = getDate();
         setDate(fullDate);
-        const currentWeekdays = getWeek();
+        currentWeekdays = getWeek();
         setWeek(currentWeekdays);
         fetchCurrent(positionLatitude, positionLongitude);
 
@@ -308,6 +301,7 @@ export const useInit = () => {
       }
     };
     optimizer();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 };
 
