@@ -36,7 +36,7 @@ const PhoneNumberArea = () => {
   return (
     <View style={styles.container}>
       <View style={styles.content}>
-        <Text style={[DefaultStyles.title, {paddingBottom: 20}]}>
+        <Text style={[DefaultStyles.title, {paddingBottom: 10}]}>
           Qual seu número de telefone?
         </Text>
         <TextInput
@@ -44,12 +44,13 @@ const PhoneNumberArea = () => {
           onChangeText={handleChangeText}
           keyboardType="number-pad"
           placeholder="(99) 9 9999-9999"
-          style={DefaultStyles.inputContent}
+          maxLength={16}
+          style={[DefaultStyles.inputContent, {fontSize: 18}]}
         />
       </View>
       <View style={DefaultStyles.buttonContainer}>
         <Button
-          title="Next"
+          title="Próximo"
           color="#3AC0A0"
           onPress={() => {
             setScreen('name');
@@ -63,7 +64,6 @@ const PhoneNumberArea = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 10,
   },
   content: {
     flex: 1,

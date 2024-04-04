@@ -57,12 +57,7 @@ const SignUpScreen: React.FC<Props> = ({navigation}) => {
 
 const styles = StyleSheet.create({
   logoArea: {
-    //justifyContent: 'center',
     alignItems: 'center',
-    /* backgroundColor: '#FFF',
-    borderWidth: 3,
-    borderColor: '#71727A',
-    borderRadius: 40, */
   },
 });
 

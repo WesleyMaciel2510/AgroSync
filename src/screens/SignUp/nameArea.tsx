@@ -54,6 +54,7 @@ const NameArea = () => {
             onChangeText={setName}
             keyboardType="default"
             placeholder="Nome Completo"
+            maxLength={33}
             style={[
               DefaultStyles.inputContent,
               errorInput && DefaultStyles.errorInput,
@@ -68,7 +69,7 @@ const NameArea = () => {
       </View>
       <View style={DefaultStyles.buttonContainer}>
         <Button
-          title="Next"
+          title="Próximo"
           color="#3AC0A0"
           onPress={() => {
             handleNameText();

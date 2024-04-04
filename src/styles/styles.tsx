@@ -1,6 +1,6 @@
 import {StyleSheet, Dimensions} from 'react-native';
 const {width, height} = Dimensions.get('window');
-const middle = height > 800 ? 430 : 280;
+const middle = height > 800 ? 270 : 210;
 //console.log('height = ', height);
 
 export const colors = {
@@ -36,6 +36,8 @@ export const DefaultStyles = StyleSheet.create({
     color: '#71727A',
     fontSize: 24,
     fontWeight: 'bold',
+    textAlign: 'left',
+    marginLeft: 10,
   },
   inputArea: {
     paddingHorizontal: 10,
@@ -48,10 +50,14 @@ export const DefaultStyles = StyleSheet.create({
     borderColor: 'green',
     backgroundColor: '#fff',
     borderRadius: 10,
+    color: 'black',
+    paddingLeft: 20,
   },
   buttonContainer: {
     justifyContent: 'flex-end',
-    marginBottom: 20,
+    width: '80%',
+    alignSelf: 'center',
+    marginBottom: 10,
   },
   errorInput: {
     borderColor: 'red',
@@ -60,5 +66,6 @@ export const DefaultStyles = StyleSheet.create({
     color: 'red',
     marginBottom: 5,
     textAlign: 'center',
+    padding: 10,
   },
 });

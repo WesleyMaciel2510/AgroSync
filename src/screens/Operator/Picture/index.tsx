@@ -15,7 +15,7 @@ interface Props {
 }
 
 const PictureScreen: React.FC<Props> = ({navigation}) => {
-  const {setModalVisible} = useSharedState();
+  const {setModalVisible, setIsLoading, setErrorSync} = useSharedState();
   const {
     schedulingInfo,
     picturesToSend,
@@ -29,7 +29,8 @@ const PictureScreen: React.FC<Props> = ({navigation}) => {
 
   const handleSendPictures = async () => {
     console.log('CHAMOU handleSendPictures');
-
+    setIsLoading(true);
+    setErrorSync(false);
     const currentDate = new Date();
     const formattedDate = currentDate.toISOString();
 
@@ -47,6 +48,8 @@ const PictureScreen: React.FC<Props> = ({navigation}) => {
     const result = await sendArrayofPictures(dataToSend);
     console.log('result', result);
     if (result) {
+      setIsLoading(false);
+      setModalVisible(false);
       navigation.navigate('Home');
       setSuccessSendingPictures(true);
       sendArrayofPictures('');
@@ -54,7 +57,8 @@ const PictureScreen: React.FC<Props> = ({navigation}) => {
       setPicturesToDisplay(['']);
       setPicturesToSend(['']);
     } else {
-      setModalVisible(true);
+      setIsLoading(false);
+      setErrorSync(true);
     }
   };
   //============================================================================

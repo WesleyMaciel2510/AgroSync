@@ -1,24 +1,18 @@
 import React, {useState} from 'react';
-import {View, Text, StyleSheet, TextInput} from 'react-native';
-import {StackNavigationProp} from '@react-navigation/stack';
+import {View, Text, TextInput, StyleSheet} from 'react-native';
 import LottieView from 'lottie-react-native';
-import {DefaultStyles} from '../../styles/styles';
-import Button from '../../components/Button/button';
 
-interface Props {
-  navigation: StackNavigationProp<any>;
-}
-
-const ForgotPasswordScreen: React.FC<Props> = ({navigation}) => {
+const CodeArea = () => {
   const [SMSCode, setSMSCode] = useState('');
   const [errorInput, setErrorInput] = useState(false);
   const MAX_LENGTH = 6;
 
-  const handleSMSCodeChange = (text: string) => {
+  const handleSMSCodeChange = text => {
     console.log('text = ', text);
     setSMSCode(text);
   };
-  const handleSendCode = (code: string) => {
+
+  const handleSendCode = code => {
     if (code === '111111') {
       console.log('passou');
     } else {
@@ -28,7 +22,7 @@ const ForgotPasswordScreen: React.FC<Props> = ({navigation}) => {
   };
 
   return (
-    <View style={[DefaultStyles.container, DefaultStyles.center]}>
+    <View style={styles.container}>
       <Text style={styles.title}> REDEFINIÇÃO {'\n'}DE SENHA</Text>
       <Text style={styles.description}>
         Opa, esqueceu a senha? {'\n'} Nós vamos te ajudar!
@@ -52,7 +46,7 @@ const ForgotPasswordScreen: React.FC<Props> = ({navigation}) => {
       </View>
 
       {errorInput && (
-        <Text style={DefaultStyles.errorText}>
+        <Text style={styles.errorText}>
           Por favor, digite o código enviado {'\n'} por SMS para redefinir sua
           senha.
         </Text>
@@ -94,6 +88,10 @@ const styles = StyleSheet.create({
     borderColor: 'green',
     borderRadius: 5,
   },
+  errorText: {
+    color: 'red',
+    textAlign: 'center',
+  },
 });
 
-export default ForgotPasswordScreen;
+export default CodeArea;
