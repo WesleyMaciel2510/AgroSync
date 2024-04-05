@@ -24,8 +24,8 @@ export const useInit = () => {
     const storedUserType = storage.getString('loggedUserType') || '';
     setUserType(storedUserType);
     // ============================================================
-    console.log('storedIsLogged = ', storedIsLogged);
-    console.log('userType = ', userType);
+    //console.log('storedIsLogged = ', storedIsLogged);
+    //console.log('userType = ', userType);
     setIsLogged(storedIsLogged);
   }, [setIsLogged, setName, setUserType, userType]);
 };

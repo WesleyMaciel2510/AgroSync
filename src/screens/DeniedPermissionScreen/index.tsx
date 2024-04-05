@@ -8,18 +8,16 @@ import {StackNavigationProp} from '@react-navigation/stack';
 
 interface Props {
   navigation: StackNavigationProp<any>;
+  permissionLabel: string;
 }
 
-const DeniedPermissionScreen: React.FC<Props> = ({navigation}) => {
-  /* const DeniedPermissionScreen: React.FC<{permissionLabel: string}> = ({
+const DeniedPermissionScreen: React.FC<Props> = ({
+  navigation,
   permissionLabel,
-}) => { */
-  const {setLocationPermission} = useSharedState();
+}) => {
   const {hasPermission, requestPermission} = useCameraPermission();
 
-  //const label = permissionLabel === 'location' ? 'Localização' : 'Câmera';
-  const label = 'camera';
-  const permissionLabel = 'camera';
+  const label = permissionLabel === 'location' ? 'Localização' : 'Câmera';
   const handlePress = () => {
     if (permissionLabel === 'location') {
       const result = requestLocationPermission();

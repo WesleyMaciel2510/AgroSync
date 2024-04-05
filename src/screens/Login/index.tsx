@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {
   View,
   StyleSheet,
@@ -8,8 +8,6 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
   Text,
-  BackHandler,
-  Keyboard,
 } from 'react-native';
 import {useInit, useOnLogin} from './logic/index';
 import {StackNavigationProp} from '@react-navigation/stack';
@@ -27,29 +25,12 @@ interface Props {
 const LoginScreen: React.FC<Props> = ({navigation}) => {
   const {email, setEmail, password, setPassword} = useSharedState();
   const [passwordVisible, setPasswordVisible] = useState(false);
-  const [inputFocusOn, setInputFocusOn] = useState(false);
 
   const {handleLogin} = useOnLogin();
   useInit();
   const {height} = Dimensions.get('window');
-  const margin = height > 800 ? 0 : 40;
-  const eyeHorizontalPosition = height > 800 ? 60 : 35; //keep logic if needed in other devices
-  const eyeVerticalPosition = height > 800 ? 290 : 260;
-  //==================================================
-  useEffect(() => {
-    const handleKeyboardDidHide = () => {
-      console.log('Keyboard was hidden');
-      setInputFocusOn(false);
-    };
-
-    const keyboardDidHideListener = Keyboard.addListener(
-      'keyboardDidHide',
-      handleKeyboardDidHide,
-    );
-
-    return () => keyboardDidHideListener.remove();
-  }, []);
-  //==================================================
+  //const eyeVerticalPosition = height > 800 ? 30 : 30;
+  const eyeHorizontalPosition = height > 800 ? 290 : 255;
   return (
     <ImageBackground
       style={[DefaultStyles.loginContainer, DefaultStyles.center]}
@@ -79,8 +60,6 @@ const LoginScreen: React.FC<Props> = ({navigation}) => {
           onChangeText={setEmail}
           placeholder="Digite seu E-mail"
           style={styles.inputContent}
-          onFocus={() => setInputFocusOn(true)}
-          onSubmitEditing={() => setInputFocusOn(false)}
         />
       </View>
 
@@ -93,51 +72,45 @@ const LoginScreen: React.FC<Props> = ({navigation}) => {
           placeholder="Digite sua Senha"
           secureTextEntry={!passwordVisible}
           style={styles.inputContent}
-          onFocus={() => setInputFocusOn(true)}
-          onSubmitEditing={() => setInputFocusOn(false)}
         />
-        {!inputFocusOn ? (
-          <TouchableWithoutFeedback
-            onPress={() => setPasswordVisible(!passwordVisible)}>
-            <FontAwesome5
-              name={passwordVisible ? 'eye-slash' : 'eye'}
-              size={25}
-              color="#000"
-              style={[
-                styles.hidePassword,
-                {bottom: eyeHorizontalPosition, left: eyeVerticalPosition},
-              ]}
-            />
-          </TouchableWithoutFeedback>
-        ) : null}
+        <TouchableWithoutFeedback
+          onPress={() => setPasswordVisible(!passwordVisible)}>
+          <FontAwesome5
+            name={passwordVisible ? 'eye-slash' : 'eye'}
+            size={25}
+            color="#000"
+            style={[
+              styles.hidePassword,
+              {bottom: 30, left: eyeHorizontalPosition},
+            ]}
+          />
+        </TouchableWithoutFeedback>
       </View>
       <View style={{width: '50%', padding: 20}}>
         <Button text="LOGIN" onPress={handleLogin} />
       </View>
-      {!inputFocusOn ? (
-        <View>
-          <View style={styles.buttonStyle}>
-            <Text style={styles.text}>Esqueceu sua senha?</Text>
-            <TouchableOpacity
-              onPress={() => navigation.navigate('ForgotPassword')}>
-              <Text style={styles.link}>Redefinir</Text>
-            </TouchableOpacity>
-          </View>
-          <View style={[styles.buttonStyle, {marginBottom: 20}]}>
-            <Text style={styles.text}>Não tem sua conta?</Text>
-            <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
-              <Text style={styles.link}>Cadastre-se Agora</Text>
-            </TouchableOpacity>
-          </View>
+      <View>
+        <View style={styles.buttonStyle}>
+          <Text style={styles.text}>Esqueceu sua senha?</Text>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('ForgotPassword')}>
+            <Text style={styles.link}>Redefinir</Text>
+          </TouchableOpacity>
         </View>
-      ) : null}
+        <View style={[styles.buttonStyle, {marginBottom: 20}]}>
+          <Text style={styles.text}>Não tem sua conta?</Text>
+          <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
+            <Text style={styles.link}>Cadastre-se Agora</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
     </ImageBackground>
   );
 };
 
 const styles = StyleSheet.create({
   inputArea: {
-    flex: 1,
+    //flex: 1,
     padding: 20,
     flexDirection: 'row',
     alignContent: 'center',

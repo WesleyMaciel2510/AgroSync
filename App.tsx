@@ -3,33 +3,31 @@ import AppStack from './src/routes';
 import {useSharedState} from './src/context/globalUseState';
 import DrawerMenu from './src/components/Drawer/drawerMenu';
 import Header from './src/components/Header/header';
+import NetStatusInfo from './src/components/netStatusInfo';
+import GpsStatusInfo from './src/components/gpsStatusInfo';
 
 import {NavigationContainer} from '@react-navigation/native';
 
 const App: React.FC = () => {
-  const {isLogged, cameraScreen} = useSharedState();
+  const {isLogged, cameraScreen, gpsOn} = useSharedState();
 
   return (
-    <>
+    <NavigationContainer>
+      <NetStatusInfo />
       {isLogged ? (
         cameraScreen ? (
-          <NavigationContainer>
-            <AppStack />
-          </NavigationContainer>
+          <AppStack />
         ) : (
-          <NavigationContainer>
-            <DrawerMenu>
-              <Header />
-              <AppStack />
-            </DrawerMenu>
-          </NavigationContainer>
+          <DrawerMenu>
+            <Header />
+            <AppStack />
+            <GpsStatusInfo />
+          </DrawerMenu>
         )
       ) : (
-        <NavigationContainer>
-          <AppStack />
-        </NavigationContainer>
+        <AppStack />
       )}
-    </>
+    </NavigationContainer>
   );
 };
 

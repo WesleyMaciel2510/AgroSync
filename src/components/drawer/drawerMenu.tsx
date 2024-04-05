@@ -128,6 +128,7 @@ const styles = StyleSheet.create({
   text: {
     flex: 1,
     fontSize: 17,
+    color: '#000',
   },
   drawerTrigger: {
     position: 'absolute',

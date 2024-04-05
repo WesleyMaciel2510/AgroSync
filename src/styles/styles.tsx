@@ -1,6 +1,6 @@
 import {StyleSheet, Dimensions} from 'react-native';
 const {width, height} = Dimensions.get('window');
-const middle = height > 800 ? 270 : 210;
+const middle = height > 800 ? 380 : 210;
 //console.log('height = ', height);
 
 export const colors = {
