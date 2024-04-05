@@ -1,29 +1,25 @@
 import React from 'react';
-import {
-  Text,
-  TouchableOpacity,
-  View,
-  TextInput,
-  StyleSheet,
-} from 'react-native';
+import {Text, TouchableOpacity, View, StyleSheet} from 'react-native';
 import Modal from 'react-native-modal';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import {useSharedState} from '../../screens/Operator/Picture/logic';
 import Button from '../Button/button';
 import LottieView from 'lottie-react-native';
+import {useOnSendPictures} from '../../screens/Operator/Picture/logic';
+import {StackNavigationProp} from '@react-navigation/stack';
 
-const ErrorSendModal = () => {
-  const {
-    isLoading,
-    setIsLoading,
-    modalVisible,
-    setModalVisible,
-    errorSync,
-    setErrorSync,
-  } = useSharedState();
+interface Props {
+  navigation: StackNavigationProp<any>;
+}
+
+const ErrorSendModal: React.FC<Props> = ({navigation}) => {
+  const {isLoading, modalVisible, setModalVisible} = useSharedState();
+  const {handleSendPictures} = useOnSendPictures();
+  //============================================================================
   const AnimationPath = isLoading
     ? require('../../assets/lottie/loading.json')
     : require('../../assets/lottie/errorSync.json');
+  //============================================================================
 
   return (
     <Modal
@@ -53,14 +49,11 @@ const ErrorSendModal = () => {
             source={AnimationPath}
             style={{width: 200, height: 150, margin: 20}}
             autoPlay
-            loop={isLoading}
+            loop={false}
           />
           {!isLoading && (
             <Button
-              onPress={() => {
-                console.log('');
-                setIsLoading(true);
-              }}
+              onPress={() => handleSendPictures({navigation})}
               text={'TENTAR NOVAMENTE'}
             />
           )}

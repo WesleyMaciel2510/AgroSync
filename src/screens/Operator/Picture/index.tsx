@@ -1,66 +1,20 @@
 import React from 'react';
 import {View, StyleSheet, Text} from 'react-native';
 import {StackNavigationProp} from '@react-navigation/stack';
-import {useSharedState, useInit} from './logic';
-import {useSharedState as useSharedGlobalState} from '../../../context/globalUseState';
+import {useInit, useOnSendPictures} from './logic';
 import Button from '../../../components/Button/button';
 import GridComponent from '../../../components/gridPicture';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import ErrorSendModal from '../../../components/Modals/errorSendModal';
-
-import {sendArrayofPictures} from '../../../services/pictures/sendArrayofPictures';
+export {useOnSendPictures} from './logic';
 
 interface Props {
   navigation: StackNavigationProp<any>;
 }
 
 const PictureScreen: React.FC<Props> = ({navigation}) => {
-  const {setModalVisible, setIsLoading, setErrorSync} = useSharedState();
-  const {
-    schedulingInfo,
-    picturesToSend,
-    quickRegister,
-    setSuccessSendingPictures,
-    setPictureIndex,
-    setPicturesToDisplay,
-    setPicturesToSend,
-  } = useSharedGlobalState();
+  const {handleSendPictures} = useOnSendPictures();
   useInit();
-
-  const handleSendPictures = async () => {
-    console.log('CHAMOU handleSendPictures');
-    setIsLoading(true);
-    setErrorSync(false);
-    const currentDate = new Date();
-    const formattedDate = currentDate.toISOString();
-
-    const dataToSend = {
-      ID: quickRegister ? 0 : schedulingInfo.IDAgendamento,
-      IDTYPE: 'SCHEDULINGID',
-      IMGBASE64: {} as {[key: number]: string},
-      DATETIME: formattedDate,
-    };
-    // Add all the pictures improving the performance of the database architecture
-    for (let i = 0; i < picturesToSend.length; i++) {
-      dataToSend.IMGBASE64[i] = picturesToSend[i];
-    }
-    console.log('dataToSend = ', dataToSend.IMGBASE64);
-    const result = await sendArrayofPictures(dataToSend);
-    console.log('result', result);
-    if (result) {
-      setIsLoading(false);
-      setModalVisible(false);
-      navigation.navigate('Home');
-      setSuccessSendingPictures(true);
-      sendArrayofPictures('');
-      setPictureIndex(0);
-      setPicturesToDisplay(['']);
-      setPicturesToSend(['']);
-    } else {
-      setIsLoading(false);
-      setErrorSync(true);
-    }
-  };
   //============================================================================
   return (
     <View style={styles.container}>
@@ -72,12 +26,12 @@ const PictureScreen: React.FC<Props> = ({navigation}) => {
           </Text>
         </View>
         <GridComponent navigation={navigation} />
-        <ErrorSendModal />
+        <ErrorSendModal navigation={navigation} />
       </View>
 
       <View style={styles.buttonContainer}>
         <Button
-          onPress={() => handleSendPictures()}
+          onPress={() => handleSendPictures({navigation})}
           text={'ENVIAR FOTOS'}
           width={'50%'}
         />
