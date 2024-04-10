@@ -49,6 +49,7 @@ export const useStateVariables = () => {
   const [successSendingPictures, setSuccessSendingPictures] = useState(false);
   const [internetOn, setInternetOn] = useState(true);
   const [gpsOn, setGpsOn] = useState(true);
+  const [locationPermission, setLocationPermission] = useState(false);
   return {
     isLoading,
     setIsLoading,
@@ -96,6 +97,8 @@ export const useStateVariables = () => {
     setInternetOn,
     gpsOn,
     setGpsOn,
+    locationPermission,
+    setLocationPermission,
   };
 };
 

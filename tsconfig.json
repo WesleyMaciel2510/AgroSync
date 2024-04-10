@@ -2,7 +2,8 @@
   "compilerOptions": {
     "esModuleInterop": true,
     "jsx": "react",
-    "resolveJsonModule": true // Add this line to enable JSON module resolution
+    "resolveJsonModule": true, // Add this line to enable JSON module resolution
+    "moduleResolution": "node" // Add this line to enable node module resolution
   },
   "extends": "@react-native/typescript-config/tsconfig.json"
 }

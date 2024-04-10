@@ -1,10 +1,8 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {View, StyleSheet} from 'react-native';
 import {StackNavigationProp} from '@react-navigation/stack';
 //import {useSharedState} from './logic';
 import {useSharedState as useSharedUserState} from '../../context/globalUseState';
-import DrawerMenu from '../../components/Drawer/drawerMenu';
-import Header from '../../components/Header/header';
 import DriverModules from '../../components/DriverComponents/modules';
 import OperatorModules from '../../components/OperatorComponents/modules';
 import ProducerModules from '../../components/ProducerComponents/modules';
@@ -23,7 +21,9 @@ const HomeScreen: React.FC<Props> = ({navigation}) => {
       <View>
         {userType === 'Operador' && <OperatorModules navigation={navigation} />}
       </View>
-      <View>{userType === 'Produtor' && <ProducerModules />}</View>
+      <View>
+        {userType === 'Produtor' && <ProducerModules navigation={navigation} />}
+      </View>
     </View>
   );
 };

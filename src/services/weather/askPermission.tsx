@@ -26,7 +26,7 @@ export const requestLocationPermission = async () => {
 
 export const checkLocationPermission = async () => {
   try {
-    console.log('Checking location permission...');
+    console.log('Called @checkLocationPermission...');
     const result = await PermissionsAndroid.check(
       PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
     );

@@ -12,7 +12,13 @@ import PictureScreen from '../screens/Operator/Picture';
 import CameraScreen from '../screens/Camera';
 import ReaderCameraScreen from '../screens/ReaderCamera';
 import DeniedPermissionScreen from '../screens/DeniedPermissionScreen/';
-import NewScreen from '../screens/screen/index';
+import ForecastScreen from '../screens/Producer/Forecast';
+//import {StackNavigationProp} from '@react-navigation/stack';
+
+/* interface Props {
+  navigation: StackNavigationProp<any>;
+  permissionLabel: string;
+} */
 
 const AuthStack = createNativeStackNavigator();
 //const DriverStack = createNativeStackNavigator();
@@ -49,9 +55,9 @@ const AppStack = () => {
           />
           <AuthStack.Screen
             name="DeniedPermission"
-            component={DeniedPermissionScreen}
+            component={DeniedPermissionScreen as React.ComponentType<any>}
           />
-          <AuthStack.Screen name="NewScreen" component={NewScreen} />
+          <AuthStack.Screen name="Forecast" component={ForecastScreen} />
         </AuthStack.Navigator>
       ) : (
         <NonAuthStack.Navigator

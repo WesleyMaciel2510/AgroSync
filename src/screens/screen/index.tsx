@@ -2,8 +2,6 @@ import React from 'react';
 import {View, StyleSheet, Text} from 'react-native';
 
 import {StackNavigationProp} from '@react-navigation/stack';
-import DrawerMenu from '../../components/Drawer/drawerMenu';
-import Header from '../../components/Header/header';
 
 interface Props {
   navigation: StackNavigationProp<any>;
