@@ -1,13 +1,14 @@
 import React, {useEffect} from 'react';
-import {Text, View} from 'react-native';
 import AppStack from './src/routes';
 import {useSharedState} from './src/context/globalUseState';
 import DrawerMenu from './src/components/Drawer/drawerMenu';
 import Header from './src/components/Header/header';
 import NetStatusInfo from './src/components/netStatusInfo';
+import GpsStatusInfo from './src/components/gpsStatusInfo';
 import {NavigationContainer} from '@react-navigation/native';
 import Geolocation from '@react-native-community/geolocation';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import store from './src/redux/store';
+import {Provider} from 'react-redux';
 
 const App: React.FC = () => {
   const {isLogged, cameraScreen, gpsOn, setGpsOn} = useSharedState();
@@ -54,48 +55,24 @@ const App: React.FC = () => {
   }, [setGpsOn]);
 
   return (
-    <NavigationContainer>
-      <NetStatusInfo />
-      {isLogged ? (
-        cameraScreen ? (
-          <AppStack />
-        ) : (
-          <DrawerMenu>
-            <Header />
+    <Provider store={store}>
+      <NavigationContainer>
+        <NetStatusInfo />
+        {isLogged ? (
+          cameraScreen ? (
             <AppStack />
-            {!gpsOn && (
-              <View
-                style={{
-                  flexDirection: 'row',
-                  backgroundColor: 'orange',
-                  padding: 10,
-                  alignItems: 'center',
-                  paddingRight: 20,
-                }}>
-                <Text
-                  style={{
-                    flex: 1,
-                    color: 'white',
-                    fontWeight: 'bold',
-                    fontSize: 15,
-                    textAlign: 'center',
-                    paddingLeft: 20,
-                  }}>
-                  Seu GPS está desativado. {'\n'}Por favor, ative o GPS.
-                </Text>
-                <FontAwesome5
-                  name={'exclamation-triangle'}
-                  size={30}
-                  color={'white'}
-                />
-              </View>
-            )}
-          </DrawerMenu>
-        )
-      ) : (
-        <AppStack />
-      )}
-    </NavigationContainer>
+          ) : (
+            <DrawerMenu>
+              <Header />
+              <AppStack />
+              {!gpsOn && <GpsStatusInfo />}
+            </DrawerMenu>
+          )
+        ) : (
+          <AppStack />
+        )}
+      </NavigationContainer>
+    </Provider>
   );
 };
 

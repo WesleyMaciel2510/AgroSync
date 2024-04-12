@@ -15,6 +15,7 @@ import {
 } from '../../../services/weather/askPermission';
 import {storage} from '../../../helpers/storage';
 import {StackNavigationProp} from '@react-navigation/stack';
+import {useDispatch, useSelector} from 'react-redux';
 
 interface Props {
   navigation: StackNavigationProp<any>;
@@ -38,7 +39,7 @@ const ForecastScreen: React.FC<Props> = ({navigation}) => {
   // ==================================================================
 
   useEffect(() => {
-    const getLocationPermission = async () => {
+    /* const getLocationPermission = async () => {
       // Retrieve the location status from storage
       const locationStatus = storage.getBoolean('locationStatus');
 
@@ -53,10 +54,9 @@ const ForecastScreen: React.FC<Props> = ({navigation}) => {
         }
         setLocationPermission(isLocationPermissionGranted);
       }
-    };
-
+    }; */
     // Call the function to handle location permission
-    getLocationPermission();
+    //getLocationPermission();
   }, []);
   // ==================================================================
   const animationURL = getAnimationName(weatherCode, null, false);
@@ -67,22 +67,15 @@ const ForecastScreen: React.FC<Props> = ({navigation}) => {
 
   const {width} = Dimensions.get('window');
   const startPosition = currentHour * (width < 400 ? 75 : 74);
+  // ============================================================================
 
+  const store = useSelector((state: any) => state.store.locationPermission);
+  console.log('store.locationPermission = ', store.locationPermission);
   // ============================================================================
   return (
     <ScrollView style={[styles.container, {backgroundColor: '#fff'}]}>
-      {locationPermission ? (
+      {store.locationPermission ? (
         <View>
-          {/* {!gpsOn ? (
-            <View>
-              <LottieView
-                source={require('../../../assets/lottie/forgot.json')}
-                style={{width: 200, height: 200, margin: 20}}
-                autoPlay
-                loop={true}
-              />
-            </View>
-          ) : null} */}
           <GreetingComponent />
 
           <LottieView
