@@ -1,4 +1,4 @@
-import ActionTypes from './consts';
+import {ActionTypes} from './consts';
 
 export const setLocationPermission = (locationPermission: boolean) => ({
   type: ActionTypes.SET_LOCATION_PERMISSION,

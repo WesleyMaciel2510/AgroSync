@@ -10,7 +10,7 @@ import {
 } from '../../services/weather/askPermission';
 import {useGPSWatcher} from '../../helpers/getGPSstatus';
 import {setLocationPermission} from '../../redux/actions';
-import {useDispatch, useSelector} from 'react-redux';
+//import {useDispatch, useSelector} from 'react-redux';
 
 interface Props {
   navigation: StackNavigationProp<any>;
@@ -18,8 +18,7 @@ interface Props {
 const ProducerModules: React.FC<Props> = ({navigation}) => {
   const {gpsOn, setGpsOn} = useSharedGlobalState();
   const getGPSstatus = useGPSWatcher();
-  const dispatch = useDispatch();
-  const store = useSelector((state: any) => state.store.locationPermission);
+  //const dispatch = useDispatch();
   // ============================================================
 
   /*   useEffect(() => {
@@ -39,7 +38,7 @@ const ProducerModules: React.FC<Props> = ({navigation}) => {
       );
       if (isLocationPermissionGranted) {
         console.log('vai chamar dispatch');
-        dispatch(setLocationPermission(isLocationPermissionGranted));
+        //dispatch(setLocationPermission(isLocationPermissionGranted));
         // Return true if permission already granted
         return true;
       } else {
@@ -62,7 +61,7 @@ const ProducerModules: React.FC<Props> = ({navigation}) => {
       cardTitle: 'Previsão \n do Tempo',
       cardIcon: 'cloud-sun',
       cardAction: async () => {
-        if (!store.locationPermission) {
+        /* if (!reducer.locationPermission) {
           // Call the function to handle location permission
           const result = await getLocationPermission();
 
@@ -76,7 +75,7 @@ const ProducerModules: React.FC<Props> = ({navigation}) => {
           } else {
             setGpsOn(false);
           }
-        }
+        } */
       },
     },
   ];

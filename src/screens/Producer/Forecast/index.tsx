@@ -69,12 +69,12 @@ const ForecastScreen: React.FC<Props> = ({navigation}) => {
   const startPosition = currentHour * (width < 400 ? 75 : 74);
   // ============================================================================
 
-  const store = useSelector((state: any) => state.store.locationPermission);
-  console.log('store.locationPermission = ', store.locationPermission);
+  //const store = useSelector((state: any) => state.store.locationPermission);
+  //console.log('store.locationPermission = ', store.locationPermission);
   // ============================================================================
   return (
     <ScrollView style={[styles.container, {backgroundColor: '#fff'}]}>
-      {store.locationPermission ? (
+      {locationPermission ? (
         <View>
           <GreetingComponent />
 

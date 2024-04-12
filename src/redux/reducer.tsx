@@ -1,17 +1,14 @@
-import ActionTypes from './consts';
-
-export interface RootState {
-  locationPermission: any;
-  isLogged: boolean;
-}
+import {ActionTypes} from './consts';
 
 const initialState = {
   locationPermission: false,
   isLogged: false,
 };
 
-// Define reducer function
-const store = (state = initialState, action: {type: string; payload: any}) => {
+const reducer = (
+  state = initialState,
+  action: {type: string; payload: any},
+) => {
   switch (action.type) {
     case ActionTypes.SET_LOCATION_PERMISSION:
       return {
@@ -28,4 +25,4 @@ const store = (state = initialState, action: {type: string; payload: any}) => {
   }
 };
 
-export default store;
+export default reducer;

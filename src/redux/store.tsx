@@ -1,11 +1,14 @@
 import {configureStore} from '@reduxjs/toolkit';
 import rootReducer from './reducer';
-import mmkvMiddleware from '../helpers/mmkvMiddleware';
 
-const store = configureStore({
-  reducer: rootReducer,
-  middleware: getDefaultMiddleware =>
-    getDefaultMiddleware().concat(mmkvMiddleware),
-});
+const store = configureStore({reducer: rootReducer});
 
 export default store;
+
+//import loadStateFromMMKV from '../redux/middleware/mmkvLoader';
+//import mmkvMiddleware from './middleware/mmkvMiddleware';
+
+/* middleware: getDefaultMiddleware =>
+    getDefaultMiddleware().concat(mmkvMiddleware), */
+
+//loadStateFromMMKV();

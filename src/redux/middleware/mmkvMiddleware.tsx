@@ -1,6 +1,6 @@
 import {MMKV} from 'react-native-mmkv';
 import {Middleware} from 'redux';
-import rootReducer from '../redux/reducer';
+import rootReducer from '../reducer';
 
 const mmkv = new MMKV();
 type RootState = ReturnType<typeof rootReducer>;

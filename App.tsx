@@ -6,14 +6,19 @@ import Header from './src/components/Header/header';
 import NetStatusInfo from './src/components/netStatusInfo';
 import GpsStatusInfo from './src/components/gpsStatusInfo';
 import {NavigationContainer} from '@react-navigation/native';
+import {Provider, useSelector} from 'react-redux';
 import Geolocation from '@react-native-community/geolocation';
 import store from './src/redux/store';
-import {Provider} from 'react-redux';
+import {RootState} from './src/redux/types';
 
 const App: React.FC = () => {
   const {isLogged, cameraScreen, gpsOn, setGpsOn} = useSharedState();
+  const locationPermission = useSelector(
+    (state: RootState) => state.locationPermission,
+  );
 
   useEffect(() => {
+    console.log('reducer');
     let watchId: number | null = null;
 
     const startWatching = () => {
@@ -55,25 +60,36 @@ const App: React.FC = () => {
   }, [setGpsOn]);
 
   return (
-    <Provider store={store}>
-      <NavigationContainer>
-        <NetStatusInfo />
-        {isLogged ? (
-          cameraScreen ? (
-            <AppStack />
-          ) : (
-            <DrawerMenu>
-              <Header />
-              <AppStack />
-              {!gpsOn && <GpsStatusInfo />}
-            </DrawerMenu>
-          )
-        ) : (
+    <NavigationContainer>
+      <NetStatusInfo />
+      {isLogged ? (
+        cameraScreen ? (
           <AppStack />
-        )}
-      </NavigationContainer>
-    </Provider>
+        ) : (
+          <DrawerMenu>
+            <Header />
+            <AppStack />
+            {!gpsOn && <GpsStatusInfo />}
+          </DrawerMenu>
+        )
+      ) : (
+        <AppStack />
+      )}
+    </NavigationContainer>
   );
 };
 
 export default App;
+
+{
+  /* <Provider store={store}>
+      <NavigationContainer>
+        <NetStatusInfo />
+        <DrawerMenu>
+          <Header />
+          <AppStack />
+          <GpsStatusInfo />
+        </DrawerMenu>
+      </NavigationContainer>
+    </Provider> */
+}
