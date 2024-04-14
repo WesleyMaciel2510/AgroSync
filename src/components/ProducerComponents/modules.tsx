@@ -10,7 +10,9 @@ import {
 } from '../../services/weather/askPermission';
 import {useGPSWatcher} from '../../helpers/getGPSstatus';
 import {setLocationPermission} from '../../redux/actions';
-//import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
+import reducer from '../../redux/reducer';
+import {RootState} from '../../redux/types';
 
 interface Props {
   navigation: StackNavigationProp<any>;
@@ -18,7 +20,10 @@ interface Props {
 const ProducerModules: React.FC<Props> = ({navigation}) => {
   const {gpsOn, setGpsOn} = useSharedGlobalState();
   const getGPSstatus = useGPSWatcher();
-  //const dispatch = useDispatch();
+  const dispatch = useDispatch();
+  const locationPermission = useSelector(
+    (state: RootState) => state.locationPermission,
+  );
   // ============================================================
 
   /*   useEffect(() => {
@@ -76,6 +81,21 @@ const ProducerModules: React.FC<Props> = ({navigation}) => {
             setGpsOn(false);
           }
         } */
+      },
+    },
+    {
+      cardTitle: 'Teste Redux',
+      cardIcon: 'cloud-sun',
+      cardAction: async () => {
+        console.log('clicou');
+        console.log('REDUX LOCATION PERMISSION = ', locationPermission);
+        try {
+          console.log('chamou o try');
+          dispatch(setLocationPermission(true));
+          console.log('passou o dispatch');
+        } catch (error) {
+          console.error('Error executing dispatch = ', error);
+        }
       },
     },
   ];

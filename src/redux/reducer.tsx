@@ -1,6 +1,7 @@
-import {ActionTypes} from './consts';
+import {ACTION} from './consts';
+import {RootState} from './types';
 
-const initialState = {
+const initialState: RootState = {
   locationPermission: false,
   isLogged: false,
 };
@@ -10,12 +11,12 @@ const reducer = (
   action: {type: string; payload: any},
 ) => {
   switch (action.type) {
-    case ActionTypes.SET_LOCATION_PERMISSION:
+    case ACTION.SET_LOCATION_PERMISSION:
       return {
         ...state,
         locationPermission: action.payload,
       };
-    case ActionTypes.SET_IS_LOGGED:
+    case ACTION.SET_IS_LOGGED:
       return {
         ...state,
         isLogged: action.payload,

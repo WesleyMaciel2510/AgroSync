@@ -13,9 +13,7 @@ import {RootState} from './src/redux/types';
 
 const App: React.FC = () => {
   const {isLogged, cameraScreen, gpsOn, setGpsOn} = useSharedState();
-  const locationPermission = useSelector(
-    (state: RootState) => state.locationPermission,
-  );
+  const reducer = useSelector((state: RootState) => state.locationPermission);
 
   useEffect(() => {
     console.log('reducer');
@@ -51,13 +49,15 @@ const App: React.FC = () => {
       }
     };
 
-    startWatching();
+    if (reducer.locationPermission) {
+      startWatching();
 
-    // Cleanup function
-    return () => {
-      stopWatching();
-    };
-  }, [setGpsOn]);
+      // Cleanup function
+      return () => {
+        stopWatching();
+      };
+    }
+  }, [reducer.locationPermission, setGpsOn]);
 
   return (
     <NavigationContainer>

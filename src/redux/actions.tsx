@@ -1,11 +1,11 @@
-import {ActionTypes} from './consts';
+import {ACTION} from './consts';
 
 export const setLocationPermission = (locationPermission: boolean) => ({
-  type: ActionTypes.SET_LOCATION_PERMISSION,
+  type: ACTION.SET_LOCATION_PERMISSION,
   payload: locationPermission,
 });
 
 export const setIsLogged = (isLogged: boolean) => ({
-  type: ActionTypes.SET_IS_LOGGED,
+  type: ACTION.SET_IS_LOGGED,
   payload: isLogged,
 });

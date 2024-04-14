@@ -1,4 +1,4 @@
-export const ActionTypes = {
+export const ACTION = {
   SET_LOCATION_PERMISSION: 'SET_LOCATION_PERMISSION',
   SET_IS_LOGGED: 'SET_IS_LOGGED',
 };
