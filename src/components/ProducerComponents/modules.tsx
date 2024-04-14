@@ -91,7 +91,7 @@ const ProducerModules: React.FC<Props> = ({navigation}) => {
         console.log('REDUX LOCATION PERMISSION = ', locationPermission);
         try {
           console.log('chamou o try');
-          dispatch(setLocationPermission(true));
+          dispatch(setLocationPermission(false));
           console.log('passou o dispatch');
         } catch (error) {
           console.error('Error executing dispatch = ', error);

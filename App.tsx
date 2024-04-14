@@ -10,13 +10,16 @@ import {Provider, useSelector} from 'react-redux';
 import Geolocation from '@react-native-community/geolocation';
 import store from './src/redux/store';
 import {RootState} from './src/redux/types';
+import {loadSavedState} from './src/helpers/mmkvStartup';
 
 const App: React.FC = () => {
   const {isLogged, cameraScreen, gpsOn, setGpsOn} = useSharedState();
   const reducer = useSelector((state: RootState) => state.locationPermission);
 
   useEffect(() => {
-    console.log('reducer');
+    //call mmkv on app Startup
+    loadSavedState();
+
     let watchId: number | null = null;
 
     const startWatching = () => {
@@ -80,16 +83,3 @@ const App: React.FC = () => {
 };
 
 export default App;
-
-{
-  /* <Provider store={store}>
-      <NavigationContainer>
-        <NetStatusInfo />
-        <DrawerMenu>
-          <Header />
-          <AppStack />
-          <GpsStatusInfo />
-        </DrawerMenu>
-      </NavigationContainer>
-    </Provider> */
-}
