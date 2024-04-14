@@ -4,24 +4,28 @@ import {useSharedState} from '../../../context/globalUseState';
 import LoginErrorAlert from '../../../components/Alert/loginFailed';
 import {useNavigation} from '@react-navigation/native';
 import {storage} from '../../../helpers/storage';
+import {setUserType, setIsLogged} from '../../../redux/actions';
+import {useDispatch} from 'react-redux';
 
 export const useInit = () => {
-  const {setIsLogged, setName, setUserType} = useSharedState();
+  const {setIsLogged, setName /* setUserType */} = useSharedState();
   useEffect(() => {
     const storedIsLogged = storage.getBoolean('ISLOGGED') || false;
     console.log('storedIsLogged = ', storedIsLogged);
     setIsLogged(storedIsLogged);
     const storedFullName = storage.getString('fullName') || '';
     setName(storedFullName);
-    const storedUserType = storage.getString('loggedUserType') || '';
-    setUserType(storedUserType);
-  }, [setIsLogged, setName, setUserType]);
+    //const storedUserType = storage.getString('loggedUserType') || '';
+    //setUserType(storedUserType);
+  }, [setIsLogged, setName]);
 };
 
 export const useOnLogin = () => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
 
-  const {email, password, setIsLogged, setName, setUserType} = useSharedState();
+  const {email, password, setName /* setIsLogged ,setUserType */} =
+    useSharedState();
 
   const handleLogin = async () => {
     console.log('chamou handleLogin');
@@ -30,15 +34,6 @@ export const useOnLogin = () => {
 
     try {
       const loginResponse = await setLogin(email, password);
-      // =======================================================
-      // Convert the loginResponse object to a JSON string
-      //const loginResponseString = JSON.stringify(loginResponse);
-
-      // Save the JSON string to MMKV storage
-      //consider saving the object in smaller pieces to make the search faster
-      //storage.set('USERLOGGEDINFO', loginResponseString);
-
-      // =======================================================
       console.log('@Logic@ loginResponse = ', loginResponse);
       console.log('@Logic@ loginResponse?.data = ', loginResponse?.data);
 
@@ -50,12 +45,15 @@ export const useOnLogin = () => {
       if (loginResponse?.ID) {
         console.log('Login successful!');
         storage.set('loggedUserName', loginResponse.FullName);
-        storage.set('ISLOGGED', true);
-        setIsLogged(true);
         setName(loginResponse.FullName);
         storage.set('fullName', loginResponse.FullName);
-        setUserType(loginResponse.UserType);
-        storage.set('loggedUserType', loginResponse.UserType);
+        storage.set('ISLOGGED', true);
+        setIsLogged(true);
+        dispatch(setUserType(loginResponse.UserType));
+        dispatch(setIsLogged(true));
+
+        //setUserType(loginResponse.UserType);
+        //storage.set('loggedUserType', loginResponse.UserType);
         navigation.navigate('Home');
       } else if (loginResponse?.passwordIncorrect) {
         console.log('Incorrect Password!');

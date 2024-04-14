@@ -6,15 +6,14 @@ import Header from './src/components/Header/header';
 import NetStatusInfo from './src/components/netStatusInfo';
 import GpsStatusInfo from './src/components/gpsStatusInfo';
 import {NavigationContainer} from '@react-navigation/native';
-import {Provider, useSelector} from 'react-redux';
+import {useSelector} from 'react-redux';
 import Geolocation from '@react-native-community/geolocation';
-import store from './src/redux/store';
 import {RootState} from './src/redux/types';
 import {loadSavedState} from './src/helpers/mmkvStartup';
 
 const App: React.FC = () => {
   const {isLogged, cameraScreen, gpsOn, setGpsOn} = useSharedState();
-  const reducer = useSelector((state: RootState) => state.locationPermission);
+  const reducer = useSelector((state: RootState) => state);
 
   useEffect(() => {
     //call mmkv on app Startup

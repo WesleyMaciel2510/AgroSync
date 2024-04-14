@@ -1,4 +1,6 @@
 export interface RootState {
-  locationPermission: any;
+  locationPermission: boolean;
   isLogged: boolean;
+  userType: string;
+  cameraScreen: false;
 }

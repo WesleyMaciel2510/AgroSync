@@ -4,6 +4,8 @@ import {RootState} from './types';
 const initialState: RootState = {
   locationPermission: false,
   isLogged: false,
+  userType: '',
+  cameraScreen: false,
 };
 
 const reducer = (
@@ -20,6 +22,16 @@ const reducer = (
       return {
         ...state,
         isLogged: action.payload,
+      };
+    case ACTION.SET_USERTYPE:
+      return {
+        ...state,
+        userType: action.payload,
+      };
+    case ACTION.SET_CAMERA_SCREEN:
+      return {
+        ...state,
+        cameraScreen: action.payload,
       };
     default:
       return state;

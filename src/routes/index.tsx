@@ -1,64 +1,26 @@
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {useSharedState} from '../context/globalUseState';
-import HomeScreen from '../screens/Home';
 import LoginScreen from '../screens/Login';
 import SignUpScreen from '../screens/SignUp';
 import ForgotPasswordScreen from '../screens/ForgotPassword';
-import LoadInfoScreen from '../screens/Driver/loadInfo';
-import InvoiceInfoScreen from '../screens/Driver/InvoiceInfo';
-import SchedulingInfoScreen from '../screens/Operator/SchedulingInfo';
-import PictureScreen from '../screens/Operator/Picture';
-import CameraScreen from '../screens/Camera';
-import ReaderCameraScreen from '../screens/ReaderCamera';
-import DeniedPermissionScreen from '../screens/DeniedPermissionScreen/';
-import ForecastScreen from '../screens/Producer/Forecast';
-//import {StackNavigationProp} from '@react-navigation/stack';
-
-/* interface Props {
-  navigation: StackNavigationProp<any>;
-  permissionLabel: string;
-} */
-
-const AuthStack = createNativeStackNavigator();
-//const DriverStack = createNativeStackNavigator();
-//const ProducerStack = createNativeStackNavigator();
-//const OperatorStack = createNativeStackNavigator();
-
-const NonAuthStack = createNativeStackNavigator();
+import {useSelector} from 'react-redux';
+import {RootState} from '../redux/types';
+import DriverStackNavigator from './operatorStack';
+import OperatorStackNavigator from './operatorStack';
+import ProducerStackNavigator from './operatorStack';
 
 const AppStack = () => {
-  const {isLogged /* , userType */} = useSharedState();
+  const reducer = useSelector((state: RootState) => state);
+  const NonAuthStack = createNativeStackNavigator();
 
   return (
     <>
-      {isLogged ? (
-        <AuthStack.Navigator
-          initialRouteName="Home"
-          screenOptions={{
-            headerShown: false,
-            headerTitle: '',
-            headerBackVisible: false,
-          }}>
-          <AuthStack.Screen name="Home" component={HomeScreen} />
-          <AuthStack.Screen name="LoadInfo" component={LoadInfoScreen} />
-          <AuthStack.Screen name="InvoiceInfo" component={InvoiceInfoScreen} />
-          <AuthStack.Screen
-            name="SchedulingInfo"
-            component={SchedulingInfoScreen}
-          />
-          <AuthStack.Screen name="Picture" component={PictureScreen} />
-          <AuthStack.Screen name="Camera" component={CameraScreen} />
-          <AuthStack.Screen
-            name="ReaderCamera"
-            component={ReaderCameraScreen}
-          />
-          <AuthStack.Screen
-            name="DeniedPermission"
-            component={DeniedPermissionScreen as React.ComponentType<any>}
-          />
-          <AuthStack.Screen name="Forecast" component={ForecastScreen} />
-        </AuthStack.Navigator>
+      {reducer.isLogged ? (
+        <>
+          {reducer.userType === 'Motorista' && <DriverStackNavigator />}
+          {reducer.userType === 'Operador' && <OperatorStackNavigator />}
+          {reducer.userType === 'Produtor' && <ProducerStackNavigator />}
+        </>
       ) : (
         <NonAuthStack.Navigator
           initialRouteName="Login"
@@ -88,3 +50,5 @@ const AppStack = () => {
 };
 
 export default AppStack;
+
+//const {isLogged /* , userType */} = useSharedState();

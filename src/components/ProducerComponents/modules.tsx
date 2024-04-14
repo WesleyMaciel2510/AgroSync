@@ -11,7 +11,7 @@ import {
 import {useGPSWatcher} from '../../helpers/getGPSstatus';
 import {setLocationPermission} from '../../redux/actions';
 import {useDispatch, useSelector} from 'react-redux';
-import reducer from '../../redux/reducer';
+//import reducer from '../../redux/reducer';
 import {RootState} from '../../redux/types';
 
 interface Props {
@@ -21,9 +21,10 @@ const ProducerModules: React.FC<Props> = ({navigation}) => {
   const {gpsOn, setGpsOn} = useSharedGlobalState();
   const getGPSstatus = useGPSWatcher();
   const dispatch = useDispatch();
-  const locationPermission = useSelector(
+  /* const locationPermission = useSelector(
     (state: RootState) => state.locationPermission,
-  );
+  ); */
+  const reducer = useSelector((state: RootState) => state);
   // ============================================================
 
   /*   useEffect(() => {
@@ -88,10 +89,10 @@ const ProducerModules: React.FC<Props> = ({navigation}) => {
       cardIcon: 'cloud-sun',
       cardAction: async () => {
         console.log('clicou');
-        console.log('REDUX LOCATION PERMISSION = ', locationPermission);
+        console.log('REDUX LOCATION PERMISSION = ', reducer.locationPermission);
         try {
           console.log('chamou o try');
-          dispatch(setLocationPermission(false));
+          dispatch(setLocationPermission(true));
           console.log('passou o dispatch');
         } catch (error) {
           console.error('Error executing dispatch = ', error);
