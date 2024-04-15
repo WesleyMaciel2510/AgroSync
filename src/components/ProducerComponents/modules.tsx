@@ -58,7 +58,8 @@ const ProducerModules: React.FC<Props> = ({navigation}) => {
       cardTitle: 'Previsão \n do Tempo',
       cardIcon: 'cloud-sun',
       cardAction: async () => {
-        if (LOCATIONPERMISSION) {
+        console.log('LOCATIONPERMISSION = ', LOCATIONPERMISSION);
+        if (!LOCATIONPERMISSION) {
           // Call the function to handle location permission
           const result = await getLocationPermission();
 
@@ -68,7 +69,7 @@ const ProducerModules: React.FC<Props> = ({navigation}) => {
           if (result && gpsOn) {
             setGpsOn(true);
             console.log('FOI PARA A TELA Forecast');
-            //navigation.navigate('Forecast');
+            navigation.navigate('Forecast');
           } else {
             setGpsOn(false);
           }

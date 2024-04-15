@@ -1,9 +1,19 @@
 import {MMKV} from 'react-native-mmkv';
-import {Middleware} from 'redux';
-import rootReducer from '../reducer';
-import store from '../store';
 
 const mmkv = new MMKV();
+
+export const loadState = () => {
+  try {
+    const serializedState = mmkv.getString('redux-state');
+    if (serializedState === null || serializedState === undefined) {
+      return undefined;
+    }
+    return JSON.parse(serializedState);
+  } catch (err) {
+    console.error('Failed to load state', err);
+    return undefined;
+  }
+};
 
 const mmkvMiddleware = (storeAPI: any) => (next: any) => (action: any) => {
   const result = next(action);
@@ -14,17 +24,3 @@ const mmkvMiddleware = (storeAPI: any) => (next: any) => (action: any) => {
 };
 
 export default mmkvMiddleware;
-
-// ==== last working code
-/* const mmkvMiddleware = () => (next: any) => (action: any) => {
-  const result = next(action);
-  mmkv.set('redux-state', JSON.stringify(store.getState()));
-  return result;
-}; */
-// ====
-/* const mmkvMiddleware: Middleware<{}, RootState> =
-  storeAPI => next => action => {
-    const result = next(action);
-    mmkv.set('redux-state', JSON.stringify(storeAPI.getState()));
-    return result;
-  }; */

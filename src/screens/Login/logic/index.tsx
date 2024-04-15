@@ -3,7 +3,7 @@ import {setLogin} from '../../../services/user/login';
 import {useSharedState} from '../../../context/globalUseState';
 import LoginErrorAlert from '../../../components/Alert/loginFailed';
 import {useNavigation} from '@react-navigation/native';
-import {storage} from '../../../helpers/storage';
+import {storage} from '../../../redux/mmkv/storage';
 import {setUserType, setIsLogged} from '../../../redux/actions';
 import {useDispatch} from 'react-redux';
 

@@ -13,7 +13,7 @@ import {
   requestLocationPermission,
   checkLocationPermission,
 } from '../../../services/weather/askPermission';
-import {storage} from '../../../helpers/storage';
+import {storage} from '../../../redux/mmkv/storage';
 import {StackNavigationProp} from '@react-navigation/stack';
 
 interface Props {

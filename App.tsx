@@ -9,7 +9,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {useSelector} from 'react-redux';
 import Geolocation from '@react-native-community/geolocation';
 import {RootState} from './src/redux/types';
-import {loadSavedState} from './src/helpers/mmkvStartup';
+import {loadSavedState} from './src/redux/mmkv/mmkvStartup';
 
 const App: React.FC = () => {
   const {cameraScreen, gpsOn, setGpsOn} = useSharedState();
@@ -20,8 +20,12 @@ const App: React.FC = () => {
   const ISLOGGED = useSelector(selectIsLogged);
 
   useEffect(() => {
-    //call mmkv on app Startup
-    loadSavedState();
+    try {
+      //call mmkv on app Startup
+      loadSavedState();
+    } catch (error) {
+      console.log('@ error loading SavedState = ', error);
+    }
 
     let watchId: number | null = null;
 

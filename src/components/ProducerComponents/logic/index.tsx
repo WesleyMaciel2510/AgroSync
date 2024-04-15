@@ -9,7 +9,7 @@ import {
 } from '../../../services/weather/askPermission';
 import {getDescription} from '../../../components/ProducerComponents/Weather/getDescription';
 import {getPosition} from '../../../services/weather/getPosition';
-import {storage} from '../../../helpers/storage';
+import {storage} from '../../../redux/mmkv/storage';
 
 type PositionType = {
   latitude: number;

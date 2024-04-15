@@ -1,5 +1,5 @@
 import {MMKV} from 'react-native-mmkv';
-import store from '../redux/store';
+import store from '../store';
 
 const mmkv = new MMKV();
 
