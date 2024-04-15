@@ -10,16 +10,20 @@ import OperatorStackNavigator from './operatorStack';
 import ProducerStackNavigator from './operatorStack';
 
 const AppStack = () => {
-  const reducer = useSelector((state: RootState) => state);
+  const selectUserType = (state: RootState) => state.userType;
+  const USERTYPE = useSelector(selectUserType);
+  const selectIsLogged = (state: RootState) => state.isLogged;
+  const ISLOGGED = useSelector(selectIsLogged);
+
   const NonAuthStack = createNativeStackNavigator();
 
   return (
     <>
-      {reducer.isLogged ? (
+      {ISLOGGED ? (
         <>
-          {reducer.userType === 'Motorista' && <DriverStackNavigator />}
-          {reducer.userType === 'Operador' && <OperatorStackNavigator />}
-          {reducer.userType === 'Produtor' && <ProducerStackNavigator />}
+          {USERTYPE === 'Motorista' && <DriverStackNavigator />}
+          {USERTYPE === 'Operador' && <OperatorStackNavigator />}
+          {USERTYPE === 'Produtor' && <ProducerStackNavigator />}
         </>
       ) : (
         <NonAuthStack.Navigator

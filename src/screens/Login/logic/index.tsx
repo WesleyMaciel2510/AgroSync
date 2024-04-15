@@ -8,24 +8,18 @@ import {setUserType, setIsLogged} from '../../../redux/actions';
 import {useDispatch} from 'react-redux';
 
 export const useInit = () => {
-  const {setIsLogged, setName /* setUserType */} = useSharedState();
+  const {setName} = useSharedState();
   useEffect(() => {
-    const storedIsLogged = storage.getBoolean('ISLOGGED') || false;
-    console.log('storedIsLogged = ', storedIsLogged);
-    setIsLogged(storedIsLogged);
     const storedFullName = storage.getString('fullName') || '';
     setName(storedFullName);
-    //const storedUserType = storage.getString('loggedUserType') || '';
-    //setUserType(storedUserType);
-  }, [setIsLogged, setName]);
+  }, [setName]);
 };
 
 export const useOnLogin = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
-  const {email, password, setName /* setIsLogged ,setUserType */} =
-    useSharedState();
+  const {email, password, setName} = useSharedState();
 
   const handleLogin = async () => {
     console.log('chamou handleLogin');
@@ -51,9 +45,6 @@ export const useOnLogin = () => {
         setIsLogged(true);
         dispatch(setUserType(loginResponse.UserType));
         dispatch(setIsLogged(true));
-
-        //setUserType(loginResponse.UserType);
-        //storage.set('loggedUserType', loginResponse.UserType);
         navigation.navigate('Home');
       } else if (loginResponse?.passwordIncorrect) {
         console.log('Incorrect Password!');

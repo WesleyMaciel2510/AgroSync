@@ -12,8 +12,12 @@ import {RootState} from './src/redux/types';
 import {loadSavedState} from './src/helpers/mmkvStartup';
 
 const App: React.FC = () => {
-  const {isLogged, cameraScreen, gpsOn, setGpsOn} = useSharedState();
-  const reducer = useSelector((state: RootState) => state);
+  const {cameraScreen, gpsOn, setGpsOn} = useSharedState();
+  const selectLocationPermission = (state: RootState) =>
+    state.locationPermission;
+  const LOCATIONPERMISSION = useSelector(selectLocationPermission);
+  const selectIsLogged = (state: RootState) => state.isLogged;
+  const ISLOGGED = useSelector(selectIsLogged);
 
   useEffect(() => {
     //call mmkv on app Startup
@@ -51,7 +55,7 @@ const App: React.FC = () => {
       }
     };
 
-    if (reducer.locationPermission) {
+    if (LOCATIONPERMISSION) {
       startWatching();
 
       // Cleanup function
@@ -59,12 +63,12 @@ const App: React.FC = () => {
         stopWatching();
       };
     }
-  }, [reducer.locationPermission, setGpsOn]);
+  }, [LOCATIONPERMISSION, setGpsOn]);
 
   return (
     <NavigationContainer>
       <NetStatusInfo />
-      {isLogged ? (
+      {ISLOGGED ? (
         cameraScreen ? (
           <AppStack />
         ) : (

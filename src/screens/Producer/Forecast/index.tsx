@@ -15,7 +15,6 @@ import {
 } from '../../../services/weather/askPermission';
 import {storage} from '../../../helpers/storage';
 import {StackNavigationProp} from '@react-navigation/stack';
-import {useDispatch, useSelector} from 'react-redux';
 
 interface Props {
   navigation: StackNavigationProp<any>;
@@ -67,10 +66,6 @@ const ForecastScreen: React.FC<Props> = ({navigation}) => {
 
   const {width} = Dimensions.get('window');
   const startPosition = currentHour * (width < 400 ? 75 : 74);
-  // ============================================================================
-
-  //const store = useSelector((state: any) => state.store.locationPermission);
-  //console.log('store.locationPermission = ', store.locationPermission);
   // ============================================================================
   return (
     <ScrollView style={[styles.container, {backgroundColor: '#fff'}]}>

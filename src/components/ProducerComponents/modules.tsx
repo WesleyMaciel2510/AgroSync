@@ -21,18 +21,10 @@ const ProducerModules: React.FC<Props> = ({navigation}) => {
   const {gpsOn, setGpsOn} = useSharedGlobalState();
   const getGPSstatus = useGPSWatcher();
   const dispatch = useDispatch();
-  /* const locationPermission = useSelector(
-    (state: RootState) => state.locationPermission,
-  ); */
-  const reducer = useSelector((state: RootState) => state);
+  const selectLocationPermission = (state: RootState) =>
+    state.locationPermission;
+  const LOCATIONPERMISSION = useSelector(selectLocationPermission);
   // ============================================================
-
-  /*   useEffect(() => {
-    // Retrieve the location status from storage
-    const locationStatus = storage.getBoolean('locationStatus') || null;
-
-    //setLocationPermission(locationStatus !== null ? locationStatus : false);
-  }, []); */
 
   const getLocationPermission = async () => {
     try {
@@ -67,7 +59,7 @@ const ProducerModules: React.FC<Props> = ({navigation}) => {
       cardTitle: 'Previsão \n do Tempo',
       cardIcon: 'cloud-sun',
       cardAction: async () => {
-        /* if (!reducer.locationPermission) {
+        if (LOCATIONPERMISSION) {
           // Call the function to handle location permission
           const result = await getLocationPermission();
 
@@ -77,11 +69,11 @@ const ProducerModules: React.FC<Props> = ({navigation}) => {
           if (result && gpsOn) {
             setGpsOn(true);
             console.log('FOI PARA A TELA Forecast');
-            navigation.navigate('Forecast');
+            //navigation.navigate('Forecast');
           } else {
             setGpsOn(false);
           }
-        } */
+        }
       },
     },
     {
@@ -89,7 +81,7 @@ const ProducerModules: React.FC<Props> = ({navigation}) => {
       cardIcon: 'cloud-sun',
       cardAction: async () => {
         console.log('clicou');
-        console.log('REDUX LOCATION PERMISSION = ', reducer.locationPermission);
+        console.log('REDUX LOCATION PERMISSION = ', LOCATIONPERMISSION);
         try {
           console.log('chamou o try');
           dispatch(setLocationPermission(true));
