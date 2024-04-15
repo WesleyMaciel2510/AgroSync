@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import LoginScreen from '../screens/Login';
 import SignUpScreen from '../screens/SignUp';
@@ -10,20 +10,24 @@ import OperatorStackNavigator from './operatorStack';
 import ProducerStackNavigator from './operatorStack';
 
 const AppStack = () => {
-  const selectUserType = (state: RootState) => state.userType;
+  /* const selectUserType = (state: RootState) => state.userType;
   const USERTYPE = useSelector(selectUserType);
   const selectIsLogged = (state: RootState) => state.isLogged;
-  const ISLOGGED = useSelector(selectIsLogged);
+  const ISLOGGED = useSelector(selectIsLogged); */
+  const reducer = useSelector((state: RootState) => state);
+  useEffect(() => {
+    console.log('ISLOGGED = ', reducer.isLogged);
+  }, [reducer.isLogged]);
 
   const NonAuthStack = createNativeStackNavigator();
 
   return (
     <>
-      {ISLOGGED ? (
+      {reducer.isLogged ? (
         <>
-          {USERTYPE === 'Motorista' && <DriverStackNavigator />}
-          {USERTYPE === 'Operador' && <OperatorStackNavigator />}
-          {USERTYPE === 'Produtor' && <ProducerStackNavigator />}
+          {reducer.userType === 'Motorista' && <DriverStackNavigator />}
+          {reducer.userType === 'Operador' && <OperatorStackNavigator />}
+          {reducer.userType === 'Produtor' && <ProducerStackNavigator />}
         </>
       ) : (
         <NonAuthStack.Navigator
@@ -54,5 +58,3 @@ const AppStack = () => {
 };
 
 export default AppStack;
-
-//const {isLogged /* , userType */} = useSharedState();

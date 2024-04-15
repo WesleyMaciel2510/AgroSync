@@ -2,27 +2,29 @@ import React from 'react';
 import {View, StyleSheet} from 'react-native';
 import {StackNavigationProp} from '@react-navigation/stack';
 //import {useSharedState} from './logic';
-import {useSharedState as useSharedUserState} from '../../context/globalUseState';
 import DriverModules from '../../components/DriverComponents/modules';
 import OperatorModules from '../../components/OperatorComponents/modules';
 import ProducerModules from '../../components/ProducerComponents/modules';
+import {RootState} from '../../redux/types';
+import {useSelector} from 'react-redux';
 
 interface Props {
   navigation: StackNavigationProp<any>;
 }
 
 const HomeScreen: React.FC<Props> = ({navigation}) => {
-  const {userType} = useSharedUserState();
+  const selectUserType = (state: RootState) => state.userType;
+  const USERTYPE = useSelector(selectUserType);
   return (
     <View style={styles.container}>
       <View>
-        {userType === 'Motorista' && <DriverModules navigation={navigation} />}
+        {USERTYPE === 'Motorista' && <DriverModules navigation={navigation} />}
       </View>
       <View>
-        {userType === 'Operador' && <OperatorModules navigation={navigation} />}
+        {USERTYPE === 'Operador' && <OperatorModules navigation={navigation} />}
       </View>
       <View>
-        {userType === 'Produtor' && <ProducerModules navigation={navigation} />}
+        {USERTYPE === 'Produtor' && <ProducerModules navigation={navigation} />}
       </View>
     </View>
   );

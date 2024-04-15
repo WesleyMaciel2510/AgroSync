@@ -41,8 +41,8 @@ export const useOnLogin = () => {
         storage.set('loggedUserName', loginResponse.FullName);
         setName(loginResponse.FullName);
         storage.set('fullName', loginResponse.FullName);
-        storage.set('ISLOGGED', true);
-        setIsLogged(true);
+        /*storage.set('ISLOGGED', true);
+        setIsLogged(true); */
         dispatch(setUserType(loginResponse.UserType));
         dispatch(setIsLogged(true));
         navigation.navigate('Home');

@@ -1,9 +1,8 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import {useSharedState as useSharedGlobalState} from '../../context/globalUseState';
 import CardHome from '../cardHome';
 import {StackNavigationProp} from '@react-navigation/stack';
-import {storage} from '../../helpers/storage';
 import {
   checkLocationPermission,
   requestLocationPermission,
@@ -36,7 +35,7 @@ const ProducerModules: React.FC<Props> = ({navigation}) => {
       );
       if (isLocationPermissionGranted) {
         console.log('vai chamar dispatch');
-        //dispatch(setLocationPermission(isLocationPermissionGranted));
+        dispatch(setLocationPermission(isLocationPermissionGranted));
         // Return true if permission already granted
         return true;
       } else {
@@ -73,21 +72,6 @@ const ProducerModules: React.FC<Props> = ({navigation}) => {
           } else {
             setGpsOn(false);
           }
-        }
-      },
-    },
-    {
-      cardTitle: 'Teste Redux',
-      cardIcon: 'cloud-sun',
-      cardAction: async () => {
-        console.log('clicou');
-        console.log('REDUX LOCATION PERMISSION = ', LOCATIONPERMISSION);
-        try {
-          console.log('chamou o try');
-          dispatch(setLocationPermission(true));
-          console.log('passou o dispatch');
-        } catch (error) {
-          console.error('Error executing dispatch = ', error);
         }
       },
     },
