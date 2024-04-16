@@ -58,7 +58,7 @@ const App: React.FC = () => {
         watchId = null;
       }
     };
-
+    console.log('LOCATIONPERMISSION = ', LOCATIONPERMISSION);
     if (LOCATIONPERMISSION) {
       startWatching();
 
@@ -79,7 +79,7 @@ const App: React.FC = () => {
           <DrawerMenu>
             <Header />
             <AppStack />
-            {!gpsOn && <GpsStatusInfo />}
+            {LOCATIONPERMISSION && !gpsOn && <GpsStatusInfo />}
           </DrawerMenu>
         )
       ) : (

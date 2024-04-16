@@ -15,6 +15,8 @@ import {
 } from '../../../services/weather/askPermission';
 import {storage} from '../../../redux/mmkv/storage';
 import {StackNavigationProp} from '@react-navigation/stack';
+import {useSelector} from 'react-redux';
+import {RootState} from '../../../redux/types';
 
 interface Props {
   navigation: StackNavigationProp<any>;
@@ -33,31 +35,11 @@ const ForecastScreen: React.FC<Props> = ({navigation}) => {
     loading,
   } = useSharedState();
   const {gpsOn, setGpsOn} = useSharedGlobalState();
-  const [locationPermission, setLocationPermission] = useState(false);
+  const selectLocationPermission = (state: RootState) =>
+    state.locationPermission;
+  const LOCATIONPERMISSION = useSelector(selectLocationPermission);
   useInit();
-  // ==================================================================
 
-  useEffect(() => {
-    /* const getLocationPermission = async () => {
-      // Retrieve the location status from storage
-      const locationStatus = storage.getBoolean('locationStatus');
-
-      // Update location permission state if status is true
-      if (locationStatus) {
-        setLocationPermission(locationStatus);
-      } else {
-        // Check and request location permission if not granted
-        const isLocationPermissionGranted = await checkLocationPermission();
-        if (!isLocationPermissionGranted) {
-          await requestLocationPermission();
-        }
-        setLocationPermission(isLocationPermissionGranted);
-      }
-    }; */
-    // Call the function to handle location permission
-    //getLocationPermission();
-  }, []);
-  // ==================================================================
   const animationURL = getAnimationName(weatherCode, null, false);
   const loadingAnimation = require('../../../assets/lottie/loading-black.json');
 
@@ -69,7 +51,7 @@ const ForecastScreen: React.FC<Props> = ({navigation}) => {
   // ============================================================================
   return (
     <ScrollView style={[styles.container, {backgroundColor: '#fff'}]}>
-      {locationPermission ? (
+      {LOCATIONPERMISSION ? (
         <View>
           <GreetingComponent />
 

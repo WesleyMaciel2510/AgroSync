@@ -9,7 +9,7 @@ import {
   TouchableWithoutFeedback,
   Text,
 } from 'react-native';
-import {useInit, useOnLogin} from './logic/index';
+import {useInit, useOnLogin, useOnResetCache} from './logic/index';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {DefaultStyles} from '../../styles/styles';
 import {useSharedState} from '../../context/globalUseState';
@@ -17,16 +17,18 @@ import Logo from '../../components/logo';
 import Button from '../../components/Button/button';
 import LottieView from 'lottie-react-native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import {AlertComponent} from '../../components/Alert/alert';
 
 interface Props {
   navigation: StackNavigationProp<any>;
 }
 
 const LoginScreen: React.FC<Props> = ({navigation}) => {
-  const {email, setEmail, password, setPassword} = useSharedState();
+  const {email, setEmail, password, setPassword, isLoading} = useSharedState();
   const [passwordVisible, setPasswordVisible] = useState(false);
 
   const {handleLogin} = useOnLogin();
+  const {handleResetCache} = useOnResetCache();
   useInit();
   const {height} = Dimensions.get('window');
   //const eyeVerticalPosition = height > 800 ? 30 : 30;
@@ -35,7 +37,7 @@ const LoginScreen: React.FC<Props> = ({navigation}) => {
     <ImageBackground
       style={[DefaultStyles.loginContainer, DefaultStyles.center]}
       source={require('../../assets/imgs/bgImage.png')}
-      imageStyle={{opacity: 0.6}}>
+      imageStyle={{opacity: 0.9}}>
       <View style={{flexDirection: 'row', flex: 1}}>
         <LottieView
           source={require('../../assets/lottie/login1.json')}
@@ -51,7 +53,11 @@ const LoginScreen: React.FC<Props> = ({navigation}) => {
         />
       </View>
       <Logo />
-
+      <View style={styles.resetCacheIcon}>
+        <TouchableOpacity onPress={() => handleResetCache()}>
+          <FontAwesome5 name={'cog'} size={30} color="#494A50" />
+        </TouchableOpacity>
+      </View>
       <View style={styles.inputArea}>
         <FontAwesome5 name={'user-tie'} size={30} color={'#000'} />
 
@@ -87,7 +93,16 @@ const LoginScreen: React.FC<Props> = ({navigation}) => {
         </TouchableWithoutFeedback>
       </View>
       <View style={{width: '50%', padding: 20}}>
-        <Button text="LOGIN" onPress={handleLogin} />
+        {isLoading ? (
+          <LottieView
+            source={require('../../assets/lottie/loading-black.json')}
+            style={{width: 50, height: 50, marginLeft: 50}}
+            autoPlay
+            loop={true}
+          />
+        ) : (
+          <Button text="LOGIN" onPress={handleLogin} />
+        )}
       </View>
       <View>
         <View style={styles.buttonStyle}>
@@ -151,6 +166,11 @@ const styles = StyleSheet.create({
     color: '#346ee3',
     textDecorationLine: 'underline',
     textAlign: 'center',
+  },
+  resetCacheIcon: {
+    position: 'absolute',
+    top: 10,
+    left: 10,
   },
 });
 

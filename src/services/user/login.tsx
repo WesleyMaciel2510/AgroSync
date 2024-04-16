@@ -3,12 +3,12 @@ import {serverURL} from '../../.env';
 
 export const setLogin = async (email: string, password: string) => {
   console.log('chamou setLogin');
-  console.log(
+  /* console.log(
     'ANTES DE ENVIAR OS DADOS = name = ',
     email,
     'password = ',
     password,
-  );
+  ); */
 
   const data = {
     Email: email,

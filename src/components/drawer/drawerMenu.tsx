@@ -12,6 +12,9 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import DrawerLine from './drawerLine';
 import {storage} from '../../redux/mmkv/storage';
 import UserImage from './userImg';
+import {useDispatch, useSelector} from 'react-redux';
+import {RootState} from '../../redux/types';
+import {setIsLogged} from '../../redux/actions';
 
 interface DrawerMenuProps {
   children: ReactNode;
@@ -20,15 +23,17 @@ interface DrawerMenuProps {
 const DrawerMenu: React.FC<DrawerMenuProps> = ({children}) => {
   const drawerRef = useRef<DrawerLayoutAndroid>(null);
   const {setDrawerOn} = useSharedState();
-
+  const selectUserType = (state: RootState) => state.userType;
+  const USERTYPE = useSelector(selectUserType);
   // ==============================================================
   const useLogout = () => {
-    const {setIsLogged, setName, setPassword} = useSharedUserState();
+    const {setName, setPassword} = useSharedUserState();
+    const dispatch = useDispatch();
 
     const handleLogout = () => {
       // Save the JSON string to MMKV storage
       storage.set('ISLOGGED', false);
-      setIsLogged(false);
+      dispatch(setIsLogged(false));
       setName('');
       setPassword('');
     };
@@ -36,7 +41,7 @@ const DrawerMenu: React.FC<DrawerMenuProps> = ({children}) => {
   };
   // ==============================================================
   const {handleLogout} = useLogout();
-  const {name, userType} = useSharedUserState();
+  const {name} = useSharedUserState();
 
   const handleOpen = () => {
     drawerRef.current?.openDrawer();
@@ -63,26 +68,26 @@ const DrawerMenu: React.FC<DrawerMenuProps> = ({children}) => {
         <View style={styles.userBanner}>
           <UserImage />
           <View style={{flexDirection: 'column'}}>
-            <Text style={styles.title}>{name}</Text>
-            <Text style={styles.text}>{userType}</Text>
+            <Text style={styles.title}>{name ? name : 'User1576'}</Text>
+            <Text style={styles.text}>{USERTYPE ? USERTYPE : 'Outros'}</Text>
           </View>
         </View>
         <DrawerLine text={'Página Inicial'} iconName="home" isDisabled={true} />
         <DrawerLine
           onPress={() => console.log('AAAA ')}
-          text={'Profile'}
+          text={'Perfil'}
           iconName="user-circle"
         />
         <DrawerLine
           onPress={() => console.log('AAAA ')}
-          text={'Dark Theme'}
+          text={'Tema Escuro'}
           iconName="adjust"
         />
       </View>
       <View style={styles.bottomContent}>
         <DrawerLine
           onPress={() => console.log('AAAA ')}
-          text={'Settings'}
+          text={'Configurações'}
           iconName="cog"
         />
         <DrawerLine
@@ -91,7 +96,7 @@ const DrawerMenu: React.FC<DrawerMenuProps> = ({children}) => {
             setDrawerOn(false);
             handleLogout();
           }}
-          text={'Logout'}
+          text={'Sair'}
           iconName="sign-out-alt"
         />
       </View>
@@ -123,12 +128,12 @@ const styles = StyleSheet.create({
   title: {
     flex: 1,
     fontSize: 20,
-    color: '#000',
+    color: 'black',
   },
   text: {
     flex: 1,
     fontSize: 17,
-    color: '#000',
+    color: 'black',
   },
   drawerTrigger: {
     position: 'absolute',

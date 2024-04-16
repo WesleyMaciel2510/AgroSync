@@ -37,6 +37,6 @@ export const useOnHandlePermission = () => {
     handlePermission();
   }, []); // Empty dependency array to ensure the effect runs only once
 
-  console.log('handlePermission ');
-  return handlePermission;
+  console.log('handlePermission in camera ');
+  return {handlePermission};
 };

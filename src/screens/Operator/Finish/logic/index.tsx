@@ -1,6 +1,5 @@
 import {useEffect, useState} from 'react';
 import {useBetween} from 'use-between';
-import {useSharedState as useSharedGlobalState} from '../../../../context/globalUseState';
 
 export const useStateVariables = () => {
   const [isLoading, setIsLoading] = useState(false);

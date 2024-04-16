@@ -14,8 +14,8 @@ const AlertComponent = ({
   confirmAction?: () => void;
 }) => {
   Alert.alert(title, description, [
-    {text: okButton, onPress: confirmAction},
     {text: cancelButton, onPress: () => console.log('Cancel button pressed!')},
+    {text: okButton, onPress: confirmAction},
   ]);
 };
 
