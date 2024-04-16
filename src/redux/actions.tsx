@@ -19,3 +19,8 @@ export const setCameraScreen = (cameraScreen: boolean) => ({
   type: ACTION.SET_USERTYPE,
   payload: cameraScreen,
 });
+
+export const setToken = (token: boolean) => ({
+  type: ACTION.SET_TOKEN,
+  payload: token,
+});

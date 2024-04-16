@@ -5,7 +5,7 @@ import AlertComponent from '../../../components/Alert/alert';
 import LoginErrorAlert from '../../../components/Alert/loginFailed';
 import {useNavigation} from '@react-navigation/native';
 import {storage} from '../../../redux/mmkv/storage';
-import {setUserType, setIsLogged} from '../../../redux/actions';
+import {setUserType, setIsLogged, setToken} from '../../../redux/actions';
 import {useDispatch} from 'react-redux';
 import RNRestart from 'react-native-restart';
 
@@ -24,15 +24,13 @@ export const useOnLogin = () => {
   const {email, password, setName, setIsLoading} = useSharedState();
 
   const handleLogin = async () => {
-    console.log('chamou handleLogin');
+    console.log('@chamou handleLogin');
     console.log('email = ', email);
     console.log('password = ', password);
     setIsLoading(true);
 
     try {
       const loginResponse = await setLogin(email, password);
-      console.log('@Logic@ loginResponse = ', loginResponse);
-      console.log('@Logic@ loginResponse?.data = ', loginResponse?.data);
 
       if (loginResponse?.timeout) {
         LoginErrorAlert(
@@ -40,15 +38,17 @@ export const useOnLogin = () => {
         );
         setIsLoading(false);
       }
-      if (loginResponse?.ID) {
+      if (loginResponse?.user.ID) {
         console.log('Login successful!');
-        setName(loginResponse.FullName);
-
-        storage.set('loggedUserName', loginResponse.FullName);
-        storage.set('fullName', loginResponse.FullName);
-        dispatch(setUserType(loginResponse.UserType));
+        setName(loginResponse?.user.FullName);
+        storage.set('loggedUserName', loginResponse?.user.FullName);
+        storage.set('fullName', loginResponse?.user.FullName);
+        dispatch(setUserType(loginResponse?.user.UserType));
         dispatch(setIsLogged(true));
         setIsLoading(false);
+        if (loginResponse?.token) {
+          dispatch(setToken(loginResponse?.token));
+        }
         navigation.navigate('Home');
       } else if (loginResponse?.passwordIncorrect) {
         console.log('Incorrect Password!');

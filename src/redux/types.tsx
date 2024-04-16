@@ -3,4 +3,5 @@ export interface RootState {
   isLogged: boolean;
   userType: string;
   cameraScreen: boolean;
+  token: string;
 }

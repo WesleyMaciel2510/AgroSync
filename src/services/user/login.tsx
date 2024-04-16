@@ -3,22 +3,22 @@ import {serverURL} from '../../.env';
 
 export const setLogin = async (email: string, password: string) => {
   console.log('chamou setLogin');
-  /* console.log(
+  console.log(
     'ANTES DE ENVIAR OS DADOS = name = ',
     email,
     'password = ',
     password,
-  ); */
+  );
 
   const data = {
     Email: email,
     Password: password,
   };
+  console.log('serverURL = ', serverURL);
 
   try {
     const response = await axios.post(`${serverURL}/api/users/login`, data);
     console.log('response = ', response);
-    console.log('serverURL = ', serverURL);
     if (response.status === 200) {
       console.log('@@@@ LOGIN SUCCESSFUL');
       console.log('response = ', response.data);

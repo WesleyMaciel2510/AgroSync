@@ -6,6 +6,7 @@ const initialState: RootState = {
   isLogged: false,
   userType: '',
   cameraScreen: false,
+  token: '',
 };
 
 const reducer = (
@@ -32,6 +33,11 @@ const reducer = (
       return {
         ...state,
         cameraScreen: action.payload,
+      };
+    case ACTION.SET_TOKEN:
+      return {
+        ...state,
+        token: action.payload,
       };
     default:
       return state;
