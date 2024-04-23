@@ -58,7 +58,7 @@ const App: React.FC = () => {
         watchId = null;
       }
     };
-    console.log('LOCATIONPERMISSION = ', LOCATIONPERMISSION);
+    //console.log('LOCATIONPERMISSION = ', LOCATIONPERMISSION);
     if (LOCATIONPERMISSION) {
       startWatching();
 

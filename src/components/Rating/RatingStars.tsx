@@ -39,7 +39,7 @@ const RatingStars = () => {
           <FontAwesomeIcon
             icon={selected ? faStarSolid : faStarRegular}
             size={50}
-            color="yellow"
+            color="#f0ed3a"
           />
         </TouchableOpacity>
       ))}

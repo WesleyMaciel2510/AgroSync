@@ -79,8 +79,8 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   animation: {
-    width: 300,
-    height: 300,
+    width: 250,
+    height: 250,
     marginTop: 20,
     marginBottom: 20,
   },
@@ -90,7 +90,6 @@ const styles = StyleSheet.create({
     color: '#66c4e3',
     marginBottom: 20,
     textAlign: 'center',
-    padding: 20,
   },
   border: {
     borderRadius: 10,
@@ -102,8 +101,7 @@ const styles = StyleSheet.create({
   },
   paragraphText: {
     fontSize: 20,
-    color: '#42423e',
-    fontWeight: 'bold',
+    color: '#4d4a4a',
     textAlign: 'justify',
     lineHeight: 25,
     margin: 10,

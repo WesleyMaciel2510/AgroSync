@@ -6,6 +6,8 @@ import {StackNavigationProp} from '@react-navigation/stack';
 import SearchSchedulingModal from '../Modals/searchSchedulingModal';
 import {useOnHandlePermission} from '../../screens/Camera/requestPermission';
 import CardHome from '../cardHome';
+import {RootState} from '../../redux/types';
+import {useSelector} from 'react-redux';
 
 interface Props {
   navigation: StackNavigationProp<any>;
@@ -15,17 +17,27 @@ const OperatorModules: React.FC<Props> = ({navigation}) => {
   const {setCameraType, setActionType, setQuickRegister, setCameraScreen} =
     useSharedGlobalState();
   const {handlePermission} = useOnHandlePermission();
+  const selectCameraPermission = (state: RootState) => state.locationPermission;
+  const CAMERAPERMISSION = useSelector(selectCameraPermission);
 
-  const checkIfPermissionIsTrue = async () => {
-    const result = await handlePermission();
-    console.log('result = ', result);
-    if (result) {
+  // ============================================================
+
+  const handleCameraPermission = async () => {
+    if (!CAMERAPERMISSION) {
+      const result = await handlePermission();
+      console.log('result = ', result);
+      if (result) {
+        navigation.navigate('ReaderCamera');
+        setCameraScreen(true);
+      } else {
+        navigation.navigate('DeniedPermission');
+      }
+    } else {
       navigation.navigate('ReaderCamera');
       setCameraScreen(true);
-    } else {
-      navigation.navigate('DeniedPermission');
     }
   };
+  // ============================================================
 
   const cardsData = [
     {
@@ -50,7 +62,7 @@ const OperatorModules: React.FC<Props> = ({navigation}) => {
       cardAction: () => {
         setCameraType('qrcode');
         setActionType('schedulingInfo');
-        checkIfPermissionIsTrue();
+        handleCameraPermission();
       },
     },
     {
@@ -59,7 +71,7 @@ const OperatorModules: React.FC<Props> = ({navigation}) => {
       cardAction: () => {
         setCameraType('barcode');
         setActionType('schedulingInfo');
-        checkIfPermissionIsTrue();
+        handleCameraPermission();
       },
     },
   ];

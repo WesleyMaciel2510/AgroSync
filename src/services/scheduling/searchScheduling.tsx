@@ -9,7 +9,7 @@ export const searchScheduling = async (schedulingNumber: number) => {
     const response = await axios.get(
       `${serverURL}/api/schedulings/${schedulingNumber}`,
     );
-    console.log('Server response:', response.data);
+    //console.log('Server response:', response.data);
     return {success: true, data: response.data};
   } catch (error: any) {
     console.log('@@@@@@@@ error = ', error.code);

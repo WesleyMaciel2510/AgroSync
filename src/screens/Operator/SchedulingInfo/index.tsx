@@ -1,10 +1,8 @@
-import React from 'react';
-import {View, StyleSheet, Text} from 'react-native';
+import React, {useEffect} from 'react';
+import {View, StyleSheet, BackHandler} from 'react-native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {/* useSharedState */ useInit} from './logic';
 import {useSharedState as useSharedGlobalState} from '../../../context/globalUseState';
-import DrawerMenu from '../../../components/Drawer/drawerMenu';
-import Header from '../../../components/Header/header';
 import Button from '../../../components/Button/button';
 import InfoTable from '../../../components/infoTable';
 import CalendarComponent from '../../../components/OperatorComponents/calendar';
@@ -14,12 +12,29 @@ interface Props {
 }
 
 const SchedulingInfoScreen: React.FC<Props> = ({navigation}) => {
-  const {photo, setPhoto, schedulingInfo} = useSharedGlobalState();
+  const {photo, setPhoto, schedulingInfo, setCameraScreen} =
+    useSharedGlobalState();
   const formattedDate = schedulingInfo?.DataAgendamento
     ? new Date(schedulingInfo.DataAgendamento).toLocaleDateString('pt-BR')
     : '';
 
   useInit();
+  //==================================================
+  useEffect(() => {
+    const backAction = () => {
+      setCameraScreen(false);
+      navigation.goBack();
+      return true;
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backAction,
+    );
+
+    return () => backHandler.remove();
+  }, [navigation, setCameraScreen]);
+  //==================================================
   const handleChangeStatus = () => {
     console.log('CHAMOU handleChangeStatus');
     navigation.navigate('Picture');

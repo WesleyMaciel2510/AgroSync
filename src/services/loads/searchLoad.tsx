@@ -10,8 +10,8 @@ export const searchLoad = async (loadNumber: number) => {
 
     const response = await axios.get(`${serverURL}/api/loads/${loadNumber}`);
 
-    console.log('Server response data:', response.data);
-    console.log('response.data.length:', response.data.length);
+    //console.log('Server response data:', response.data);
+    //console.log('response.data.length:', response.data.length);
 
     if (response.data.length > 0) {
       return {success: true, data: response.data};

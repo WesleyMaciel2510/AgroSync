@@ -1,6 +1,6 @@
-import React, {useEffect, useRef} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {View, StyleSheet, Dimensions, BackHandler} from 'react-native';
-import {useInit, useSharedState, useHandleSearch} from './logic';
+import {useInit, useHandleSearch} from './logic';
 import {useSharedState as useSharedGlobalState} from '../../context/globalUseState';
 import {
   Camera,
@@ -21,10 +21,9 @@ interface Props {
 type SearchResult = SearchResultSuccess | SearchResultTimeout;
 
 const ReaderCameraScreen: React.FC<Props> = ({navigation}) => {
-  const {cameraPermission, savePermission} = useSharedState();
   const {cameraType, actionType, setCameraScreen} = useSharedGlobalState();
+  const [hasScanned, setHasScanned] = useState(false);
   const handleSearch = useHandleSearch();
-  const lastScanRef = useRef(Date.now());
 
   useInit();
   //==================================================
@@ -42,7 +41,7 @@ const ReaderCameraScreen: React.FC<Props> = ({navigation}) => {
     );
 
     return () => backHandler.remove();
-  }, []);
+  }, [navigation, setCameraScreen]);
   //==================================================
   const device = useCameraDevice('back');
 
@@ -67,8 +66,7 @@ const ReaderCameraScreen: React.FC<Props> = ({navigation}) => {
   const codeScanner = useCodeScanner({
     codeTypes: codeNames,
     onCodeScanned: async codes => {
-      const now = Date.now();
-      if (now - lastScanRef.current < 5000) {
+      if (hasScanned) {
         return;
       }
       console.log('scannedInfo = ', codes[0]?.value);
@@ -98,16 +96,19 @@ const ReaderCameraScreen: React.FC<Props> = ({navigation}) => {
             setCameraScreen(false);
           } else {
             console.log('dados nao encontrados');
+            setHasScanned(false);
           }
         } else {
           console.log('please scan a number greater than 0');
+          setHasScanned(false);
         }
       } catch (error) {
         // Handle any errors that occur during the search
         console.error('Error searching for load:', error);
+        setHasScanned(false);
       }
       // avoid the scan be executed multiple times
-      lastScanRef.current = now;
+      setHasScanned(true);
     },
   });
   if (device == null) {

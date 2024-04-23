@@ -1,5 +1,5 @@
-import React from 'react';
-import {View, StyleSheet} from 'react-native';
+import React, {useEffect} from 'react';
+import {View, StyleSheet, BackHandler} from 'react-native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import InfoTable from '../../../components/infoTable';
 import Button from '../../../components/Button/button';
@@ -10,7 +10,23 @@ interface Props {
 }
 
 const LoadInfoScreen: React.FC<Props> = ({navigation}) => {
-  const {loadInfo} = useSharedGlobalState();
+  const {loadInfo, setCameraScreen} = useSharedGlobalState();
+  //==================================================
+  useEffect(() => {
+    const backAction = () => {
+      setCameraScreen(false);
+      navigation.goBack();
+      return true;
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backAction,
+    );
+
+    return () => backHandler.remove();
+  }, [navigation, setCameraScreen]);
+  //==================================================
   return (
     <View style={styles.container}>
       <View style={styles.contentArea}>
