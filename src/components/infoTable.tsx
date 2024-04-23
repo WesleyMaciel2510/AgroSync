@@ -58,9 +58,7 @@ const InfoTable: React.FC<InfoTableProps> = ({
         )}
       </View>
       <View style={[styles.highlightArea, {backgroundColor: color}]}>
-        <Text style={[styles.lineText, {color: 'white', marginLeft: 10}]}>
-          {highlightText}
-        </Text>
+        <Text style={[styles.lineText, {color: 'white'}]}>{highlightText}</Text>
       </View>
     </View>
   );
@@ -116,15 +114,15 @@ const styles = StyleSheet.create({
   },
   title: {
     color: '#FFF',
-    fontSize: 22,
+    fontSize: 20,
     bottom: 2,
-    left: 10,
+    left: 20,
     fontWeight: 'bold',
     textAlign: 'center',
   },
   lineText: {
     color: '#000',
-    fontSize: 20,
+    fontSize: 18,
     textAlign: 'left',
     marginLeft: 10,
     padding: 8,

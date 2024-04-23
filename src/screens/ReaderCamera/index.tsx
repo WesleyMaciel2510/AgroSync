@@ -24,13 +24,14 @@ const ReaderCameraScreen: React.FC<Props> = ({navigation}) => {
   const {cameraPermission, savePermission} = useSharedState();
   const {cameraType, actionType, setCameraScreen} = useSharedGlobalState();
   const handleSearch = useHandleSearch();
+  const lastScanRef = useRef(Date.now());
+
   useInit();
   //==================================================
   useEffect(() => {
     const backAction = () => {
       console.log('teste');
       setCameraScreen(false);
-      //navigation.navigate('Home');
       navigation.goBack();
       return true;
     };
@@ -63,17 +64,15 @@ const ReaderCameraScreen: React.FC<Props> = ({navigation}) => {
   const codeNames: CodeType[] =
     cameraType === 'qrcode' ? qrCodeTypes : barcodeTypes;
 
-  let isScanning = false;
-
   const codeScanner = useCodeScanner({
     codeTypes: codeNames,
     onCodeScanned: async codes => {
-      if (isScanning) {
+      const now = Date.now();
+      if (now - lastScanRef.current < 5000) {
         return;
-      } // If isScanning is true, exit the function
+      }
+      console.log('scannedInfo = ', codes[0]?.value);
       try {
-        console.log('scannedInfo = ', codes[0]?.value);
-        console.log('entrou em searchLoad');
         const scannedInfo = codes[0]?.value;
         if (
           scannedInfo &&
@@ -88,9 +87,15 @@ const ReaderCameraScreen: React.FC<Props> = ({navigation}) => {
             numberToSearch,
           );
 
-          //console.log('result = ', result);
+          console.log('result = ', result);
           if (result && Object.keys(result).length > 0) {
             console.log('dados encontrados');
+            if (actionType === 'searchLoad') {
+              navigation.navigate('LoadInfo');
+            } else if (actionType === 'schedulingInfo') {
+              navigation.navigate('SchedulingInfo');
+            }
+            setCameraScreen(false);
           } else {
             console.log('dados nao encontrados');
           }
@@ -101,9 +106,8 @@ const ReaderCameraScreen: React.FC<Props> = ({navigation}) => {
         // Handle any errors that occur during the search
         console.error('Error searching for load:', error);
       }
-      setTimeout(() => {
-        isScanning = false;
-      }, 2000);
+      // avoid the scan be executed multiple times
+      lastScanRef.current = now;
     },
   });
   if (device == null) {
