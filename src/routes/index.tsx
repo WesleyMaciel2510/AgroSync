@@ -5,9 +5,9 @@ import SignUpScreen from '../screens/SignUp';
 import ForgotPasswordScreen from '../screens/ForgotPassword';
 import {useSelector} from 'react-redux';
 import {RootState} from '../redux/types';
-import DriverStackNavigator from './operatorStack';
+import DriverStackNavigator from './driverStack';
 import OperatorStackNavigator from './operatorStack';
-import ProducerStackNavigator from './operatorStack';
+import ProducerStackNavigator from './producerStack';
 
 const AppStack = () => {
   const selectUserType = (state: RootState) => state.userType;

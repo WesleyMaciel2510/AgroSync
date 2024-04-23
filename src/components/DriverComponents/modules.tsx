@@ -6,26 +6,37 @@ import CardHome from '../cardHome';
 import SearchLoadModal from '../../components/Modals/searchLoadModal';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {useOnHandlePermission} from '../../screens/Camera/requestPermission';
+import {RootState} from '../../redux/types';
+import {useSelector} from 'react-redux';
 
 interface Props {
   navigation: StackNavigationProp<any>;
 }
+
 const DriverModules: React.FC<Props> = ({navigation}) => {
   const {setModalVisible} = useSharedState();
   const {setCameraType, setActionType, setCameraScreen} =
     useSharedGlobalState();
-  //const handlePermission = useOnHandlePermission();
-
-  /* const checkIfPermissionIsTrue = async () => {
-    const result = await handlePermission();
-    console.log('result = ', result);
-    if (result) {
+  const {handlePermission} = useOnHandlePermission();
+  const selectCameraPermission = (state: RootState) => state.locationPermission;
+  const CAMERAPERMISSION = useSelector(selectCameraPermission);
+  // ============================================================
+  const handleCameraPermission = async () => {
+    if (!CAMERAPERMISSION) {
+      const result = await handlePermission();
+      console.log('result = ', result);
+      if (result) {
+        navigation.navigate('ReaderCamera');
+        setCameraScreen(true);
+      } else {
+        navigation.navigate('DeniedPermission');
+      }
+    } else {
       navigation.navigate('ReaderCamera');
       setCameraScreen(true);
-    } else {
-      navigation.navigate('DeniedPermission');
     }
-  }; */
+  };
+  // ============================================================
 
   const cardsData = [
     {
@@ -41,11 +52,11 @@ const DriverModules: React.FC<Props> = ({navigation}) => {
     {
       cardTitle: 'Ler QRCODE',
       cardIcon: 'qrcode',
-      cardAction: () => {
+      cardAction: async () => {
         setCameraType('qrcode');
         setActionType('searchLoad');
         setCameraScreen(false);
-        //checkIfPermissionIsTrue();
+        handleCameraPermission();
       },
     },
     {
@@ -55,7 +66,7 @@ const DriverModules: React.FC<Props> = ({navigation}) => {
         setCameraType('barcode');
         setActionType('searchLoad');
         setCameraScreen(false);
-        //checkIfPermissionIsTrue();
+        handleCameraPermission();
       },
     },
   ];

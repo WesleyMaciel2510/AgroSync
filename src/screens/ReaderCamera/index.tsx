@@ -26,14 +26,13 @@ const ReaderCameraScreen: React.FC<Props> = ({navigation}) => {
   const handleSearch = useHandleSearch();
   useInit();
   //==================================================
-  const navigateTo =
-    actionType === 'CameraOperator' ? 'Picture' : 'InvoiceInfo';
-  //==================================================
   useEffect(() => {
     const backAction = () => {
+      console.log('teste');
       setCameraScreen(false);
-      navigation.navigate(navigateTo);
-      return false;
+      //navigation.navigate('Home');
+      navigation.goBack();
+      return true;
     };
 
     const backHandler = BackHandler.addEventListener(
@@ -42,7 +41,7 @@ const ReaderCameraScreen: React.FC<Props> = ({navigation}) => {
     );
 
     return () => backHandler.remove();
-  }, [navigation, setCameraScreen]);
+  }, []);
   //==================================================
   const device = useCameraDevice('back');
 

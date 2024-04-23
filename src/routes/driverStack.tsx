@@ -5,14 +5,15 @@ import LoadInfoScreen from '../screens/Driver/loadInfo';
 import InvoiceInfoScreen from '../screens/Driver/InvoiceInfo';
 import CameraScreen from '../screens/Camera';
 import ReaderCameraScreen from '../screens/ReaderCamera';
-import DeniedPermissionScreen from '../screens/DeniedPermissionScreen/';
+import DeniedPermissionScreen from '../screens/DeniedPermission';
+import FinishDriverScreen from '../screens/Driver/Finish';
 
 const AuthStack = createNativeStackNavigator();
 
 const DriverStackNavigator = () => {
   return (
     <AuthStack.Navigator
-      initialRouteName="Home"
+      initialRouteName="FinishDriver"
       screenOptions={{
         headerShown: false,
         headerTitle: '',
@@ -27,6 +28,7 @@ const DriverStackNavigator = () => {
         name="DeniedPermission"
         component={DeniedPermissionScreen as React.ComponentType<any>}
       />
+      <AuthStack.Screen name="FinishDriver" component={FinishDriverScreen} />
     </AuthStack.Navigator>
   );
 };

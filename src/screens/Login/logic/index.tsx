@@ -40,6 +40,7 @@ export const useOnLogin = () => {
       }
       if (loginResponse?.user.ID) {
         console.log('Login successful!');
+
         setName(loginResponse?.user.FullName);
         storage.set('loggedUserName', loginResponse?.user.FullName);
         storage.set('fullName', loginResponse?.user.FullName);

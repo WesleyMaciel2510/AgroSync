@@ -8,7 +8,7 @@ import {getAnimationName} from '../../../assets/lottie/producer/getAnimationName
 import GreetingComponent from '../../../components/ProducerComponents/Weather/greeting';
 import TodayColumn from '../../../components/ProducerComponents/Weather/todayColumn';
 import NextForecast from '../../../components/ProducerComponents/Weather/nextForecast';
-import DeniedPermission from '../../DeniedPermissionScreen';
+import DeniedPermission from '../../DeniedPermission';
 import {
   requestLocationPermission,
   checkLocationPermission,

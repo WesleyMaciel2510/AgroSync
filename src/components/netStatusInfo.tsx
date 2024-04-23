@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {useSharedState as useSharedGlobalState} from '../context/globalUseState';
-import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet} from 'react-native';
 import NetInfo, {NetInfoState} from '@react-native-community/netinfo';
 
 const NetStatusInfo = ({}) => {
@@ -10,10 +10,10 @@ const NetStatusInfo = ({}) => {
     // Subscribe to the event
     const unsubscribe = NetInfo.addEventListener((state: NetInfoState) => {
       if (state.isConnected) {
-        console.log('Internet is ON');
+        //console.log('Internet is ON');
         setInternetOn(true);
       } else {
-        console.log('Internet is OFF');
+        //console.log('Internet is OFF');
         setInternetOn(false);
       }
     });
@@ -31,12 +31,7 @@ const NetStatusInfo = ({}) => {
     return () => {
       unsubscribe();
     };
-  }, [setInternetOn]);
-
-  const handlePress = () => {
-    console.log('clicou');
-    //setInternetOn(true);
-  };
+  }, []);
 
   return !internetOn ? (
     <View style={styles.container}>

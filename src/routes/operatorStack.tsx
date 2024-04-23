@@ -5,7 +5,7 @@ import SchedulingInfoScreen from '../screens/Operator/SchedulingInfo';
 import PictureScreen from '../screens/Operator/Picture';
 import CameraScreen from '../screens/Camera';
 import ReaderCameraScreen from '../screens/ReaderCamera';
-import DeniedPermissionScreen from '../screens/DeniedPermissionScreen/';
+import DeniedPermissionScreen from '../screens/DeniedPermission';
 
 const AuthStack = createNativeStackNavigator();
 
