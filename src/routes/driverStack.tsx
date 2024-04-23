@@ -13,7 +13,7 @@ const AuthStack = createNativeStackNavigator();
 const DriverStackNavigator = () => {
   return (
     <AuthStack.Navigator
-      initialRouteName="FinishDriver"
+      initialRouteName="Home"
       screenOptions={{
         headerShown: false,
         headerTitle: '',

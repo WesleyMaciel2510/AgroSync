@@ -60,16 +60,21 @@ export const useHandleSearch = () => {
   const {actionType, setLoadInfo, setSchedulingInfo} = useSharedGlobalState();
   console.log('chamou useHandleSearch');
   const handleSearch = async (numberToSearch: number) => {
-    console.log('chamou handleSearch');
+    console.log('@chamou handleSearch');
+    console.log('@numberToSearch in useHandleSearch = ', numberToSearch);
     let result;
 
     if (actionType === 'searchLoad') {
       console.log('actionType = ', actionType);
+      console.log('vai chamar search');
       result = await searchLoad(numberToSearch);
+      console.log('result = ', result);
       setLoadInfo(result?.data[0]);
     } else if (actionType === 'schedulingInfo') {
       console.log('actionType = ', actionType);
+      console.log('vai chamar search');
       result = await searchScheduling(numberToSearch);
+      console.log('result = ', result);
       setSchedulingInfo(result?.data[0]);
     }
 

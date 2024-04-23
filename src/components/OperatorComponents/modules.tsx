@@ -14,9 +14,9 @@ const OperatorModules: React.FC<Props> = ({navigation}) => {
   const {setModalVisible} = useSharedState();
   const {setCameraType, setActionType, setQuickRegister, setCameraScreen} =
     useSharedGlobalState();
-  //const {handlePermission} = useOnHandlePermission();
+  const {handlePermission} = useOnHandlePermission();
 
-  /* const checkIfPermissionIsTrue = async () => {
+  const checkIfPermissionIsTrue = async () => {
     const result = await handlePermission();
     console.log('result = ', result);
     if (result) {
@@ -25,7 +25,7 @@ const OperatorModules: React.FC<Props> = ({navigation}) => {
     } else {
       navigation.navigate('DeniedPermission');
     }
-  }; */
+  };
 
   const cardsData = [
     {
@@ -50,7 +50,7 @@ const OperatorModules: React.FC<Props> = ({navigation}) => {
       cardAction: () => {
         setCameraType('qrcode');
         setActionType('schedulingInfo');
-        //checkIfPermissionIsTrue();
+        checkIfPermissionIsTrue();
       },
     },
     {
@@ -59,7 +59,7 @@ const OperatorModules: React.FC<Props> = ({navigation}) => {
       cardAction: () => {
         setCameraType('barcode');
         setActionType('schedulingInfo');
-        //checkIfPermissionIsTrue();
+        checkIfPermissionIsTrue();
       },
     },
   ];

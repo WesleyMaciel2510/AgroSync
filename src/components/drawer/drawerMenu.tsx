@@ -15,12 +15,14 @@ import UserImage from './userImg';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '../../redux/types';
 import {setIsLogged} from '../../redux/actions';
+import {StackNavigationProp} from '@react-navigation/stack';
 
 interface DrawerMenuProps {
   children: ReactNode;
+  navigation: StackNavigationProp<any>;
 }
 
-const DrawerMenu: React.FC<DrawerMenuProps> = ({children}) => {
+const DrawerMenu: React.FC<DrawerMenuProps> = ({children, navigation}) => {
   const drawerRef = useRef<DrawerLayoutAndroid>(null);
   const {setDrawerOn} = useSharedState();
   const selectUserType = (state: RootState) => state.userType;
@@ -72,7 +74,12 @@ const DrawerMenu: React.FC<DrawerMenuProps> = ({children}) => {
             <Text style={styles.text}>{USERTYPE ? USERTYPE : 'Outros'}</Text>
           </View>
         </View>
-        <DrawerLine text={'Página Inicial'} iconName="home" isDisabled={true} />
+        <DrawerLine
+          text={'Página Inicial'}
+          onPress={() => navigation.navigate('Home')}
+          iconName="home"
+          isDisabled={true}
+        />
         <DrawerLine
           onPress={() => console.log('AAAA ')}
           text={'Perfil'}

@@ -75,7 +75,7 @@ export const useOnSendPictures = () => {
     console.log('result', result);
     if (result) {
       setIsLoading(false);
-      navigation.navigate('Home');
+      navigation.navigate('FinishOperator');
       setSuccessSendingPictures(true);
       setPictureIndex(0);
       setPicturesToDisplay(['']);

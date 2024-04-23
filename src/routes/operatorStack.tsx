@@ -6,6 +6,7 @@ import PictureScreen from '../screens/Operator/Picture';
 import CameraScreen from '../screens/Camera';
 import ReaderCameraScreen from '../screens/ReaderCamera';
 import DeniedPermissionScreen from '../screens/DeniedPermission';
+import FinishOperatorScreen from '../screens/Operator/Finish/index';
 
 const AuthStack = createNativeStackNavigator();
 
@@ -30,6 +31,10 @@ const OperatorStackNavigator = () => {
         <AuthStack.Screen
           name="DeniedPermission"
           component={DeniedPermissionScreen as React.ComponentType<any>}
+        />
+        <AuthStack.Screen
+          name="FinishOperator"
+          component={FinishOperatorScreen}
         />
       </AuthStack.Navigator>
     </>

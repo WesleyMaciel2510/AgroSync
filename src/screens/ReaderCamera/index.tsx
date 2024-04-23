@@ -88,7 +88,7 @@ const ReaderCameraScreen: React.FC<Props> = ({navigation}) => {
             numberToSearch,
           );
 
-          console.log('result = ', result);
+          //console.log('result = ', result);
           if (result && Object.keys(result).length > 0) {
             console.log('dados encontrados');
           } else {

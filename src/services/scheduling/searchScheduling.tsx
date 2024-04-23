@@ -8,7 +8,6 @@ export const searchScheduling = async (schedulingNumber: number) => {
   try {
     const response = await axios.get(
       `${serverURL}/api/schedulings/${schedulingNumber}`,
-      {timeout: 5000},
     );
     console.log('Server response:', response.data);
     return {success: true, data: response.data};

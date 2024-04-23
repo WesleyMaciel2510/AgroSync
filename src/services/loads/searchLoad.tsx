@@ -8,9 +8,7 @@ export const searchLoad = async (loadNumber: number) => {
     console.log('searchLoad@ loadNumber = ', loadNumber);
     console.log('serverURL = ', serverURL);
 
-    const response = await axios.get(`${serverURL}/api/loads/${loadNumber}`, {
-      timeout: 10000,
-    });
+    const response = await axios.get(`${serverURL}/api/loads/${loadNumber}`);
 
     console.log('Server response data:', response.data);
     console.log('response.data.length:', response.data.length);

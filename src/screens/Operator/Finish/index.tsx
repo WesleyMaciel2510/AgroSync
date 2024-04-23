@@ -12,7 +12,7 @@ interface Props {
   navigation: StackNavigationProp<any>;
 }
 
-const FinishDriverScreen: React.FC<Props> = ({navigation}) => {
+const FinishOperatorScreen: React.FC<Props> = ({navigation}) => {
   const {name, setName} = useSharedGlobalState();
 
   // ===============================================================
@@ -36,12 +36,12 @@ const FinishDriverScreen: React.FC<Props> = ({navigation}) => {
   return (
     <View style={styles.container}>
       <LottieView
-        source={require('../../../assets/lottie/driver/finish.json')}
+        source={require('../../../assets/lottie/operator/finish.json')}
         style={styles.animation}
         autoPlay
         loop={true}
       />
-      <Text style={styles.titleText}>Parabéns pela viagem!</Text>
+      <Text style={styles.titleText}>Parabéns pelo trabalho!</Text>
 
       <View style={styles.contentArea}>
         <View style={styles.border}>
@@ -116,4 +116,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default FinishDriverScreen;
+export default FinishOperatorScreen;
