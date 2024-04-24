@@ -12,7 +12,7 @@ interface Props {
   navigation: StackNavigationProp<any>;
 }
 
-const ErrorSendModal: React.FC<Props> = ({navigation}) => {
+const SendModal: React.FC<Props> = ({navigation}) => {
   const {isLoading, modalVisible, setModalVisible} = useSharedState();
   const {handleSendPictures} = useOnSendPictures();
   //============================================================================
@@ -111,4 +111,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ErrorSendModal;
+export default SendModal;

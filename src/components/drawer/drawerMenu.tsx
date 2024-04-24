@@ -19,10 +19,9 @@ import {StackNavigationProp} from '@react-navigation/stack';
 
 interface DrawerMenuProps {
   children: ReactNode;
-  navigation: StackNavigationProp<any>;
 }
 
-const DrawerMenu: React.FC<DrawerMenuProps> = ({children, navigation}) => {
+const DrawerMenu: React.FC<DrawerMenuProps> = ({children}) => {
   const drawerRef = useRef<DrawerLayoutAndroid>(null);
   const {setDrawerOn} = useSharedState();
   const selectUserType = (state: RootState) => state.userType;
@@ -76,7 +75,7 @@ const DrawerMenu: React.FC<DrawerMenuProps> = ({children, navigation}) => {
         </View>
         <DrawerLine
           text={'Página Inicial'}
-          onPress={() => navigation.navigate('Home')}
+          onPress={() => console.log('AAAA ')}
           iconName="home"
           isDisabled={true}
         />

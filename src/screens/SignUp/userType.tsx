@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View, Button} from 'react-native';
 import {useSharedState} from '../../context/globalUseState';
 import {DefaultStyles} from '../../styles/styles';
 import UserTypeSelector from '../../components/userTypeSelector';
@@ -34,14 +34,14 @@ const UserType: React.FC = () => {
   };
 
   const components = [
-    {
+    /* {
       title: 'Produtor Agrícola',
       description: 'Milho, Cana de Açúcar, \nAlgodão, Soja e outros',
       onPress: () => {
         setUserType('Produtor');
         handleCreateUser();
       },
-    },
+    }, */
     {
       title: 'Operador de Armazém',
       description: 'Armazenamento de \nProdutos Agrícolas',
@@ -63,20 +63,20 @@ const UserType: React.FC = () => {
   return (
     <View style={styles.container}>
       <Text style={[DefaultStyles.title, {textAlign: 'center'}]}>
-        Qual sua atuação {'\n'}no agronegócio?
+        Qual sua atuação {'\n'}no setor?
       </Text>
       <View style={styles.content}>
         {components.map((component, index) => (
           <UserTypeSelector key={index} {...component} />
         ))}
       </View>
-      {/* <View style={DefaultStyles.buttonContainer}>
+      <View style={DefaultStyles.buttonContainer}>
         <Button
           title="Register"
           color="#3AC0A0"
           onPress={() => handleCreateUser()}
         />
-      </View> */}
+      </View>
     </View>
   );
 };

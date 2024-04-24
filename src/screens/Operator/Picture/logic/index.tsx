@@ -29,7 +29,7 @@ export const useSharedState = () => useBetween(useStateVariables);
 
 export const useInit = () => {
   const {} = useSharedState();
-  const {schedulingInfo, setCameraScreen} = useSharedGlobalState();
+  const {schedulingInfo} = useSharedGlobalState();
   useEffect(() => {
     console.log('chamou useInit');
     console.log('schedulingInfo = ', schedulingInfo?.Status);

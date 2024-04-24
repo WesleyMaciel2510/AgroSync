@@ -5,7 +5,7 @@ import {useInit, useOnSendPictures} from './logic';
 import Button from '../../../components/Button/button';
 import GridComponent from '../../../components/gridPicture';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import ErrorSendModal from '../../../components/Modals/errorSendModal';
+import SendModal from '../../../components/Modals/sendModal';
 export {useOnSendPictures} from './logic';
 
 interface Props {
@@ -26,7 +26,7 @@ const PictureScreen: React.FC<Props> = ({navigation}) => {
           </Text>
         </View>
         <GridComponent navigation={navigation} />
-        <ErrorSendModal navigation={navigation} />
+        <SendModal navigation={navigation} />
       </View>
 
       <View style={styles.buttonContainer}>

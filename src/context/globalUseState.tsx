@@ -48,8 +48,6 @@ export const useStateVariables = () => {
   const [quickRegister, setQuickRegister] = useState(false);
   const [successSendingPictures, setSuccessSendingPictures] = useState(false);
   const [internetOn, setInternetOn] = useState(true);
-  const [gpsOn, setGpsOn] = useState(true);
-  //const [locationPermission, setLocationPermission] = useState(false);
   return {
     isLoading,
     setIsLoading,
@@ -95,8 +93,6 @@ export const useStateVariables = () => {
     setSuccessSendingPictures,
     internetOn,
     setInternetOn,
-    gpsOn,
-    setGpsOn,
     /* locationPermission,
     setLocationPermission, */
   };

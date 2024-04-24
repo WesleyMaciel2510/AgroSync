@@ -5,6 +5,11 @@ export const setLocationPermission = (locationPermission: boolean) => ({
   payload: locationPermission,
 });
 
+export const setCameraPermission = (cameraPermission: boolean) => ({
+  type: ACTION.SET_CAMERA_PERMISSION,
+  payload: cameraPermission,
+});
+
 export const setIsLogged = (isLogged: boolean) => ({
   type: ACTION.SET_IS_LOGGED,
   payload: isLogged,

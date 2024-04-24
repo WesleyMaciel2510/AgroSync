@@ -13,6 +13,9 @@ import InfoTable from '../../../components/infoTable';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import AlertComponent from '../../../components/Alert/alert';
 import {sendPicture} from '../../../services/pictures';
+import {RootState} from '../../../redux/types';
+import {useSelector} from 'react-redux';
+import {useOnHandlePermission} from '../../Camera/requestPermission';
 
 interface Props {
   navigation: StackNavigationProp<any>;
@@ -21,7 +24,11 @@ interface Props {
 const LoadInfoScreen: React.FC<Props> = ({navigation}) => {
   const {photo, picturesToSend, loadInfo, setActionType, setCameraScreen} =
     useSharedGlobalState();
+  const selectCameraPermission = (state: RootState) => state.cameraPermission;
+  const CAMERAPERMISSION = useSelector(selectCameraPermission);
+  const {handlePermission} = useOnHandlePermission();
 
+  // ============================================================
   const handleConfirmAction = async () => {
     const dataToSend = {
       ID: loadInfo.ID,
@@ -30,14 +37,28 @@ const LoadInfoScreen: React.FC<Props> = ({navigation}) => {
     };
     const result = await sendPicture(dataToSend);
     if (result) {
-      navigation.navigate('Home');
+      //navigation.navigate('Home');
+      navigation.navigate('FinishDriver');
     }
   };
 
-  const handleAttachStub = () => {
-    navigation.navigate('Camera');
-    setActionType('CameraDriver');
-    setCameraScreen(true);
+  const handleAttachStub = async () => {
+    if (!CAMERAPERMISSION) {
+      const result = await handlePermission();
+      console.log('result = ', result);
+      if (result) {
+        setActionType('CameraDriver');
+        setCameraScreen(true);
+        navigation.navigate('Camera');
+      } else {
+        navigation.navigate('DeniedPermission');
+      }
+    } else {
+      setCameraScreen(true);
+      setActionType('CameraDriver');
+      setCameraScreen(true);
+      navigation.navigate('Camera');
+    }
   };
 
   const confirmDelivery = () => {

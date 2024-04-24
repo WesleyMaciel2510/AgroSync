@@ -7,7 +7,7 @@ import {useSelector} from 'react-redux';
 import {RootState} from '../redux/types';
 import DriverStackNavigator from './driverStack';
 import OperatorStackNavigator from './operatorStack';
-import ProducerStackNavigator from './producerStack';
+import PrivacyPolicyScreen from '../screens/Policy';
 
 const AppStack = () => {
   const selectUserType = (state: RootState) => state.userType;
@@ -23,7 +23,6 @@ const AppStack = () => {
         <>
           {USERTYPE === 'Motorista' && <DriverStackNavigator />}
           {USERTYPE === 'Operador' && <OperatorStackNavigator />}
-          {USERTYPE === 'Produtor' && <ProducerStackNavigator />}
         </>
       ) : (
         <NonAuthStack.Navigator
@@ -46,6 +45,10 @@ const AppStack = () => {
           <NonAuthStack.Screen
             name="ForgotPassword"
             component={ForgotPasswordScreen}
+          />
+          <NonAuthStack.Screen
+            name="PrivacyPolicy"
+            component={PrivacyPolicyScreen}
           />
         </NonAuthStack.Navigator>
       )}

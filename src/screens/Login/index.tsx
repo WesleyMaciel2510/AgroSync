@@ -58,6 +58,11 @@ const LoginScreen: React.FC<Props> = ({navigation}) => {
           <FontAwesome5 name={'cog'} size={30} color="#494A50" />
         </TouchableOpacity>
       </View>
+      <View style={styles.PrivacyPolicyIcon}>
+        <TouchableOpacity onPress={() => navigation.navigate('PrivacyPolicy')}>
+          <FontAwesome5 name={'file-alt'} size={30} color="#494A50" />
+        </TouchableOpacity>
+      </View>
       <View style={styles.inputArea}>
         <FontAwesome5 name={'user-tie'} size={30} color={'#000'} />
 
@@ -171,6 +176,11 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 10,
     left: 10,
+  },
+  PrivacyPolicyIcon: {
+    position: 'absolute',
+    top: 10,
+    right: 10,
   },
 });
 

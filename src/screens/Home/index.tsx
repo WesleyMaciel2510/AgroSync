@@ -4,7 +4,6 @@ import {StackNavigationProp} from '@react-navigation/stack';
 //import {useSharedState} from './logic';
 import DriverModules from '../../components/DriverComponents/modules';
 import OperatorModules from '../../components/OperatorComponents/modules';
-import ProducerModules from '../../components/ProducerComponents/modules';
 import {RootState} from '../../redux/types';
 import {useSelector} from 'react-redux';
 
@@ -22,9 +21,6 @@ const HomeScreen: React.FC<Props> = ({navigation}) => {
       </View>
       <View>
         {USERTYPE === 'Operador' && <OperatorModules navigation={navigation} />}
-      </View>
-      <View>
-        {USERTYPE === 'Produtor' && <ProducerModules navigation={navigation} />}
       </View>
     </View>
   );

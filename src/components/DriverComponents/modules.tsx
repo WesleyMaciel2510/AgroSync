@@ -18,7 +18,7 @@ const DriverModules: React.FC<Props> = ({navigation}) => {
   const {setCameraType, setActionType, setCameraScreen} =
     useSharedGlobalState();
   const {handlePermission} = useOnHandlePermission();
-  const selectCameraPermission = (state: RootState) => state.locationPermission;
+  const selectCameraPermission = (state: RootState) => state.cameraPermission;
   const CAMERAPERMISSION = useSelector(selectCameraPermission);
   // ============================================================
   const handleCameraPermission = async () => {

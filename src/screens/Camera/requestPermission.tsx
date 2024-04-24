@@ -6,7 +6,7 @@ export const useOnHandlePermission = () => {
   const {hasPermission, requestPermission} = useCameraPermission();
   const {savePermission, setSavePermission} = useSharedState();
 
-  console.log('useOnHandlePermission initialized');
+  //console.log('useOnHandlePermission initialized');
 
   // Define handlePermission outside useEffect
   const handlePermission = async () => {
