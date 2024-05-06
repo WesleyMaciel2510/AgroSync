@@ -6,12 +6,11 @@ export const useOnHandlePermission = () => {
   const {hasPermission, requestPermission} = useCameraPermission();
   const {savePermission, setSavePermission} = useSharedState();
 
-  //console.log('useOnHandlePermission initialized');
+  console.log('useOnHandlePermission initialized');
 
-  // Define handlePermission outside useEffect
   const handlePermission = async () => {
     console.log('handlePermission called');
-
+    console.log('hasPermission camera = ', hasPermission);
     let permissionGranted = true;
 
     // Check for camera permission
@@ -24,13 +23,12 @@ export const useOnHandlePermission = () => {
         console.error('error = ', err);
         permissionGranted = false;
       }
-    } else {
-      console.log('Already has permission');
-      permissionGranted = true;
     }
 
     // Now ask for save permission if camera permission is granted
+    //tralala
     if (permissionGranted && !savePermission) {
+      console.log('entrou no if tralala');
       try {
         const permissionToSave = await requestSavePermission();
         console.log('permissionToSave status = ', permissionToSave);
@@ -43,6 +41,7 @@ export const useOnHandlePermission = () => {
       }
     }
 
+    console.log('@@@@@ Vai retornar permissionGranted = ', permissionGranted);
     return permissionGranted;
   };
 

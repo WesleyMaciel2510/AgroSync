@@ -22,6 +22,7 @@ const DriverModules: React.FC<Props> = ({navigation}) => {
   const CAMERAPERMISSION = useSelector(selectCameraPermission);
   // ============================================================
   const handleCameraPermission = async () => {
+    console.log('Vai chamar handlePermission ');
     if (!CAMERAPERMISSION) {
       const result = await handlePermission();
       console.log('result = ', result);
