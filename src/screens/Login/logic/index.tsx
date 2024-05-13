@@ -31,7 +31,7 @@ export const useOnLogin = () => {
 
     try {
       const loginResponse = await setLogin(email, password);
-
+      console.log('loginResponse = ', loginResponse);
       if (loginResponse?.timeout) {
         LoginErrorAlert(
           'Não foi possível se conectar com o servidor. Verifique sua conexão ou tente novamente mais tarde..',

@@ -10,7 +10,7 @@ const AlertComponent = ({
   title: string;
   description: string;
   okButton: string;
-  cancelButton: string;
+  cancelButton?: string;
   confirmAction?: () => void;
 }) => {
   Alert.alert(title, description, [

@@ -1,65 +1,25 @@
-import React, {useState} from 'react';
-import {View, Text, StyleSheet, TextInput} from 'react-native';
+import React from 'react';
+import {View, Text, StyleSheet} from 'react-native';
+import {useSharedState} from '../../screens/ForgotPassword/logic';
 import {StackNavigationProp} from '@react-navigation/stack';
-import LottieView from 'lottie-react-native';
-import {DefaultStyles} from '../../styles/styles';
-import Button from '../../components/Button/button';
+import ValidateEmailArea from './validateEmail';
+import NewPasswordArea from './newPasswordArea';
 
 interface Props {
   navigation: StackNavigationProp<any>;
 }
 
 const ForgotPasswordScreen: React.FC<Props> = ({navigation}) => {
-  const [SMSCode, setSMSCode] = useState('');
-  const [errorInput, setErrorInput] = useState(false);
-  const MAX_LENGTH = 6;
-
-  const handleSMSCodeChange = (text: string) => {
-    console.log('text = ', text);
-    setSMSCode(text);
-  };
-  const handleSendCode = (code: string) => {
-    if (code === '111111') {
-      console.log('passou');
-    } else {
-      console.log('nao passou');
-      setErrorInput(true);
-    }
-  };
+  const {isEmailValidated} = useSharedState();
+  // =================================================================
 
   return (
-    <View style={[DefaultStyles.container, DefaultStyles.center]}>
-      <Text style={styles.title}> REDEFINIÇÃO {'\n'}DE SENHA</Text>
-      <Text style={styles.description}>
-        Opa, esqueceu a senha? {'\n'} Nós vamos te ajudar!
-      </Text>
-      <LottieView
-        source={require('../../assets/lottie/forgot.json')}
-        style={{width: 200, height: 200, margin: 20}}
-        autoPlay
-        loop={true}
-      />
-
-      <View style={{padding: 20}}>
-        <TextInput
-          value={SMSCode}
-          onChangeText={handleSMSCodeChange}
-          keyboardType="number-pad"
-          placeholder=""
-          maxLength={MAX_LENGTH}
-          style={styles.inputContent}
-        />
+    <View style={styles.container}>
+      <View>
+        <Text style={styles.title}> REDEFINIÇÃO {'\n'}DE SENHA</Text>
       </View>
 
-      {errorInput && (
-        <Text style={DefaultStyles.errorText}>
-          Por favor, digite o código enviado {'\n'} por SMS para redefinir sua
-          senha.
-        </Text>
-      )}
-      <View style={{width: '50%'}}>
-        <Button onPress={() => handleSendCode(SMSCode)} text={'ENVIAR'} />
-      </View>
+      {!isEmailValidated ? <ValidateEmailArea /> : <NewPasswordArea />}
     </View>
   );
 };
@@ -72,7 +32,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#F5FCFF',
   },
   description: {
-    fontSize: 20,
+    fontSize: 18,
     textAlign: 'center',
     margin: 10,
     color: 'black',
@@ -87,12 +47,17 @@ const styles = StyleSheet.create({
   },
   inputContent: {
     color: 'black',
-    width: 200,
+    width: 230,
     marginBottom: 10,
     padding: 10,
     borderWidth: 1,
     borderColor: 'green',
     borderRadius: 5,
+  },
+  errorText: {
+    color: 'red',
+    textAlign: 'center',
+    padding: 10,
   },
 });
 

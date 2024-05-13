@@ -8,6 +8,7 @@ import PhoneNumberArea from './phoneNumber';
 import NameArea from './nameArea';
 import EmailArea from './emailAndPassword';
 import UserType from './userType';
+import ConfirmEmail from './confirmEmail';
 
 interface Props {
   navigation: StackNavigationProp<any>;
@@ -25,6 +26,9 @@ const SignUpScreen: React.FC<Props> = ({navigation}) => {
       animationData = require('../../assets/lottie/name.json');
       break;
     case 'email':
+      animationData = require('../../assets/lottie/register.json');
+      break;
+    case 'confirmEmail':
       animationData = require('../../assets/lottie/register.json');
       break;
     case 'userType':
@@ -50,6 +54,7 @@ const SignUpScreen: React.FC<Props> = ({navigation}) => {
         {screen === 'name' && <NameArea />}
         {screen === 'email' && <EmailArea />}
         {screen === 'userType' && <UserType />}
+        {screen === 'confirmEmail' && <ConfirmEmail />}
       </View>
     </View>
   );

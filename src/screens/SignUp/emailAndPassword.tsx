@@ -1,16 +1,16 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {
   Button,
   StyleSheet,
   Text,
   TextInput,
-  TouchableWithoutFeedback,
   View,
   ScrollView,
 } from 'react-native';
 import {useSharedState} from '../../context/globalUseState';
 import {DefaultStyles} from '../../styles/styles';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+//import {useNavigation} from '@react-navigation/native';
+//import {createUser} from '../../services/user/createUser';
 
 const EmailArea = () => {
   const {email, setEmail, password, setPassword, setScreen} = useSharedState();
@@ -19,14 +19,16 @@ const EmailArea = () => {
   const [errorInputPassword, setErrorInputPassword] = useState(false);
   const [passwordDoesNotMatch, setPasswordDoesNotMatch] = useState(false);
 
-  // =========================================================================
+  // =================================================================
+
   const handleEmailText = (text: string) => {
     // Regular expression to validate email format
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (emailRegex.test(text) && password === confirmPassword) {
       // If the input matches the email format, update the email state
-      //setScreen('userType');
+      // Pass to confirm Email and only then create the user
+      setScreen('confirmEmail');
     } else {
       setErrorInputEmail(true);
     }
@@ -49,8 +51,6 @@ const EmailArea = () => {
     ) {
       // If all validations pass, password is valid
       console.log('passou');
-
-      //setScreen('userType');
     } else {
       // If any validation fails, display an error message
       if (password !== confirmPassword) {
@@ -98,7 +98,7 @@ const EmailArea = () => {
             value={confirmPassword}
             onChangeText={setConfirmPassword}
             keyboardType="visible-password"
-            placeholder="Password"
+            placeholder="Confirme sua senha"
             style={DefaultStyles.inputContent}
           />
           {errorInputPassword && (

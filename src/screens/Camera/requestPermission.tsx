@@ -6,8 +6,6 @@ export const useOnHandlePermission = () => {
   const {hasPermission, requestPermission} = useCameraPermission();
   const {savePermission, setSavePermission} = useSharedState();
 
-  console.log('useOnHandlePermission initialized');
-
   const handlePermission = async () => {
     console.log('handlePermission called');
     console.log('hasPermission camera = ', hasPermission);

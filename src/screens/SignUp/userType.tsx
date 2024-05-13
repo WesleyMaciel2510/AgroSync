@@ -5,6 +5,7 @@ import {DefaultStyles} from '../../styles/styles';
 import UserTypeSelector from '../../components/userTypeSelector';
 import {createUser} from '../../services/user';
 import {useNavigation} from '@react-navigation/native';
+import AlertComponent from '../../components/Alert/alert';
 
 const UserType: React.FC = () => {
   const {name, email, password, phoneNumber, userType, setUserType} =
@@ -30,6 +31,12 @@ const UserType: React.FC = () => {
     } else {
       // Handle failure
       console.log('Failed to create user');
+      AlertComponent({
+        title: 'Erro ao Criar Usuário',
+        description:
+          'Não foi possível criar seu usuário, tente novamente mais tarde.',
+        okButton: 'OK',
+      });
     }
   };
 
