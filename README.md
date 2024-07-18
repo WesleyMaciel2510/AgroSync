@@ -1,4 +1,4 @@
-# 🚜🌻 ![#458a2c] AgroSync Mobile App 🍅🥕 `#458a2c`
+# <p style="#458a2c"> 🚜🌻 AgroSync Mobile App 🍅🥕</p>
 ![image](https://github.com/user-attachments/assets/cce68158-6796-4cc0-936f-9e0f00bac82c)
 
 A React Native application designed to sync with the "AgroSync" web platform. This app enables users to upload and access agricultural data, ensuring seamless integration between mobile and web environments.
