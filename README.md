@@ -3,11 +3,23 @@
 
 A React Native application designed to sync with the "AgroSync" web platform. This app enables users to upload and access agricultural data, ensuring seamless integration between mobile and web environments.
 
+# UI Screenshot 📱
+![Login](https://github.com/user-attachments/assets/89b06094-aee6-4e9c-926d-ef410fa328f8)
+![pictures](https://github.com/user-attachments/assets/a94a24a1-43a6-4c90-a6b6-36fce3d5bcbe)
+![QRCODE](https://github.com/user-attachments/assets/402af84e-b1bf-4f19-a9da-97148ad27dee)
+![Home](https://github.com/user-attachments/assets/bff2cbda-e25b-4bb1-91c2-b7ab140682a2)
+![Load](https://github.com/user-attachments/assets/60be80b3-3320-4523-8ec1-6d92d68a3dbe)
+![registerPicture](https://github.com/user-attachments/assets/62783cee-cd17-4f48-bb0d-8c80cf13c915)
+![Scheduling](https://github.com/user-attachments/assets/ac668557-cb65-4a4a-a6e0-05007058e2e0)
+![Search](https://github.com/user-attachments/assets/522070fd-24bb-4f0b-9b2c-4c489a5d0c07)
+
+
 ## Features 🛠️
 - Real-Time Data Sync 🔄: Ensures that all information uploaded via the mobile app is instantly available on the web platform.
 - User Authentication 🔐: Secure login and user management to protect user data.
 - Photo Upload and Gallery 🖼️: Capture, upload, and view photos related to agricultural activities.
 - Geolocation Services 📍: Track and visualize location data to analyze geographical trends.
+- QRCode and Barcode Scan 📸: The app supports QR code scanning using the device camera. It recognizes QR code types such as QR, PDF-417, Aztec, and Data Matrix. Barcodes such as Code-128, Code-39, EAN-13, and UPC-E can also be scanned for agricultural product identification and inventory management.
 
 ## Technologies Used 🛠️
 - React Native ⚛️: Framework for building native mobile apps using React.
@@ -25,6 +37,8 @@ A React Native application designed to sync with the "AgroSync" web platform. Th
 - Taking a Picture 📸: Users use the device camera to capture photos of agricultural activities.
 - Saving and Converting to Base64 💾: Captured photos are saved to the device's camera roll. They are then converted into Base64 format, allowing them to be efficiently transmitted over the network.
 - Sending to App Server 🚀: The converted Base64 image data is sent securely to the AgroSync server via HTTP POST requests. This ensures that all uploaded photos are securely stored and accessible across devices and platforms.
+- The Driver can Search Load manually or scanning a QRCode
+- The Warehouse Operator can Search Schedulling the same way.
 
 ## Benefits 🌟
 - Accessibility 🌍: Access agricultural data from anywhere, whether on a mobile device or web platform.
