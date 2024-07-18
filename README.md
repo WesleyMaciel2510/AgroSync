@@ -8,7 +8,7 @@ A React Native application designed to sync with the "AgroSync" web platform. Th
 ![pictures](https://github.com/user-attachments/assets/9bc97f21-96b0-4705-ad32-18aa3678331e)
 ![QRCODE](https://github.com/user-attachments/assets/402af84e-b1bf-4f19-a9da-97148ad27dee)
 ![Home](https://github.com/user-attachments/assets/bff2cbda-e25b-4bb1-91c2-b7ab140682a2)
-![Load](https://github.com/user-attachments/assets/60be80b3-3320-4523-8ec1-6d92d68a3dbe)
+![Load](https://github.com/user-attachments/assets/187fa656-94ae-47d8-8aac-772079ecbb6c)
 ![registerPicture](https://github.com/user-attachments/assets/62783cee-cd17-4f48-bb0d-8c80cf13c915)
 ![Scheduling](https://github.com/user-attachments/assets/ac668557-cb65-4a4a-a6e0-05007058e2e0)
 ![Search](https://github.com/user-attachments/assets/522070fd-24bb-4f0b-9b2c-4c489a5d0c07)
