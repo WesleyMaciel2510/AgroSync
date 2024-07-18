@@ -12,7 +12,7 @@ A React Native application designed to sync with the "AgroSync" web platform. Th
 ![registerPicture](https://github.com/user-attachments/assets/62783cee-cd17-4f48-bb0d-8c80cf13c915)
 ![Scheduling](https://github.com/user-attachments/assets/ac668557-cb65-4a4a-a6e0-05007058e2e0)
 ![Search](https://github.com/user-attachments/assets/522070fd-24bb-4f0b-9b2c-4c489a5d0c07)
-
+![cadastro](https://github.com/user-attachments/assets/cdf4e8d0-800f-4b6e-ab1f-a285f603a17c)
 
 ## Features 🛠️
 - Real-Time Data Sync 🔄: Ensures that all information uploaded via the mobile app is instantly available on the web platform.
